@@ -129,6 +129,17 @@
     border-bottom: 2px solid var(--bs-dark);
 }
 
+.boton-ingresar {
+    background: #D4AF37;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+.boton-ingresar:hover {
+        background: #1a1a1a;
+        color: #D4AF37;
+}
+
 
 /*** Navbar ***/
 .sticky-top {
@@ -534,3 +545,5 @@
     color: rgba(255, 255, 255, .5);
     margin-right: 10px;
 }
+
+.btn

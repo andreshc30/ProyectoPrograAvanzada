@@ -14,6 +14,20 @@ namespace ProyectoPA.Controllers
             return View();
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult Registro()
+        {
+            return View();
+        }
+
+        public ActionResult Recuperar()
+        {
+            return View();
+        }
         public ActionResult Service()
         {
             return View();
