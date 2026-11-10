@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c3473d4244b54d19b0d875d0837f2581" Name="Diagram1">
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_CANTON_TB" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_CATEGORIA_TB" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_DIRECCION_TB" Width="1.5" PointX="5.25" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_DISENO_TB" Width="1.5" PointX="5.25" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_DISTRITO_TB" Width="1.5" PointX="3" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_ESTADO_TB" Width="1.5" PointX="0.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_FACTURACION_TB" Width="1.5" PointX="10.5" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_MATERIAL_TB" Width="1.5" PointX="3" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_METODO_PAGO_TB" Width="1.5" PointX="3" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_PAGO_TB" Width="1.5" PointX="15.75" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_PLACA_TB" Width="1.5" PointX="5.25" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_PROVINCIA_TB" Width="1.5" PointX="3" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_RESENAS_TB" Width="1.5" PointX="12.75" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_ROL_TB" Width="1.5" PointX="3" PointY="30.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_ROL_USUARIOS_TB" Width="1.5" PointX="9.75" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_SOPORTE_TB" Width="1.5" PointX="12.75" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_TAMANO_TB" Width="1.5" PointX="3" PointY="33.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_TELEFONO_TB" Width="1.5" PointX="12.75" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FIDE_DBModel.FIDE_USUARIO_TB" Width="1.5" PointX="7.5" PointY="18.75" IsExpanded="true" />
+        <AssociationConnector Association="FIDE_DBModel.FK_CANTON_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_DIRECCION_CANTON" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_CATEGORIA_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_PLACA_CATEGORIA" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_DIRECCION_DISTRITO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_DIRECCION_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_DIRECCION_PROVINCIA" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_USUARIO_DIRECCION" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_DISENO_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_DISENO_MATERIAL" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_DISENO_TAMANO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_FACTURACION_DISENO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_DISTRITO_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_FACTURACION_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_MATERIAL_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_METODOPAGO_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_PAGO_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_PLACA_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_PROVINCIA_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_RESENAS_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_ROL_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_ROLUSU_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_SOPORTE_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_TAMANO_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_TELEFONO_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_USUARIO_ESTADO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_FACTURACION_PLACA" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_PAGO_FACTURA" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_PAGO_METODOPAGO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_RESENAS_USUARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_ROLUSU_ROL" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_ROLUSU_USUARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_SOPORTE_PADRE" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_SOPORTE_USUARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="FIDE_DBModel.FK_TELEFONO_USUARIO" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

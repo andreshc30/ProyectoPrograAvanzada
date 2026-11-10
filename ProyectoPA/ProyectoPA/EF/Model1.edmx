@@ -1,0 +1,1859 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FIDE_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FIDE_CANTON_TB">
+          <Key>
+            <PropertyRef Name="ID_CANTON" />
+          </Key>
+          <Property Name="ID_CANTON" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_CATEGORIA_TB">
+          <Key>
+            <PropertyRef Name="ID_CATEGORIA" />
+          </Key>
+          <Property Name="ID_CATEGORIA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="200" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_DIRECCION_TB">
+          <Key>
+            <PropertyRef Name="ID_DIRECCION" />
+          </Key>
+          <Property Name="ID_DIRECCION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_PROVINCIA" Type="int" Nullable="false" />
+          <Property Name="ID_CANTON" Type="int" Nullable="false" />
+          <Property Name="ID_DISTRITO" Type="int" Nullable="false" />
+          <Property Name="OTROS_DETALLES" Type="nvarchar" MaxLength="200" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_DISENO_TB">
+          <Key>
+            <PropertyRef Name="ID_DISENO" />
+          </Key>
+          <Property Name="ID_DISENO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_TAMANO" Type="int" Nullable="false" />
+          <Property Name="ID_MATERIAL" Type="int" Nullable="false" />
+          <Property Name="IMAGEN" Type="nvarchar(max)" />
+          <Property Name="TEXTO" Type="nvarchar" MaxLength="100" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_DISTRITO_TB">
+          <Key>
+            <PropertyRef Name="ID_DISTRITO" />
+          </Key>
+          <Property Name="ID_DISTRITO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_ESTADO_TB">
+          <Key>
+            <PropertyRef Name="ID_ESTADO" />
+          </Key>
+          <Property Name="ID_ESTADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ESTADO" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_FACTURACION_TB">
+          <Key>
+            <PropertyRef Name="ID_FACTURA" />
+          </Key>
+          <Property Name="ID_FACTURA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FECHA_EMISION" Type="datetime" Nullable="false" />
+          <Property Name="DETALLE" Type="nvarchar" MaxLength="100" />
+          <Property Name="SUBTOTAL" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IMPUESTOS" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="TOTAL" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+          <Property Name="ID_PLACA" Type="int" Nullable="false" />
+          <Property Name="ID_DISENO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_MATERIAL_TB">
+          <Key>
+            <PropertyRef Name="ID_MATERIAL" />
+          </Key>
+          <Property Name="ID_MATERIAL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MATERIAL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_METODO_PAGO_TB">
+          <Key>
+            <PropertyRef Name="ID_METODO_PAGO" />
+          </Key>
+          <Property Name="ID_METODO_PAGO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_PAGO_TB">
+          <Key>
+            <PropertyRef Name="ID_PAGO" />
+          </Key>
+          <Property Name="ID_PAGO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_FACTURA" Type="int" Nullable="false" />
+          <Property Name="ID_METODO_PAGO" Type="int" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+          <Property Name="FECHA_PAGO" Type="datetime" Nullable="false" />
+          <Property Name="MONTO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_PLACA_TB">
+          <Key>
+            <PropertyRef Name="ID_PLACA" />
+          </Key>
+          <Property Name="ID_PLACA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="nvarchar" MaxLength="200" />
+          <Property Name="MATERIAL" Type="nvarchar" MaxLength="50" />
+          <Property Name="TAMANO" Type="int" />
+          <Property Name="PRECIO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IMAGEN_NOMBRE" Type="nvarchar(max)" />
+          <Property Name="DISPONIBLE" Type="bit" Nullable="false" />
+          <Property Name="ID_CATEGORIA" Type="int" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_PROVINCIA_TB">
+          <Key>
+            <PropertyRef Name="ID_PROVINCIA" />
+          </Key>
+          <Property Name="ID_PROVINCIA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_RESENAS_TB">
+          <Key>
+            <PropertyRef Name="ID_RESENA" />
+          </Key>
+          <Property Name="ID_RESENA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="COMENTARIO" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FECHA" Type="datetime" Nullable="false" />
+          <Property Name="ID_SATISFACCION" Type="int" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_ROL_TB">
+          <Key>
+            <PropertyRef Name="ID_ROL" />
+          </Key>
+          <Property Name="ID_ROL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_ROL_USUARIOS_TB">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+            <PropertyRef Name="ID_ROL" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="ID_ROL" Type="int" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_SOPORTE_TB">
+          <Key>
+            <PropertyRef Name="ID_SOPORTE" />
+          </Key>
+          <Property Name="ID_SOPORTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FECHA" Type="datetime" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="COMENTARIO" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ID_SOPORTE_PADRE" Type="int" />
+          <Property Name="SOLUCION" Type="nvarchar(max)" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_TAMANO_TB">
+          <Key>
+            <PropertyRef Name="ID_TAMANO" />
+          </Key>
+          <Property Name="ID_TAMANO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TAMANO" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_TELEFONO_TB">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="TELEFONO" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FIDE_USUARIO_TB">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CEDULA" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PRIMER_APELLIDO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SEGUNDO_APELLIDO" Type="nvarchar" MaxLength="50" />
+          <Property Name="PERFIL_URL" Type="nvarchar(max)" />
+          <Property Name="CORREO" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+          <Property Name="CONTRASENA" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ID_DIRECCION" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CANTON_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_CANTON_TB" Type="Self.FIDE_CANTON_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_CANTON_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CATEGORIA_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_CATEGORIA_TB" Type="Self.FIDE_CATEGORIA_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_CATEGORIA_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIRECCION_CANTON">
+          <End Role="FIDE_CANTON_TB" Type="Self.FIDE_CANTON_TB" Multiplicity="1" />
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_CANTON_TB">
+              <PropertyRef Name="ID_CANTON" />
+            </Principal>
+            <Dependent Role="FIDE_DIRECCION_TB">
+              <PropertyRef Name="ID_CANTON" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIRECCION_DISTRITO">
+          <End Role="FIDE_DISTRITO_TB" Type="Self.FIDE_DISTRITO_TB" Multiplicity="1" />
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_DISTRITO_TB">
+              <PropertyRef Name="ID_DISTRITO" />
+            </Principal>
+            <Dependent Role="FIDE_DIRECCION_TB">
+              <PropertyRef Name="ID_DISTRITO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIRECCION_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_DIRECCION_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIRECCION_PROVINCIA">
+          <End Role="FIDE_PROVINCIA_TB" Type="Self.FIDE_PROVINCIA_TB" Multiplicity="1" />
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_PROVINCIA_TB">
+              <PropertyRef Name="ID_PROVINCIA" />
+            </Principal>
+            <Dependent Role="FIDE_DIRECCION_TB">
+              <PropertyRef Name="ID_PROVINCIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISENO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISENO_MATERIAL">
+          <End Role="FIDE_MATERIAL_TB" Type="Self.FIDE_MATERIAL_TB" Multiplicity="1" />
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_MATERIAL_TB">
+              <PropertyRef Name="ID_MATERIAL" />
+            </Principal>
+            <Dependent Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_MATERIAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISENO_TAMANO">
+          <End Role="FIDE_TAMANO_TB" Type="Self.FIDE_TAMANO_TB" Multiplicity="1" />
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_TAMANO_TB">
+              <PropertyRef Name="ID_TAMANO" />
+            </Principal>
+            <Dependent Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_TAMANO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISTRITO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_DISTRITO_TB" Type="Self.FIDE_DISTRITO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_DISTRITO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURACION_DISENO">
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="1" />
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_DISENO" />
+            </Principal>
+            <Dependent Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_DISENO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURACION_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURACION_PLACA">
+          <End Role="FIDE_PLACA_TB" Type="Self.FIDE_PLACA_TB" Multiplicity="1" />
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_PLACA_TB">
+              <PropertyRef Name="ID_PLACA" />
+            </Principal>
+            <Dependent Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_PLACA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MATERIAL_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_MATERIAL_TB" Type="Self.FIDE_MATERIAL_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_MATERIAL_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_METODOPAGO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_METODO_PAGO_TB" Type="Self.FIDE_METODO_PAGO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_METODO_PAGO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAGO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_PAGO_TB" Type="Self.FIDE_PAGO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_PAGO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAGO_FACTURA">
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="1" />
+          <End Role="FIDE_PAGO_TB" Type="Self.FIDE_PAGO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_FACTURA" />
+            </Principal>
+            <Dependent Role="FIDE_PAGO_TB">
+              <PropertyRef Name="ID_FACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAGO_METODOPAGO">
+          <End Role="FIDE_METODO_PAGO_TB" Type="Self.FIDE_METODO_PAGO_TB" Multiplicity="1" />
+          <End Role="FIDE_PAGO_TB" Type="Self.FIDE_PAGO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_METODO_PAGO_TB">
+              <PropertyRef Name="ID_METODO_PAGO" />
+            </Principal>
+            <Dependent Role="FIDE_PAGO_TB">
+              <PropertyRef Name="ID_METODO_PAGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLACA_CATEGORIA">
+          <End Role="FIDE_CATEGORIA_TB" Type="Self.FIDE_CATEGORIA_TB" Multiplicity="1" />
+          <End Role="FIDE_PLACA_TB" Type="Self.FIDE_PLACA_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_CATEGORIA_TB">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Principal>
+            <Dependent Role="FIDE_PLACA_TB">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLACA_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_PLACA_TB" Type="Self.FIDE_PLACA_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_PLACA_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROVINCIA_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_PROVINCIA_TB" Type="Self.FIDE_PROVINCIA_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_PROVINCIA_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESENAS_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_RESENAS_TB" Type="Self.FIDE_RESENAS_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_RESENAS_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESENAS_USUARIO">
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="1" />
+          <End Role="FIDE_RESENAS_TB" Type="Self.FIDE_RESENAS_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="FIDE_RESENAS_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_ROL_TB" Type="Self.FIDE_ROL_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_ROL_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLUSU_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_ROL_USUARIOS_TB" Type="Self.FIDE_ROL_USUARIOS_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_ROL_USUARIOS_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLUSU_ROL">
+          <End Role="FIDE_ROL_TB" Type="Self.FIDE_ROL_TB" Multiplicity="1" />
+          <End Role="FIDE_ROL_USUARIOS_TB" Type="Self.FIDE_ROL_USUARIOS_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ROL_TB">
+              <PropertyRef Name="ID_ROL" />
+            </Principal>
+            <Dependent Role="FIDE_ROL_USUARIOS_TB">
+              <PropertyRef Name="ID_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLUSU_USUARIO">
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="1" />
+          <End Role="FIDE_ROL_USUARIOS_TB" Type="Self.FIDE_ROL_USUARIOS_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="FIDE_ROL_USUARIOS_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SOPORTE_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_SOPORTE_TB" Type="Self.FIDE_SOPORTE_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_SOPORTE_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SOPORTE_PADRE">
+          <End Role="FIDE_SOPORTE_TB" Type="Self.FIDE_SOPORTE_TB" Multiplicity="0..1" />
+          <End Role="FIDE_SOPORTE_TB1" Type="Self.FIDE_SOPORTE_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_SOPORTE_TB">
+              <PropertyRef Name="ID_SOPORTE" />
+            </Principal>
+            <Dependent Role="FIDE_SOPORTE_TB1">
+              <PropertyRef Name="ID_SOPORTE_PADRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SOPORTE_USUARIO">
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="1" />
+          <End Role="FIDE_SOPORTE_TB" Type="Self.FIDE_SOPORTE_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="FIDE_SOPORTE_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAMANO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_TAMANO_TB" Type="Self.FIDE_TAMANO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_TAMANO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TELEFONO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_TELEFONO_TB" Type="Self.FIDE_TELEFONO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_TELEFONO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TELEFONO_USUARIO">
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="1" />
+          <End Role="FIDE_TELEFONO_TB" Type="Self.FIDE_TELEFONO_TB" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="FIDE_TELEFONO_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_DIRECCION">
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="1" />
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_DIRECCION_TB">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Principal>
+            <Dependent Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FIDE_DBModelStoreContainer">
+          <EntitySet Name="FIDE_CANTON_TB" EntityType="Self.FIDE_CANTON_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_CATEGORIA_TB" EntityType="Self.FIDE_CATEGORIA_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_DIRECCION_TB" EntityType="Self.FIDE_DIRECCION_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_DISENO_TB" EntityType="Self.FIDE_DISENO_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_DISTRITO_TB" EntityType="Self.FIDE_DISTRITO_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_ESTADO_TB" EntityType="Self.FIDE_ESTADO_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_FACTURACION_TB" EntityType="Self.FIDE_FACTURACION_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_MATERIAL_TB" EntityType="Self.FIDE_MATERIAL_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_METODO_PAGO_TB" EntityType="Self.FIDE_METODO_PAGO_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_PAGO_TB" EntityType="Self.FIDE_PAGO_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_PLACA_TB" EntityType="Self.FIDE_PLACA_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_PROVINCIA_TB" EntityType="Self.FIDE_PROVINCIA_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_RESENAS_TB" EntityType="Self.FIDE_RESENAS_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_ROL_TB" EntityType="Self.FIDE_ROL_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_ROL_USUARIOS_TB" EntityType="Self.FIDE_ROL_USUARIOS_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_SOPORTE_TB" EntityType="Self.FIDE_SOPORTE_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_TAMANO_TB" EntityType="Self.FIDE_TAMANO_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_TELEFONO_TB" EntityType="Self.FIDE_TELEFONO_TB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FIDE_USUARIO_TB" EntityType="Self.FIDE_USUARIO_TB" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CANTON_ESTADO" Association="Self.FK_CANTON_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_CANTON_TB" EntitySet="FIDE_CANTON_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CATEGORIA_ESTADO" Association="Self.FK_CATEGORIA_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_CATEGORIA_TB" EntitySet="FIDE_CATEGORIA_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIRECCION_CANTON" Association="Self.FK_DIRECCION_CANTON">
+            <End Role="FIDE_CANTON_TB" EntitySet="FIDE_CANTON_TB" />
+            <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIRECCION_DISTRITO" Association="Self.FK_DIRECCION_DISTRITO">
+            <End Role="FIDE_DISTRITO_TB" EntitySet="FIDE_DISTRITO_TB" />
+            <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIRECCION_ESTADO" Association="Self.FK_DIRECCION_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIRECCION_PROVINCIA" Association="Self.FK_DIRECCION_PROVINCIA">
+            <End Role="FIDE_PROVINCIA_TB" EntitySet="FIDE_PROVINCIA_TB" />
+            <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISENO_ESTADO" Association="Self.FK_DISENO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISENO_MATERIAL" Association="Self.FK_DISENO_MATERIAL">
+            <End Role="FIDE_MATERIAL_TB" EntitySet="FIDE_MATERIAL_TB" />
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISENO_TAMANO" Association="Self.FK_DISENO_TAMANO">
+            <End Role="FIDE_TAMANO_TB" EntitySet="FIDE_TAMANO_TB" />
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISTRITO_ESTADO" Association="Self.FK_DISTRITO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_DISTRITO_TB" EntitySet="FIDE_DISTRITO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURACION_DISENO" Association="Self.FK_FACTURACION_DISENO">
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURACION_ESTADO" Association="Self.FK_FACTURACION_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURACION_PLACA" Association="Self.FK_FACTURACION_PLACA">
+            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MATERIAL_ESTADO" Association="Self.FK_MATERIAL_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_MATERIAL_TB" EntitySet="FIDE_MATERIAL_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_METODOPAGO_ESTADO" Association="Self.FK_METODOPAGO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_METODO_PAGO_TB" EntitySet="FIDE_METODO_PAGO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAGO_ESTADO" Association="Self.FK_PAGO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_PAGO_TB" EntitySet="FIDE_PAGO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAGO_FACTURA" Association="Self.FK_PAGO_FACTURA">
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+            <End Role="FIDE_PAGO_TB" EntitySet="FIDE_PAGO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAGO_METODOPAGO" Association="Self.FK_PAGO_METODOPAGO">
+            <End Role="FIDE_METODO_PAGO_TB" EntitySet="FIDE_METODO_PAGO_TB" />
+            <End Role="FIDE_PAGO_TB" EntitySet="FIDE_PAGO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLACA_CATEGORIA" Association="Self.FK_PLACA_CATEGORIA">
+            <End Role="FIDE_CATEGORIA_TB" EntitySet="FIDE_CATEGORIA_TB" />
+            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLACA_ESTADO" Association="Self.FK_PLACA_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROVINCIA_ESTADO" Association="Self.FK_PROVINCIA_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_PROVINCIA_TB" EntitySet="FIDE_PROVINCIA_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESENAS_ESTADO" Association="Self.FK_RESENAS_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_RESENAS_TB" EntitySet="FIDE_RESENAS_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESENAS_USUARIO" Association="Self.FK_RESENAS_USUARIO">
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+            <End Role="FIDE_RESENAS_TB" EntitySet="FIDE_RESENAS_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_ESTADO" Association="Self.FK_ROL_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_ROL_TB" EntitySet="FIDE_ROL_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLUSU_ESTADO" Association="Self.FK_ROLUSU_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_ROL_USUARIOS_TB" EntitySet="FIDE_ROL_USUARIOS_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLUSU_ROL" Association="Self.FK_ROLUSU_ROL">
+            <End Role="FIDE_ROL_TB" EntitySet="FIDE_ROL_TB" />
+            <End Role="FIDE_ROL_USUARIOS_TB" EntitySet="FIDE_ROL_USUARIOS_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLUSU_USUARIO" Association="Self.FK_ROLUSU_USUARIO">
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+            <End Role="FIDE_ROL_USUARIOS_TB" EntitySet="FIDE_ROL_USUARIOS_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SOPORTE_ESTADO" Association="Self.FK_SOPORTE_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_SOPORTE_TB" EntitySet="FIDE_SOPORTE_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SOPORTE_PADRE" Association="Self.FK_SOPORTE_PADRE">
+            <End Role="FIDE_SOPORTE_TB" EntitySet="FIDE_SOPORTE_TB" />
+            <End Role="FIDE_SOPORTE_TB1" EntitySet="FIDE_SOPORTE_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SOPORTE_USUARIO" Association="Self.FK_SOPORTE_USUARIO">
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+            <End Role="FIDE_SOPORTE_TB" EntitySet="FIDE_SOPORTE_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAMANO_ESTADO" Association="Self.FK_TAMANO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_TAMANO_TB" EntitySet="FIDE_TAMANO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TELEFONO_ESTADO" Association="Self.FK_TELEFONO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_TELEFONO_TB" EntitySet="FIDE_TELEFONO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TELEFONO_USUARIO" Association="Self.FK_TELEFONO_USUARIO">
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+            <End Role="FIDE_TELEFONO_TB" EntitySet="FIDE_TELEFONO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_DIRECCION" Association="Self.FK_USUARIO_DIRECCION">
+            <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_ESTADO" Association="Self.FK_USUARIO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FIDE_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="FIDE_CANTON_TB">
+          <Key>
+            <PropertyRef Name="ID_CANTON" />
+          </Key>
+          <Property Name="ID_CANTON" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_CANTON_ESTADO" FromRole="FIDE_CANTON_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_DIRECCION_TB" Relationship="Self.FK_DIRECCION_CANTON" FromRole="FIDE_CANTON_TB" ToRole="FIDE_DIRECCION_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_CATEGORIA_TB">
+          <Key>
+            <PropertyRef Name="ID_CATEGORIA" />
+          </Key>
+          <Property Name="ID_CATEGORIA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_CATEGORIA_ESTADO" FromRole="FIDE_CATEGORIA_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_PLACA_TB" Relationship="Self.FK_PLACA_CATEGORIA" FromRole="FIDE_CATEGORIA_TB" ToRole="FIDE_PLACA_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_DIRECCION_TB">
+          <Key>
+            <PropertyRef Name="ID_DIRECCION" />
+          </Key>
+          <Property Name="ID_DIRECCION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PROVINCIA" Type="Int32" Nullable="false" />
+          <Property Name="ID_CANTON" Type="Int32" Nullable="false" />
+          <Property Name="ID_DISTRITO" Type="Int32" Nullable="false" />
+          <Property Name="OTROS_DETALLES" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_CANTON_TB" Relationship="Self.FK_DIRECCION_CANTON" FromRole="FIDE_DIRECCION_TB" ToRole="FIDE_CANTON_TB" />
+          <NavigationProperty Name="FIDE_DISTRITO_TB" Relationship="Self.FK_DIRECCION_DISTRITO" FromRole="FIDE_DIRECCION_TB" ToRole="FIDE_DISTRITO_TB" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_DIRECCION_ESTADO" FromRole="FIDE_DIRECCION_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_PROVINCIA_TB" Relationship="Self.FK_DIRECCION_PROVINCIA" FromRole="FIDE_DIRECCION_TB" ToRole="FIDE_PROVINCIA_TB" />
+          <NavigationProperty Name="FIDE_USUARIO_TB" Relationship="Self.FK_USUARIO_DIRECCION" FromRole="FIDE_DIRECCION_TB" ToRole="FIDE_USUARIO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_DISENO_TB">
+          <Key>
+            <PropertyRef Name="ID_DISENO" />
+          </Key>
+          <Property Name="ID_DISENO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_TAMANO" Type="Int32" Nullable="false" />
+          <Property Name="ID_MATERIAL" Type="Int32" Nullable="false" />
+          <Property Name="IMAGEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TEXTO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_DISENO_ESTADO" FromRole="FIDE_DISENO_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_MATERIAL_TB" Relationship="Self.FK_DISENO_MATERIAL" FromRole="FIDE_DISENO_TB" ToRole="FIDE_MATERIAL_TB" />
+          <NavigationProperty Name="FIDE_TAMANO_TB" Relationship="Self.FK_DISENO_TAMANO" FromRole="FIDE_DISENO_TB" ToRole="FIDE_TAMANO_TB" />
+          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="Self.FK_FACTURACION_DISENO" FromRole="FIDE_DISENO_TB" ToRole="FIDE_FACTURACION_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_DISTRITO_TB">
+          <Key>
+            <PropertyRef Name="ID_DISTRITO" />
+          </Key>
+          <Property Name="ID_DISTRITO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_DIRECCION_TB" Relationship="Self.FK_DIRECCION_DISTRITO" FromRole="FIDE_DISTRITO_TB" ToRole="FIDE_DIRECCION_TB" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_DISTRITO_ESTADO" FromRole="FIDE_DISTRITO_TB" ToRole="FIDE_ESTADO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_ESTADO_TB">
+          <Key>
+            <PropertyRef Name="ID_ESTADO" />
+          </Key>
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="FIDE_CANTON_TB" Relationship="Self.FK_CANTON_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_CANTON_TB" />
+          <NavigationProperty Name="FIDE_CATEGORIA_TB" Relationship="Self.FK_CATEGORIA_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_CATEGORIA_TB" />
+          <NavigationProperty Name="FIDE_DIRECCION_TB" Relationship="Self.FK_DIRECCION_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_DIRECCION_TB" />
+          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="Self.FK_DISENO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_DISENO_TB" />
+          <NavigationProperty Name="FIDE_DISTRITO_TB" Relationship="Self.FK_DISTRITO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_DISTRITO_TB" />
+          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="Self.FK_FACTURACION_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_FACTURACION_TB" />
+          <NavigationProperty Name="FIDE_MATERIAL_TB" Relationship="Self.FK_MATERIAL_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_MATERIAL_TB" />
+          <NavigationProperty Name="FIDE_METODO_PAGO_TB" Relationship="Self.FK_METODOPAGO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_METODO_PAGO_TB" />
+          <NavigationProperty Name="FIDE_PAGO_TB" Relationship="Self.FK_PAGO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_PAGO_TB" />
+          <NavigationProperty Name="FIDE_PLACA_TB" Relationship="Self.FK_PLACA_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_PLACA_TB" />
+          <NavigationProperty Name="FIDE_PROVINCIA_TB" Relationship="Self.FK_PROVINCIA_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_PROVINCIA_TB" />
+          <NavigationProperty Name="FIDE_RESENAS_TB" Relationship="Self.FK_RESENAS_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_RESENAS_TB" />
+          <NavigationProperty Name="FIDE_ROL_TB" Relationship="Self.FK_ROL_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_ROL_TB" />
+          <NavigationProperty Name="FIDE_ROL_USUARIOS_TB" Relationship="Self.FK_ROLUSU_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_ROL_USUARIOS_TB" />
+          <NavigationProperty Name="FIDE_SOPORTE_TB" Relationship="Self.FK_SOPORTE_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_SOPORTE_TB" />
+          <NavigationProperty Name="FIDE_TAMANO_TB" Relationship="Self.FK_TAMANO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_TAMANO_TB" />
+          <NavigationProperty Name="FIDE_TELEFONO_TB" Relationship="Self.FK_TELEFONO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_TELEFONO_TB" />
+          <NavigationProperty Name="FIDE_USUARIO_TB" Relationship="Self.FK_USUARIO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_USUARIO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_FACTURACION_TB">
+          <Key>
+            <PropertyRef Name="ID_FACTURA" />
+          </Key>
+          <Property Name="ID_FACTURA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FECHA_EMISION" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DETALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SUBTOTAL" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IMPUESTOS" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="TOTAL" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <Property Name="ID_PLACA" Type="Int32" Nullable="false" />
+          <Property Name="ID_DISENO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="Self.FK_FACTURACION_DISENO" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_DISENO_TB" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_FACTURACION_ESTADO" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_PLACA_TB" Relationship="Self.FK_FACTURACION_PLACA" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_PLACA_TB" />
+          <NavigationProperty Name="FIDE_PAGO_TB" Relationship="Self.FK_PAGO_FACTURA" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_PAGO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_MATERIAL_TB">
+          <Key>
+            <PropertyRef Name="ID_MATERIAL" />
+          </Key>
+          <Property Name="ID_MATERIAL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MATERIAL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="Self.FK_DISENO_MATERIAL" FromRole="FIDE_MATERIAL_TB" ToRole="FIDE_DISENO_TB" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_MATERIAL_ESTADO" FromRole="FIDE_MATERIAL_TB" ToRole="FIDE_ESTADO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_METODO_PAGO_TB">
+          <Key>
+            <PropertyRef Name="ID_METODO_PAGO" />
+          </Key>
+          <Property Name="ID_METODO_PAGO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_METODOPAGO_ESTADO" FromRole="FIDE_METODO_PAGO_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_PAGO_TB" Relationship="Self.FK_PAGO_METODOPAGO" FromRole="FIDE_METODO_PAGO_TB" ToRole="FIDE_PAGO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_PAGO_TB">
+          <Key>
+            <PropertyRef Name="ID_PAGO" />
+          </Key>
+          <Property Name="ID_PAGO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_FACTURA" Type="Int32" Nullable="false" />
+          <Property Name="ID_METODO_PAGO" Type="Int32" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <Property Name="FECHA_PAGO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MONTO" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_PAGO_ESTADO" FromRole="FIDE_PAGO_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="Self.FK_PAGO_FACTURA" FromRole="FIDE_PAGO_TB" ToRole="FIDE_FACTURACION_TB" />
+          <NavigationProperty Name="FIDE_METODO_PAGO_TB" Relationship="Self.FK_PAGO_METODOPAGO" FromRole="FIDE_PAGO_TB" ToRole="FIDE_METODO_PAGO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_PLACA_TB">
+          <Key>
+            <PropertyRef Name="ID_PLACA" />
+          </Key>
+          <Property Name="ID_PLACA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MATERIAL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TAMANO" Type="Int32" />
+          <Property Name="PRECIO" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IMAGEN_NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DISPONIBLE" Type="Boolean" Nullable="false" />
+          <Property Name="ID_CATEGORIA" Type="Int32" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_CATEGORIA_TB" Relationship="Self.FK_PLACA_CATEGORIA" FromRole="FIDE_PLACA_TB" ToRole="FIDE_CATEGORIA_TB" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_PLACA_ESTADO" FromRole="FIDE_PLACA_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="Self.FK_FACTURACION_PLACA" FromRole="FIDE_PLACA_TB" ToRole="FIDE_FACTURACION_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_PROVINCIA_TB">
+          <Key>
+            <PropertyRef Name="ID_PROVINCIA" />
+          </Key>
+          <Property Name="ID_PROVINCIA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_DIRECCION_TB" Relationship="Self.FK_DIRECCION_PROVINCIA" FromRole="FIDE_PROVINCIA_TB" ToRole="FIDE_DIRECCION_TB" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_PROVINCIA_ESTADO" FromRole="FIDE_PROVINCIA_TB" ToRole="FIDE_ESTADO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_RESENAS_TB">
+          <Key>
+            <PropertyRef Name="ID_RESENA" />
+          </Key>
+          <Property Name="ID_RESENA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+          <Property Name="COMENTARIO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_SATISFACCION" Type="Int32" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_RESENAS_ESTADO" FromRole="FIDE_RESENAS_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_USUARIO_TB" Relationship="Self.FK_RESENAS_USUARIO" FromRole="FIDE_RESENAS_TB" ToRole="FIDE_USUARIO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_ROL_TB">
+          <Key>
+            <PropertyRef Name="ID_ROL" />
+          </Key>
+          <Property Name="ID_ROL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_ROL_ESTADO" FromRole="FIDE_ROL_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_ROL_USUARIOS_TB" Relationship="Self.FK_ROLUSU_ROL" FromRole="FIDE_ROL_TB" ToRole="FIDE_ROL_USUARIOS_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_ROL_USUARIOS_TB">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+            <PropertyRef Name="ID_ROL" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+          <Property Name="ID_ROL" Type="Int32" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_ROLUSU_ESTADO" FromRole="FIDE_ROL_USUARIOS_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_ROL_TB" Relationship="Self.FK_ROLUSU_ROL" FromRole="FIDE_ROL_USUARIOS_TB" ToRole="FIDE_ROL_TB" />
+          <NavigationProperty Name="FIDE_USUARIO_TB" Relationship="Self.FK_ROLUSU_USUARIO" FromRole="FIDE_ROL_USUARIOS_TB" ToRole="FIDE_USUARIO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_SOPORTE_TB">
+          <Key>
+            <PropertyRef Name="ID_SOPORTE" />
+          </Key>
+          <Property Name="ID_SOPORTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+          <Property Name="COMENTARIO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_SOPORTE_PADRE" Type="Int32" />
+          <Property Name="SOLUCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_SOPORTE_ESTADO" FromRole="FIDE_SOPORTE_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_SOPORTE_TB1" Relationship="Self.FK_SOPORTE_PADRE" FromRole="FIDE_SOPORTE_TB" ToRole="FIDE_SOPORTE_TB1" />
+          <NavigationProperty Name="FIDE_SOPORTE_TB2" Relationship="Self.FK_SOPORTE_PADRE" FromRole="FIDE_SOPORTE_TB1" ToRole="FIDE_SOPORTE_TB" />
+          <NavigationProperty Name="FIDE_USUARIO_TB" Relationship="Self.FK_SOPORTE_USUARIO" FromRole="FIDE_SOPORTE_TB" ToRole="FIDE_USUARIO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_TAMANO_TB">
+          <Key>
+            <PropertyRef Name="ID_TAMANO" />
+          </Key>
+          <Property Name="ID_TAMANO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TAMANO" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="Self.FK_DISENO_TAMANO" FromRole="FIDE_TAMANO_TB" ToRole="FIDE_DISENO_TB" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_TAMANO_ESTADO" FromRole="FIDE_TAMANO_TB" ToRole="FIDE_ESTADO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_TELEFONO_TB">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_TELEFONO_ESTADO" FromRole="FIDE_TELEFONO_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_USUARIO_TB" Relationship="Self.FK_TELEFONO_USUARIO" FromRole="FIDE_TELEFONO_TB" ToRole="FIDE_USUARIO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_USUARIO_TB">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CEDULA" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PRIMER_APELLIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SEGUNDO_APELLIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PERFIL_URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CORREO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <Property Name="CONTRASENA" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ID_DIRECCION" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_DIRECCION_TB" Relationship="Self.FK_USUARIO_DIRECCION" FromRole="FIDE_USUARIO_TB" ToRole="FIDE_DIRECCION_TB" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_USUARIO_ESTADO" FromRole="FIDE_USUARIO_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_RESENAS_TB" Relationship="Self.FK_RESENAS_USUARIO" FromRole="FIDE_USUARIO_TB" ToRole="FIDE_RESENAS_TB" />
+          <NavigationProperty Name="FIDE_ROL_USUARIOS_TB" Relationship="Self.FK_ROLUSU_USUARIO" FromRole="FIDE_USUARIO_TB" ToRole="FIDE_ROL_USUARIOS_TB" />
+          <NavigationProperty Name="FIDE_SOPORTE_TB" Relationship="Self.FK_SOPORTE_USUARIO" FromRole="FIDE_USUARIO_TB" ToRole="FIDE_SOPORTE_TB" />
+          <NavigationProperty Name="FIDE_TELEFONO_TB" Relationship="Self.FK_TELEFONO_USUARIO" FromRole="FIDE_USUARIO_TB" ToRole="FIDE_TELEFONO_TB" />
+        </EntityType>
+        <Association Name="FK_CANTON_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_CANTON_TB" Type="Self.FIDE_CANTON_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_CANTON_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIRECCION_CANTON">
+          <End Role="FIDE_CANTON_TB" Type="Self.FIDE_CANTON_TB" Multiplicity="1" />
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_CANTON_TB">
+              <PropertyRef Name="ID_CANTON" />
+            </Principal>
+            <Dependent Role="FIDE_DIRECCION_TB">
+              <PropertyRef Name="ID_CANTON" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CATEGORIA_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_CATEGORIA_TB" Type="Self.FIDE_CATEGORIA_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_CATEGORIA_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLACA_CATEGORIA">
+          <End Role="FIDE_CATEGORIA_TB" Type="Self.FIDE_CATEGORIA_TB" Multiplicity="1" />
+          <End Role="FIDE_PLACA_TB" Type="Self.FIDE_PLACA_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_CATEGORIA_TB">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Principal>
+            <Dependent Role="FIDE_PLACA_TB">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIRECCION_DISTRITO">
+          <End Role="FIDE_DISTRITO_TB" Type="Self.FIDE_DISTRITO_TB" Multiplicity="1" />
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_DISTRITO_TB">
+              <PropertyRef Name="ID_DISTRITO" />
+            </Principal>
+            <Dependent Role="FIDE_DIRECCION_TB">
+              <PropertyRef Name="ID_DISTRITO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIRECCION_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_DIRECCION_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIRECCION_PROVINCIA">
+          <End Role="FIDE_PROVINCIA_TB" Type="Self.FIDE_PROVINCIA_TB" Multiplicity="1" />
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_PROVINCIA_TB">
+              <PropertyRef Name="ID_PROVINCIA" />
+            </Principal>
+            <Dependent Role="FIDE_DIRECCION_TB">
+              <PropertyRef Name="ID_PROVINCIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_DIRECCION">
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="1" />
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_DIRECCION_TB">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Principal>
+            <Dependent Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_DIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISENO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISENO_MATERIAL">
+          <End Role="FIDE_MATERIAL_TB" Type="Self.FIDE_MATERIAL_TB" Multiplicity="1" />
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_MATERIAL_TB">
+              <PropertyRef Name="ID_MATERIAL" />
+            </Principal>
+            <Dependent Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_MATERIAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISENO_TAMANO">
+          <End Role="FIDE_TAMANO_TB" Type="Self.FIDE_TAMANO_TB" Multiplicity="1" />
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_TAMANO_TB">
+              <PropertyRef Name="ID_TAMANO" />
+            </Principal>
+            <Dependent Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_TAMANO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURACION_DISENO">
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="1" />
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_DISENO" />
+            </Principal>
+            <Dependent Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_DISENO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISTRITO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_DISTRITO_TB" Type="Self.FIDE_DISTRITO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_DISTRITO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURACION_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MATERIAL_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_MATERIAL_TB" Type="Self.FIDE_MATERIAL_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_MATERIAL_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_METODOPAGO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_METODO_PAGO_TB" Type="Self.FIDE_METODO_PAGO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_METODO_PAGO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAGO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_PAGO_TB" Type="Self.FIDE_PAGO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_PAGO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLACA_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_PLACA_TB" Type="Self.FIDE_PLACA_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_PLACA_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PROVINCIA_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_PROVINCIA_TB" Type="Self.FIDE_PROVINCIA_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_PROVINCIA_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESENAS_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_RESENAS_TB" Type="Self.FIDE_RESENAS_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_RESENAS_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROL_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_ROL_TB" Type="Self.FIDE_ROL_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_ROL_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLUSU_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_ROL_USUARIOS_TB" Type="Self.FIDE_ROL_USUARIOS_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_ROL_USUARIOS_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SOPORTE_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_SOPORTE_TB" Type="Self.FIDE_SOPORTE_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_SOPORTE_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAMANO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_TAMANO_TB" Type="Self.FIDE_TAMANO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_TAMANO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TELEFONO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_TELEFONO_TB" Type="Self.FIDE_TELEFONO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_TELEFONO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURACION_PLACA">
+          <End Role="FIDE_PLACA_TB" Type="Self.FIDE_PLACA_TB" Multiplicity="1" />
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_PLACA_TB">
+              <PropertyRef Name="ID_PLACA" />
+            </Principal>
+            <Dependent Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_PLACA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAGO_FACTURA">
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="1" />
+          <End Role="FIDE_PAGO_TB" Type="Self.FIDE_PAGO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_FACTURA" />
+            </Principal>
+            <Dependent Role="FIDE_PAGO_TB">
+              <PropertyRef Name="ID_FACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAGO_METODOPAGO">
+          <End Role="FIDE_METODO_PAGO_TB" Type="Self.FIDE_METODO_PAGO_TB" Multiplicity="1" />
+          <End Role="FIDE_PAGO_TB" Type="Self.FIDE_PAGO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_METODO_PAGO_TB">
+              <PropertyRef Name="ID_METODO_PAGO" />
+            </Principal>
+            <Dependent Role="FIDE_PAGO_TB">
+              <PropertyRef Name="ID_METODO_PAGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESENAS_USUARIO">
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="1" />
+          <End Role="FIDE_RESENAS_TB" Type="Self.FIDE_RESENAS_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="FIDE_RESENAS_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLUSU_ROL">
+          <End Role="FIDE_ROL_TB" Type="Self.FIDE_ROL_TB" Multiplicity="1" />
+          <End Role="FIDE_ROL_USUARIOS_TB" Type="Self.FIDE_ROL_USUARIOS_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ROL_TB">
+              <PropertyRef Name="ID_ROL" />
+            </Principal>
+            <Dependent Role="FIDE_ROL_USUARIOS_TB">
+              <PropertyRef Name="ID_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROLUSU_USUARIO">
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="1" />
+          <End Role="FIDE_ROL_USUARIOS_TB" Type="Self.FIDE_ROL_USUARIOS_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="FIDE_ROL_USUARIOS_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SOPORTE_PADRE">
+          <End Role="FIDE_SOPORTE_TB" Type="Self.FIDE_SOPORTE_TB" Multiplicity="0..1" />
+          <End Role="FIDE_SOPORTE_TB1" Type="Self.FIDE_SOPORTE_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_SOPORTE_TB">
+              <PropertyRef Name="ID_SOPORTE" />
+            </Principal>
+            <Dependent Role="FIDE_SOPORTE_TB1">
+              <PropertyRef Name="ID_SOPORTE_PADRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SOPORTE_USUARIO">
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="1" />
+          <End Role="FIDE_SOPORTE_TB" Type="Self.FIDE_SOPORTE_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="FIDE_SOPORTE_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TELEFONO_USUARIO">
+          <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="1" />
+          <End Role="FIDE_TELEFONO_TB" Type="Self.FIDE_TELEFONO_TB" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_USUARIO_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="FIDE_TELEFONO_TB">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FIDE_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FIDE_CANTON_TB" EntityType="Self.FIDE_CANTON_TB" />
+          <EntitySet Name="FIDE_CATEGORIA_TB" EntityType="Self.FIDE_CATEGORIA_TB" />
+          <EntitySet Name="FIDE_DIRECCION_TB" EntityType="Self.FIDE_DIRECCION_TB" />
+          <EntitySet Name="FIDE_DISENO_TB" EntityType="Self.FIDE_DISENO_TB" />
+          <EntitySet Name="FIDE_DISTRITO_TB" EntityType="Self.FIDE_DISTRITO_TB" />
+          <EntitySet Name="FIDE_ESTADO_TB" EntityType="Self.FIDE_ESTADO_TB" />
+          <EntitySet Name="FIDE_FACTURACION_TB" EntityType="Self.FIDE_FACTURACION_TB" />
+          <EntitySet Name="FIDE_MATERIAL_TB" EntityType="Self.FIDE_MATERIAL_TB" />
+          <EntitySet Name="FIDE_METODO_PAGO_TB" EntityType="Self.FIDE_METODO_PAGO_TB" />
+          <EntitySet Name="FIDE_PAGO_TB" EntityType="Self.FIDE_PAGO_TB" />
+          <EntitySet Name="FIDE_PLACA_TB" EntityType="Self.FIDE_PLACA_TB" />
+          <EntitySet Name="FIDE_PROVINCIA_TB" EntityType="Self.FIDE_PROVINCIA_TB" />
+          <EntitySet Name="FIDE_RESENAS_TB" EntityType="Self.FIDE_RESENAS_TB" />
+          <EntitySet Name="FIDE_ROL_TB" EntityType="Self.FIDE_ROL_TB" />
+          <EntitySet Name="FIDE_ROL_USUARIOS_TB" EntityType="Self.FIDE_ROL_USUARIOS_TB" />
+          <EntitySet Name="FIDE_SOPORTE_TB" EntityType="Self.FIDE_SOPORTE_TB" />
+          <EntitySet Name="FIDE_TAMANO_TB" EntityType="Self.FIDE_TAMANO_TB" />
+          <EntitySet Name="FIDE_TELEFONO_TB" EntityType="Self.FIDE_TELEFONO_TB" />
+          <EntitySet Name="FIDE_USUARIO_TB" EntityType="Self.FIDE_USUARIO_TB" />
+          <AssociationSet Name="FK_CANTON_ESTADO" Association="Self.FK_CANTON_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_CANTON_TB" EntitySet="FIDE_CANTON_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIRECCION_CANTON" Association="Self.FK_DIRECCION_CANTON">
+            <End Role="FIDE_CANTON_TB" EntitySet="FIDE_CANTON_TB" />
+            <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CATEGORIA_ESTADO" Association="Self.FK_CATEGORIA_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_CATEGORIA_TB" EntitySet="FIDE_CATEGORIA_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLACA_CATEGORIA" Association="Self.FK_PLACA_CATEGORIA">
+            <End Role="FIDE_CATEGORIA_TB" EntitySet="FIDE_CATEGORIA_TB" />
+            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIRECCION_DISTRITO" Association="Self.FK_DIRECCION_DISTRITO">
+            <End Role="FIDE_DISTRITO_TB" EntitySet="FIDE_DISTRITO_TB" />
+            <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIRECCION_ESTADO" Association="Self.FK_DIRECCION_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIRECCION_PROVINCIA" Association="Self.FK_DIRECCION_PROVINCIA">
+            <End Role="FIDE_PROVINCIA_TB" EntitySet="FIDE_PROVINCIA_TB" />
+            <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_DIRECCION" Association="Self.FK_USUARIO_DIRECCION">
+            <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISENO_ESTADO" Association="Self.FK_DISENO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISENO_MATERIAL" Association="Self.FK_DISENO_MATERIAL">
+            <End Role="FIDE_MATERIAL_TB" EntitySet="FIDE_MATERIAL_TB" />
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISENO_TAMANO" Association="Self.FK_DISENO_TAMANO">
+            <End Role="FIDE_TAMANO_TB" EntitySet="FIDE_TAMANO_TB" />
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURACION_DISENO" Association="Self.FK_FACTURACION_DISENO">
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISTRITO_ESTADO" Association="Self.FK_DISTRITO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_DISTRITO_TB" EntitySet="FIDE_DISTRITO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURACION_ESTADO" Association="Self.FK_FACTURACION_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MATERIAL_ESTADO" Association="Self.FK_MATERIAL_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_MATERIAL_TB" EntitySet="FIDE_MATERIAL_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_METODOPAGO_ESTADO" Association="Self.FK_METODOPAGO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_METODO_PAGO_TB" EntitySet="FIDE_METODO_PAGO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAGO_ESTADO" Association="Self.FK_PAGO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_PAGO_TB" EntitySet="FIDE_PAGO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLACA_ESTADO" Association="Self.FK_PLACA_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PROVINCIA_ESTADO" Association="Self.FK_PROVINCIA_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_PROVINCIA_TB" EntitySet="FIDE_PROVINCIA_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESENAS_ESTADO" Association="Self.FK_RESENAS_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_RESENAS_TB" EntitySet="FIDE_RESENAS_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROL_ESTADO" Association="Self.FK_ROL_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_ROL_TB" EntitySet="FIDE_ROL_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLUSU_ESTADO" Association="Self.FK_ROLUSU_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_ROL_USUARIOS_TB" EntitySet="FIDE_ROL_USUARIOS_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SOPORTE_ESTADO" Association="Self.FK_SOPORTE_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_SOPORTE_TB" EntitySet="FIDE_SOPORTE_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAMANO_ESTADO" Association="Self.FK_TAMANO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_TAMANO_TB" EntitySet="FIDE_TAMANO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TELEFONO_ESTADO" Association="Self.FK_TELEFONO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_TELEFONO_TB" EntitySet="FIDE_TELEFONO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIO_ESTADO" Association="Self.FK_USUARIO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURACION_PLACA" Association="Self.FK_FACTURACION_PLACA">
+            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAGO_FACTURA" Association="Self.FK_PAGO_FACTURA">
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+            <End Role="FIDE_PAGO_TB" EntitySet="FIDE_PAGO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAGO_METODOPAGO" Association="Self.FK_PAGO_METODOPAGO">
+            <End Role="FIDE_METODO_PAGO_TB" EntitySet="FIDE_METODO_PAGO_TB" />
+            <End Role="FIDE_PAGO_TB" EntitySet="FIDE_PAGO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESENAS_USUARIO" Association="Self.FK_RESENAS_USUARIO">
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+            <End Role="FIDE_RESENAS_TB" EntitySet="FIDE_RESENAS_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLUSU_ROL" Association="Self.FK_ROLUSU_ROL">
+            <End Role="FIDE_ROL_TB" EntitySet="FIDE_ROL_TB" />
+            <End Role="FIDE_ROL_USUARIOS_TB" EntitySet="FIDE_ROL_USUARIOS_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROLUSU_USUARIO" Association="Self.FK_ROLUSU_USUARIO">
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+            <End Role="FIDE_ROL_USUARIOS_TB" EntitySet="FIDE_ROL_USUARIOS_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SOPORTE_PADRE" Association="Self.FK_SOPORTE_PADRE">
+            <End Role="FIDE_SOPORTE_TB" EntitySet="FIDE_SOPORTE_TB" />
+            <End Role="FIDE_SOPORTE_TB1" EntitySet="FIDE_SOPORTE_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SOPORTE_USUARIO" Association="Self.FK_SOPORTE_USUARIO">
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+            <End Role="FIDE_SOPORTE_TB" EntitySet="FIDE_SOPORTE_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TELEFONO_USUARIO" Association="Self.FK_TELEFONO_USUARIO">
+            <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
+            <End Role="FIDE_TELEFONO_TB" EntitySet="FIDE_TELEFONO_TB" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FIDE_DBModelStoreContainer" CdmEntityContainer="FIDE_DBEntities">
+          <EntitySetMapping Name="FIDE_CANTON_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_CANTON_TB">
+              <MappingFragment StoreEntitySet="FIDE_CANTON_TB">
+                <ScalarProperty Name="ID_CANTON" ColumnName="ID_CANTON" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_CATEGORIA_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_CATEGORIA_TB">
+              <MappingFragment StoreEntitySet="FIDE_CATEGORIA_TB">
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_DIRECCION_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_DIRECCION_TB">
+              <MappingFragment StoreEntitySet="FIDE_DIRECCION_TB">
+                <ScalarProperty Name="ID_DIRECCION" ColumnName="ID_DIRECCION" />
+                <ScalarProperty Name="ID_PROVINCIA" ColumnName="ID_PROVINCIA" />
+                <ScalarProperty Name="ID_CANTON" ColumnName="ID_CANTON" />
+                <ScalarProperty Name="ID_DISTRITO" ColumnName="ID_DISTRITO" />
+                <ScalarProperty Name="OTROS_DETALLES" ColumnName="OTROS_DETALLES" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_DISENO_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_DISENO_TB">
+              <MappingFragment StoreEntitySet="FIDE_DISENO_TB">
+                <ScalarProperty Name="ID_DISENO" ColumnName="ID_DISENO" />
+                <ScalarProperty Name="ID_TAMANO" ColumnName="ID_TAMANO" />
+                <ScalarProperty Name="ID_MATERIAL" ColumnName="ID_MATERIAL" />
+                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+                <ScalarProperty Name="TEXTO" ColumnName="TEXTO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_DISTRITO_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_DISTRITO_TB">
+              <MappingFragment StoreEntitySet="FIDE_DISTRITO_TB">
+                <ScalarProperty Name="ID_DISTRITO" ColumnName="ID_DISTRITO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_ESTADO_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_ESTADO_TB">
+              <MappingFragment StoreEntitySet="FIDE_ESTADO_TB">
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_FACTURACION_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_FACTURACION_TB">
+              <MappingFragment StoreEntitySet="FIDE_FACTURACION_TB">
+                <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
+                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
+                <ScalarProperty Name="IMPUESTOS" ColumnName="IMPUESTOS" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="ID_PLACA" ColumnName="ID_PLACA" />
+                <ScalarProperty Name="ID_DISENO" ColumnName="ID_DISENO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_MATERIAL_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_MATERIAL_TB">
+              <MappingFragment StoreEntitySet="FIDE_MATERIAL_TB">
+                <ScalarProperty Name="ID_MATERIAL" ColumnName="ID_MATERIAL" />
+                <ScalarProperty Name="MATERIAL" ColumnName="MATERIAL" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_METODO_PAGO_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_METODO_PAGO_TB">
+              <MappingFragment StoreEntitySet="FIDE_METODO_PAGO_TB">
+                <ScalarProperty Name="ID_METODO_PAGO" ColumnName="ID_METODO_PAGO" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_PAGO_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_PAGO_TB">
+              <MappingFragment StoreEntitySet="FIDE_PAGO_TB">
+                <ScalarProperty Name="ID_PAGO" ColumnName="ID_PAGO" />
+                <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
+                <ScalarProperty Name="ID_METODO_PAGO" ColumnName="ID_METODO_PAGO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="FECHA_PAGO" ColumnName="FECHA_PAGO" />
+                <ScalarProperty Name="MONTO" ColumnName="MONTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_PLACA_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_PLACA_TB">
+              <MappingFragment StoreEntitySet="FIDE_PLACA_TB">
+                <ScalarProperty Name="ID_PLACA" ColumnName="ID_PLACA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="MATERIAL" ColumnName="MATERIAL" />
+                <ScalarProperty Name="TAMANO" ColumnName="TAMANO" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+                <ScalarProperty Name="IMAGEN_NOMBRE" ColumnName="IMAGEN_NOMBRE" />
+                <ScalarProperty Name="DISPONIBLE" ColumnName="DISPONIBLE" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_PROVINCIA_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_PROVINCIA_TB">
+              <MappingFragment StoreEntitySet="FIDE_PROVINCIA_TB">
+                <ScalarProperty Name="ID_PROVINCIA" ColumnName="ID_PROVINCIA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_RESENAS_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_RESENAS_TB">
+              <MappingFragment StoreEntitySet="FIDE_RESENAS_TB">
+                <ScalarProperty Name="ID_RESENA" ColumnName="ID_RESENA" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ID_SATISFACCION" ColumnName="ID_SATISFACCION" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_ROL_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_ROL_TB">
+              <MappingFragment StoreEntitySet="FIDE_ROL_TB">
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_ROL_USUARIOS_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_ROL_USUARIOS_TB">
+              <MappingFragment StoreEntitySet="FIDE_ROL_USUARIOS_TB">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_SOPORTE_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_SOPORTE_TB">
+              <MappingFragment StoreEntitySet="FIDE_SOPORTE_TB">
+                <ScalarProperty Name="ID_SOPORTE" ColumnName="ID_SOPORTE" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="COMENTARIO" ColumnName="COMENTARIO" />
+                <ScalarProperty Name="ID_SOPORTE_PADRE" ColumnName="ID_SOPORTE_PADRE" />
+                <ScalarProperty Name="SOLUCION" ColumnName="SOLUCION" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_TAMANO_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_TAMANO_TB">
+              <MappingFragment StoreEntitySet="FIDE_TAMANO_TB">
+                <ScalarProperty Name="ID_TAMANO" ColumnName="ID_TAMANO" />
+                <ScalarProperty Name="TAMANO" ColumnName="TAMANO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_TELEFONO_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_TELEFONO_TB">
+              <MappingFragment StoreEntitySet="FIDE_TELEFONO_TB">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_USUARIO_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_USUARIO_TB">
+              <MappingFragment StoreEntitySet="FIDE_USUARIO_TB">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="PRIMER_APELLIDO" ColumnName="PRIMER_APELLIDO" />
+                <ScalarProperty Name="SEGUNDO_APELLIDO" ColumnName="SEGUNDO_APELLIDO" />
+                <ScalarProperty Name="PERFIL_URL" ColumnName="PERFIL_URL" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+                <ScalarProperty Name="ID_DIRECCION" ColumnName="ID_DIRECCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
