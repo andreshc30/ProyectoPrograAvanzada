@@ -3,4 +3,60 @@
     ViewBag.Title = "Registro";
 }
 
-<h1>HOLA jimena tonta</h1>
+<div class="container-fluid p-0 hero-header bg-light d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-11 col-sm-9 col-md-6 col-lg-4">
+                <div class="bg-white p-4 p-md-5 shadow-sm text-center" style="border: 1px solid #D4AF37;">
+
+                    <h1 class="font-dancing-script" style="color: #D4AF37; font-size: 2.4rem;">Bienvenido</h1>
+                    <h2 class="fw-bold mb-4" style="color: #1a1a1a; font-family: 'Playfair Display', serif;">Crear Usuario</h2>
+
+                    <form class="text-start" onsubmit="window.location.href='@Url.Action("Login", "Home")'; return false;">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label text-secondary">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label text-secondary">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cedula" class="form-label text-secondary">Cédula</label>
+                            <input type="text" class="form-control" id="cedula" minlength="9" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label text-secondary">Teléfono</label>
+                            <input type="text" class="form-control" id="telefono" minlength="8" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="direccion" class="form-label text-secondary">Dirección</label>
+                            <input type="text" class="form-control" id="direccion" placeholder="opcional">
+                        </div>
+                        <div class="mb-3">
+                            <label for="correo" class="form-label text-secondary">Correo electrónico</label>
+                            <input type="email" class="form-control" id="correo" placeholder="correo@ejemplo.com" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="contrasena" class="form-label text-secondary">Contraseña</label>
+                            <input type="password" class="form-control" id="contrasena" minlength="8" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-lg w-100 text-uppercase py-3 boton-ingresar">
+                            Activar Cuenta
+                        </button>
+                    </form>
+
+                    <p class="mt-4 mb-2 text-secondary">
+                        ¿Tienes cuenta?
+                        <a href="@Url.Action("Login", "Home")" style="color: #D4AF37; font-weight: 500;">Iniciar Sesión</a>
+                    </p>
+                    <a href="@Url.Action("Index", "Home")" class="text-secondary small">
+                        <i class="fa fa-arrow-left me-1"></i>Volver al inicio
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
