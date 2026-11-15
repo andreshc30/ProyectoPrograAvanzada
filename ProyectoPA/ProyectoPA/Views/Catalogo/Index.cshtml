@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Catálogo";
+}
+
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <div class="text-center wow fadeIn" data-wow-delay="0.1s">
+            <h1 class="font-dancing-script text-primary">Catálogo</h1>
+            <h1 class="mb-5">Nuestras placas</h1>
+        </div>
+
+        <div class="input-group input-group-lg mb-4">
+            <span class="input-group-text bg-white border-end-0">
+                <i class="bi bi-search"></i>
+            </span>
+            <input type="text" id="cdpBuscarPlaca" class="form-control border-start-0"
+                   placeholder="Buscar placas premium...">
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mb-4" id="cdpFiltros">
+            <button type="button" class="btn btn-sm btn-outline-dark text-uppercase cdp-filtro active" data-filtro="todos">
+                <i class="bi bi-sliders me-1"></i> Todas las colecciones
+            </button>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4" id="cdpGridProductos">
+        </div>
+
+        <p id="cdpCargando" class="text-center text-secondary mt-5">
+            Cargando catálogo...
+        </p>
+
+        <p id="cdpSinResultados" class="text-center text-secondary mt-5 d-none">
+            No encontramos placas que coincidan con tu búsqueda.
+        </p>
+    </div>
+</div>
+
+
+<div class="modal fade" id="cdpModalDetalle" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-0" style="border: 1px solid #D4AF37;">
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-6">
+                        <img id="cdpModalImagen" src="" alt="" class="img-fluid w-100">
+                    </div>
+                    <div class="col-md-6">
+                        <h3 id="cdpModalNombre" class="mb-3"></h3>
+                        <h4 id="cdpModalPrecio" class="text-primary font-work-sans mb-3"></h4>
+                        <p id="cdpModalDescripcion" class="text-secondary"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script
+        const BASE_URL = "@Url.Content("~/")";
+        const ROOT_URL = "@Url.Content("~/")";
+    </script>
+    <script src="~/assets/js/catalogo.js"></script>
+}

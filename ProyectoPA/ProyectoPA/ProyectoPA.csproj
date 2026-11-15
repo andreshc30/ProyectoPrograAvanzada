@@ -119,6 +119,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
+    <Compile Include="Controllers\CatalogoController.cs" />
+    <Compile Include="Controllers\DisenoController.cs" />
     <Compile Include="Controllers\FacturaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="EF\FIDE_CANTON_TB.cs">
@@ -296,6 +298,9 @@
     <None Include="assets\scss\bootstrap\scss\vendor\_rfs.scss" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\js\main.js" />
+    <Content Include="assets\js\catalogo.js" />
+    <Content Include="assets\js\diseno.js" />
+    <Content Include="assets\js\inicio.js" />
     <Content Include="assets\libs\animate\animate.css" />
     <Content Include="assets\libs\animate\animate.min.css" />
     <Content Include="assets\libs\counterup\counterup.min.js" />
@@ -381,6 +386,9 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Catalogo\Index.cshtml" />
+    <Content Include="Views\Diseno\Index.cshtml" />
     <Content Include="Views\Home\Service.cshtml" />
     <Content Include="Views\Home\Price.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />

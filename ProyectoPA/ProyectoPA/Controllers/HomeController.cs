@@ -9,6 +9,11 @@ namespace ProyectoPA.Controllers
             return View();
         }
 
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             return View();
