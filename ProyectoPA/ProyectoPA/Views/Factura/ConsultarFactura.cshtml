@@ -1,0 +1,89 @@
+@using System.Globalization
+@model ProyectoPA.Models.FacturaModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Factura";
+}
+
+<div class="container-fluid bg-light page-header py-5 mb-5">
+    <div class="container text-center py-4">
+        <h1 class="display-5 animated slideInLeft">
+            <i class="bi bi-receipt text-primary me-2"></i>FACTURA
+        </h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    @using (Html.BeginForm())
+    {
+        if (ViewBag.Message != null && !string.IsNullOrWhiteSpace(ViewBag.Message.ToString()))
+        {
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                @ViewBag.Message
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+        }
+
+        if (Model != null)
+        {
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 p-md-5">
+                            <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-4">
+                                <div>
+                                    <h2 class="h4 mb-1">
+                                        <i class="bi bi-building text-primary me-2"></i>Comprobante de compra
+                                    </h2>
+                                    <span class="text-muted small">La Casa de La Placa</span>
+                                </div>
+                                <i class="bi bi-patch-check text-primary fs-2"></i>
+                            </div>
+
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-between align-items-center border-bottom pb-3">
+                                        <span class="text-muted">
+                                            <i class="bi bi-calendar3 text-primary me-2"></i>Fecha de Emisi&oacute;n
+                                        </span>
+                                        <span class="fw-semibold">@Model.FechaEmision.ToString("dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture)</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="d-block text-muted small text-uppercase mb-1">Detalle</span>
+                                    <span class="fw-semibold"><i class="bi bi-card-text text-primary me-2"></i>@Model.Detalle</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="d-block text-muted small text-uppercase mb-1">Texto Personalizado</span>
+                                    <span class="fw-semibold"><i class="bi bi-fonts text-primary me-2"></i>@Model.Texto</span>
+                                </div>
+                            </div>
+
+                            <hr class="my-4" />
+
+                            <div class="bg-light rounded border p-3 p-md-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-uppercase mb-0">Total a Pagar</span>
+                                    <span class="display-6 text-primary fw-bold mb-0">
+                                        CRC @Model.Total.ToString("N2", CultureInfo.InvariantCulture)
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-4">
+                                <a href="@Url.Action("ConsultarCarrito", "Carrito")" class="btn btn-outline-primary">
+                                    <i class="bi bi-arrow-left me-2"></i>Volver al Carrito
+                                </a>
+                                <button type="button" class="btn btn-primary">
+                                    <i class="bi bi-credit-card me-2"></i>Proceder al Pago
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
