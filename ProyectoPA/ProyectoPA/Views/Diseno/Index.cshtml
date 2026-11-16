@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "Diseñar";
+}
+
+
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <div class="text-center wow fadeIn" data-wow-delay="0.1s">
+            <h1 class="font-dancing-script text-primary">Personaliza</h1>
+            <h1 class="mb-5">Diseñe su Placa</h1>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-md-6 wow fadeIn" data-wow-delay="0.2s">
+                <div class="bg-white p-4 shadow-sm" style="border: 1px solid #D4AF37;">
+
+                    <div class="mb-3">
+                        <label class="form-label text-secondary" for="categorias">Material</label>
+                        <select id="categorias" class="form-select">
+                            <option value="">---Seleccionar---</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-secondary" for="tamano">Tamaño</label>
+                        <select id="tamano" class="form-select">
+                            <option value="">---Seleccionar---</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-secondary" for="mensajePlaca">Mensaje</label>
+                        <textarea id="mensajePlaca" class="form-control" rows="4" placeholder="Ingrese su mensaje." maxlength="180"></textarea>
+                    </div>
+
+                    <div class="mb-0">
+                        <label class="form-label text-secondary" for="inputImagenPlaca">Imagen</label>
+                        <input class="form-control" type="file" id="inputImagenPlaca" accept="image/*">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-6 wow fadeIn" data-wow-delay="0.4s">
+
+                <div class="bg-white p-4 shadow-sm text-center mb-4" style="border: 1px solid #D4AF37;">
+                    <img id="imgPreviewPlaca" class="img-fluid mb-3"
+                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIHWwyVSogX0PYkNxSFNOWEWXY5E4GiVmwXQySHbq_ciJbt6FrTJaAwrqK&s=10"
+                         alt="Vista previa de la placa" style="max-height: 260px; object-fit: contain;">
+                    <p id="previewMensaje" class="font-playfair-display fs-5 mb-0 text-secondary cdp-disenar-placeholder">
+                        Su mensaje aparecerá aquí.
+                    </p>
+                </div>
+
+                <div class="bg-dark p-4">
+                    <h3 class="text-white mb-4">Resumen</h3>
+
+                    <div class="d-flex justify-content-between text-white-50 mb-2">
+                        <span>Material:</span>
+                        <span id="resumenMaterial">Sin seleccionar</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-white-50 mb-2">
+                        <span>Tamaño:</span>
+                        <span id="resumenTamano">Sin seleccionar</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-white-50 mb-2">
+                        <span>Subtotal:</span>
+                        <span id="resumenSubtotal">₡0</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-white-50 mb-3">
+                        <span>Impuestos (13%):</span>
+                        <span id="resumenImpuestos">₡0</span>
+                    </div>
+                    <div class="d-flex justify-content-between border-top pt-3 mb-4" style="border-color: #D4AF37 !important;">
+                        <span class="fs-4 text-primary">Total:</span>
+                        <span class="fs-4 text-primary font-work-sans" id="resumenTotal">₡0</span>
+                    </div>
+
+                    <button class="btn btn-lg w-100 text-uppercase py-3 boton-ingresar" id="btnAgregarCarrito" disabled>
+                        Añadir al Carrito
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+ 
+        const BASE_URL = "@Url.Content("~/")";
+        const ROOT_URL = "@Url.Content("~/")";
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/assets/js/diseno.js"></script>
+}
