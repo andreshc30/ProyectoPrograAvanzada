@@ -1,4 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using ProyectoPA.EF;
 
 namespace ProyectoPA.Controllers
 {
@@ -9,9 +13,28 @@ namespace ProyectoPA.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult Dashboard()
         {
-            return View();
+            var destacados = new List<FIDE_PLACA_TB>();
+
+            try
+            {
+                using (var context = new FIDE_DBEntities())
+                {
+                    destacados = context.FIDE_PLACA_TB
+                                        .Where(x => x.DISPONIBLE)
+                                        .OrderByDescending(x => x.ID_PLACA)
+                                        .Take(4)
+                                        .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.Message;
+            }
+
+            return View(destacados);
         }
 
         public ActionResult About()
