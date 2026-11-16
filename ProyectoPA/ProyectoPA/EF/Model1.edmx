@@ -616,7 +616,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="SP_ASIGNAR_ROL_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="ID_ROL" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_CONSULTAR_CARRITO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_CREAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CEDULA" Type="nvarchar" Mode="In" />
+          <Parameter Name="NOMBRE" Type="nvarchar" Mode="In" />
+          <Parameter Name="PRIMER_APELLIDO" Type="nvarchar" Mode="In" />
+          <Parameter Name="SEGUNDO_APELLIDO" Type="nvarchar" Mode="In" />
+          <Parameter Name="PERFIL_URL" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CORREO" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID_ESTADO" Type="int" Mode="In" />
+          <Parameter Name="CONTRASENA" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID_DIRECCION" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_DESACTIVAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_EDITAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="CEDULA" Type="nvarchar" Mode="In" />
+          <Parameter Name="NOMBRE" Type="nvarchar" Mode="In" />
+          <Parameter Name="PRIMER_APELLIDO" Type="nvarchar" Mode="In" />
+          <Parameter Name="SEGUNDO_APELLIDO" Type="nvarchar" Mode="In" />
+          <Parameter Name="PERFIL_URL" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CORREO" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID_ESTADO" Type="int" Mode="In" />
+          <Parameter Name="ID_DIRECCION" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_LISTAR_ROLES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_LISTAR_USUARIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_LISTAR_USUARIOS_ROLES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_OBTENER_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_PRUEBA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_QUITAR_ROL_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+          <Parameter Name="ID_ROL" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_REGISTRAR_FACTURA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DETALLE" Type="nvarchar" Mode="In" />
           <Parameter Name="SUBTOTAL" Type="decimal" Mode="In" />
@@ -624,6 +664,10 @@
           <Parameter Name="TOTAL" Type="decimal" Mode="In" />
           <Parameter Name="ID_DISENO" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_ROLES_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_TEST_USUARIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="FIDE_DBModelStoreContainer">
           <EntitySet Name="FIDE_CANTON_TB" EntityType="Self.FIDE_CANTON_TB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FIDE_CATEGORIA_TB" EntityType="Self.FIDE_CATEGORIA_TB" Schema="dbo" store:Type="Tables" />
@@ -1482,6 +1526,50 @@
             <Parameter Name="TOTAL" Mode="In" Type="Decimal" />
             <Parameter Name="ID_DISENO" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_ASIGNAR_ROL_USUARIO">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="ID_ROL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CREAR_USUARIO" ReturnType="Collection(Int32)">
+            <Parameter Name="CEDULA" Mode="In" Type="String" />
+            <Parameter Name="NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="PRIMER_APELLIDO" Mode="In" Type="String" />
+            <Parameter Name="SEGUNDO_APELLIDO" Mode="In" Type="String" />
+            <Parameter Name="PERFIL_URL" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="ID_ESTADO" Mode="In" Type="Int32" />
+            <Parameter Name="CONTRASENA" Mode="In" Type="String" />
+            <Parameter Name="ID_DIRECCION" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_DESACTIVAR_USUARIO">
+          <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_EDITAR_USUARIO" ReturnType="Collection(Int32)">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="CEDULA" Mode="In" Type="String" />
+            <Parameter Name="NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="PRIMER_APELLIDO" Mode="In" Type="String" />
+            <Parameter Name="SEGUNDO_APELLIDO" Mode="In" Type="String" />
+            <Parameter Name="PERFIL_URL" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="ID_ESTADO" Mode="In" Type="Int32" />
+            <Parameter Name="ID_DIRECCION" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_LISTAR_ROLES" ReturnType="Collection(FIDE_DBModel.SP_LISTAR_ROLES_Result)" />
+          <FunctionImport Name="SP_LISTAR_USUARIOS" ReturnType="Collection(FIDE_DBModel.SP_LISTAR_USUARIOS_Result)" />
+          <FunctionImport Name="SP_LISTAR_USUARIOS_ROLES" ReturnType="Collection(FIDE_DBModel.SP_LISTAR_USUARIOS_ROLES_Result)" />
+          <FunctionImport Name="SP_OBTENER_USUARIO" ReturnType="Collection(FIDE_DBModel.SP_OBTENER_USUARIO_Result)">
+          <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_PRUEBA" ReturnType="Collection(String)" />
+          <FunctionImport Name="SP_QUITAR_ROL_USUARIO">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="ID_ROL" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ROLES_USUARIO" ReturnType="Collection(FIDE_DBModel.SP_ROLES_USUARIO_Result)">
+          <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SP_TEST_USUARIOS" ReturnType="Collection(FIDE_DBModel.SP_TEST_USUARIOS_Result)" />
         </EntityContainer>
         <ComplexType Name="SP_CONSULTAR_CARRITO_Result">
           <Property Type="Int32" Name="ID_DISENO" Nullable="false" />
@@ -1659,6 +1747,51 @@
           <Property Type="String" Name="DETALLE" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="TEXTO" Nullable="true" MaxLength="100" />
           <Property Type="Decimal" Name="TOTAL" Nullable="false" Precision="10" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SP_LISTAR_ROLES_Result">
+          <Property Type="Int32" Name="ID_ROL" Nullable="false" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ID_ESTADO" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_LISTAR_USUARIOS_Result">
+          <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="String" Name="CEDULA" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PRIMER_APELLIDO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="SEGUNDO_APELLIDO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CORREO" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ID_ESTADO" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_LISTAR_USUARIOS_ROLES_Result">
+          <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="String" Name="CEDULA" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PRIMER_APELLIDO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CORREO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ROL" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_OBTENER_USUARIO_Result">
+          <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="String" Name="CEDULA" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PRIMER_APELLIDO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="SEGUNDO_APELLIDO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PERFIL_URL" Nullable="true" />
+          <Property Type="String" Name="CORREO" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ID_ESTADO" Nullable="false" />
+          <Property Type="Int32" Name="ID_DIRECCION" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_ROLES_USUARIO_Result">
+          <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="Int32" Name="ID_ROL" Nullable="false" />
+          <Property Type="String" Name="ROL" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_TEST_USUARIOS_Result">
+          <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="String" Name="CEDULA" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CORREO" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1891,6 +2024,81 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_REGISTRAR_FACTURA" FunctionName="FIDE_DBModel.Store.SP_REGISTRAR_FACTURA" />
+          <FunctionImportMapping FunctionImportName="SP_ASIGNAR_ROL_USUARIO" FunctionName="FIDE_DBModel.Store.SP_ASIGNAR_ROL_USUARIO" />
+          <FunctionImportMapping FunctionImportName="SP_CREAR_USUARIO" FunctionName="FIDE_DBModel.Store.SP_CREAR_USUARIO" />
+          <FunctionImportMapping FunctionImportName="SP_DESACTIVAR_USUARIO" FunctionName="FIDE_DBModel.Store.SP_DESACTIVAR_USUARIO" />
+          <FunctionImportMapping FunctionImportName="SP_EDITAR_USUARIO" FunctionName="FIDE_DBModel.Store.SP_EDITAR_USUARIO" />
+          <FunctionImportMapping FunctionImportName="SP_LISTAR_ROLES" FunctionName="FIDE_DBModel.Store.SP_LISTAR_ROLES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FIDE_DBModel.SP_LISTAR_ROLES_Result">
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_LISTAR_USUARIOS" FunctionName="FIDE_DBModel.Store.SP_LISTAR_USUARIOS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FIDE_DBModel.SP_LISTAR_USUARIOS_Result">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="PRIMER_APELLIDO" ColumnName="PRIMER_APELLIDO" />
+                <ScalarProperty Name="SEGUNDO_APELLIDO" ColumnName="SEGUNDO_APELLIDO" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_LISTAR_USUARIOS_ROLES" FunctionName="FIDE_DBModel.Store.SP_LISTAR_USUARIOS_ROLES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FIDE_DBModel.SP_LISTAR_USUARIOS_ROLES_Result">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="PRIMER_APELLIDO" ColumnName="PRIMER_APELLIDO" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="ROL" ColumnName="ROL" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_OBTENER_USUARIO" FunctionName="FIDE_DBModel.Store.SP_OBTENER_USUARIO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FIDE_DBModel.SP_OBTENER_USUARIO_Result">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="PRIMER_APELLIDO" ColumnName="PRIMER_APELLIDO" />
+                <ScalarProperty Name="SEGUNDO_APELLIDO" ColumnName="SEGUNDO_APELLIDO" />
+                <ScalarProperty Name="PERFIL_URL" ColumnName="PERFIL_URL" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="ID_DIRECCION" ColumnName="ID_DIRECCION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_PRUEBA" FunctionName="FIDE_DBModel.Store.SP_PRUEBA" />
+          <FunctionImportMapping FunctionImportName="SP_QUITAR_ROL_USUARIO" FunctionName="FIDE_DBModel.Store.SP_QUITAR_ROL_USUARIO" />
+          <FunctionImportMapping FunctionImportName="SP_ROLES_USUARIO" FunctionName="FIDE_DBModel.Store.SP_ROLES_USUARIO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FIDE_DBModel.SP_ROLES_USUARIO_Result">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+                <ScalarProperty Name="ROL" ColumnName="ROL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_TEST_USUARIOS" FunctionName="FIDE_DBModel.Store.SP_TEST_USUARIOS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FIDE_DBModel.SP_TEST_USUARIOS_Result">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

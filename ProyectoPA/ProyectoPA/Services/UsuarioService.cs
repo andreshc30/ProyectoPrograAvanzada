@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using ProyectoPA.EF;
 using ProyectoPA.Models;
@@ -16,10 +15,17 @@ namespace ProyectoPA.Services
         {
             using (var db = new FIDE_DBEntities())
             {
-                return db.Database
-                    .SqlQuery<UsuarioModel>(
-                        "EXEC dbo.SP_LISTAR_USUARIOS")
-                    .ToList();
+                return db.SP_LISTAR_USUARIOS()
+                    .Select(u => new UsuarioModel
+                    {
+                        ID_USUARIO = u.ID_USUARIO,
+                        CEDULA = u.CEDULA,
+                        NOMBRE = u.NOMBRE,
+                        PRIMER_APELLIDO = u.PRIMER_APELLIDO,
+                        SEGUNDO_APELLIDO = u.SEGUNDO_APELLIDO,
+                        CORREO = u.CORREO,
+                        ID_ESTADO = u.ID_ESTADO
+                    }).ToList();
             }
         }
 
@@ -28,52 +34,19 @@ namespace ProyectoPA.Services
         {
             using (var db = new FIDE_DBEntities())
             {
-                return db.Database
-                    .SqlQuery<UsuarioModel>(
-                        "EXEC dbo.SP_OBTENER_USUARIO @ID_USUARIO",
-                        new SqlParameter("@ID_USUARIO", id))
-                    .FirstOrDefault();
-            }
-        }
-
-        // CREAR USUARIO
-        public int CrearUsuario(
-            string cedula,
-            string nombre,
-            string primerApellido,
-            string segundoApellido,
-            string perfilUrl,
-            string correo,
-            int idEstado,
-            string contrasenaHash,
-            int idDireccion)
-        {
-            using (var db = new FIDE_DBEntities())
-            {
-                return db.Database.SqlQuery<int>(
-                    @"EXEC dbo.SP_CREAR_USUARIO
-                    @CEDULA,
-                    @NOMBRE,
-                    @PRIMER_APELLIDO,
-                    @SEGUNDO_APELLIDO,
-                    @PERFIL_URL,
-                    @CORREO,
-                    @ID_ESTADO,
-                    @CONTRASENA,
-                    @ID_DIRECCION",
-
-                    new SqlParameter("@CEDULA", cedula),
-                    new SqlParameter("@NOMBRE", nombre),
-                    new SqlParameter("@PRIMER_APELLIDO", primerApellido),
-                    new SqlParameter("@SEGUNDO_APELLIDO",
-                        (object)segundoApellido ?? DBNull.Value),
-                    new SqlParameter("@PERFIL_URL",
-                        (object)perfilUrl ?? DBNull.Value),
-                    new SqlParameter("@CORREO", correo),
-                    new SqlParameter("@ID_ESTADO", idEstado),
-                    new SqlParameter("@CONTRASENA", contrasenaHash),
-                    new SqlParameter("@ID_DIRECCION", idDireccion)
-                ).Single();
+                return db.SP_OBTENER_USUARIO(id)
+                    .Select(u => new UsuarioModel
+                    {
+                        ID_USUARIO = u.ID_USUARIO,
+                        CEDULA = u.CEDULA,
+                        NOMBRE = u.NOMBRE,
+                        PRIMER_APELLIDO = u.PRIMER_APELLIDO,
+                        SEGUNDO_APELLIDO = u.SEGUNDO_APELLIDO,
+                        PERFIL_URL = u.PERFIL_URL,
+                        CORREO = u.CORREO,
+                        ID_ESTADO = u.ID_ESTADO,
+                        ID_DIRECCION = u.ID_DIRECCION
+                    }).FirstOrDefault();
             }
         }
 
@@ -82,39 +55,19 @@ namespace ProyectoPA.Services
         {
             using (var db = new FIDE_DBEntities())
             {
-                return db.Database.SqlQuery<int>(
-                    @"EXEC dbo.SP_EDITAR_USUARIO
-                    @ID_USUARIO,
-                    @CEDULA,
-                    @NOMBRE,
-                    @PRIMER_APELLIDO,
-                    @SEGUNDO_APELLIDO,
-                    @PERFIL_URL,
-                    @CORREO,
-                    @ID_ESTADO,
-                    @ID_DIRECCION",
+                var resultado = db.SP_EDITAR_USUARIO(
+                    usuario.ID_USUARIO,
+                    usuario.CEDULA,
+                    usuario.NOMBRE,
+                    usuario.PRIMER_APELLIDO,
+                    usuario.SEGUNDO_APELLIDO,
+                    usuario.PERFIL_URL,
+                    usuario.CORREO,
+                    usuario.ID_ESTADO,
+                    usuario.ID_DIRECCION
+                ).FirstOrDefault();
 
-                    new SqlParameter("@ID_USUARIO",
-                        usuario.ID_USUARIO),
-                    new SqlParameter("@CEDULA",
-                        usuario.CEDULA),
-                    new SqlParameter("@NOMBRE",
-                        usuario.NOMBRE),
-                    new SqlParameter("@PRIMER_APELLIDO",
-                        usuario.PRIMER_APELLIDO),
-                    new SqlParameter("@SEGUNDO_APELLIDO",
-                        (object)usuario.SEGUNDO_APELLIDO
-                        ?? DBNull.Value),
-                    new SqlParameter("@PERFIL_URL",
-                        (object)usuario.PERFIL_URL
-                        ?? DBNull.Value),
-                    new SqlParameter("@CORREO",
-                        usuario.CORREO),
-                    new SqlParameter("@ID_ESTADO",
-                        usuario.ID_ESTADO.Value),
-                    new SqlParameter("@ID_DIRECCION",
-                        usuario.ID_DIRECCION.Value)
-                ).Single();
+                return resultado ?? 0;
             }
         }
 
@@ -140,28 +93,33 @@ namespace ProyectoPA.Services
             }
         }
 
-        // LISTAR ROLES DISPONIBLES
+        // LISTAR ROLES
         public List<FIDE_ROL_TB> ListarRoles()
         {
             using (var db = new FIDE_DBEntities())
             {
-                return db.Database
-                    .SqlQuery<FIDE_ROL_TB>(
-                        "EXEC dbo.SP_LISTAR_ROLES")
-                    .ToList();
+                return db.SP_LISTAR_ROLES()
+                    .Select(r => new FIDE_ROL_TB
+                    {
+                        ID_ROL = r.ID_ROL,
+                        NOMBRE = r.NOMBRE,
+                        ID_ESTADO = r.ID_ESTADO
+                    }).ToList();
             }
         }
 
-        // CONSULTAR ROLES DE UN USUARIO
+        // OBTENER ROLES DE UN USUARIO
         public List<RolUsuarioModel> ObtenerRolesUsuario(int idUsuario)
         {
             using (var db = new FIDE_DBEntities())
             {
-                return db.Database
-                    .SqlQuery<RolUsuarioModel>(
-                        "EXEC dbo.SP_ROLES_USUARIO @ID_USUARIO",
-                        new SqlParameter("@ID_USUARIO", idUsuario))
-                    .ToList();
+                return db.SP_ROLES_USUARIO(idUsuario)
+                    .Select(r => new RolUsuarioModel
+                    {
+                        ID_USUARIO = r.ID_USUARIO,
+                        ID_ROL = r.ID_ROL,
+                        ROL = r.ROL
+                    }).ToList();
             }
         }
 
@@ -170,10 +128,7 @@ namespace ProyectoPA.Services
         {
             using (var db = new FIDE_DBEntities())
             {
-                db.Database.ExecuteSqlCommand(
-                    "EXEC dbo.SP_ASIGNAR_ROL_USUARIO @ID_USUARIO, @ID_ROL",
-                    new SqlParameter("@ID_USUARIO", idUsuario),
-                    new SqlParameter("@ID_ROL", idRol));
+                db.SP_ASIGNAR_ROL_USUARIO(idUsuario, idRol);
             }
         }
 
@@ -182,10 +137,7 @@ namespace ProyectoPA.Services
         {
             using (var db = new FIDE_DBEntities())
             {
-                db.Database.ExecuteSqlCommand(
-                    "EXEC dbo.SP_QUITAR_ROL_USUARIO @ID_USUARIO, @ID_ROL",
-                    new SqlParameter("@ID_USUARIO", idUsuario),
-                    new SqlParameter("@ID_ROL", idRol));
+                db.SP_QUITAR_ROL_USUARIO(idUsuario, idRol);
             }
         }
 
@@ -194,9 +146,7 @@ namespace ProyectoPA.Services
         {
             using (var db = new FIDE_DBEntities())
             {
-                db.Database.ExecuteSqlCommand(
-                    "EXEC dbo.SP_DESACTIVAR_USUARIO @ID_USUARIO",
-                    new SqlParameter("@ID_USUARIO", idUsuario));
+                db.SP_DESACTIVAR_USUARIO(idUsuario);
             }
         }
     }

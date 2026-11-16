@@ -26,34 +26,6 @@ namespace ProyectoPA.Controllers
             return View(usuarios);
         }
 
-        // CREAR USUARIO
-        [HttpGet]
-        public ActionResult CrearUsuario()
-        {
-            CargarListas();
-            return View(new CrearUsuarioModel());
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CrearUsuario(CrearUsuarioModel modelo)
-        {
-            if (!ModelState.IsValid)
-            {
-                CargarListas();
-                return View(modelo);
-            }
-
-            ModelState.AddModelError(
-                "",
-                "La creación de usuarios está pendiente " +
-                "de integrar el sistema de contraseñas."
-            );
-
-            CargarListas();
-            return View(modelo);
-        }
-
         // EDITAR USUARIO
         [HttpGet]
         public ActionResult EditarUsuario(int id)
@@ -121,13 +93,14 @@ namespace ProyectoPA.Controllers
             ViewBag.Usuario = usuario;
 
             var roles = _usuarioService.ListarRoles();
+
+            var idEstadoActivo = _usuarioService.ObtenerEstados()
+                .Where(e => e.ESTADO == "Activo")
+                .Select(e => e.ID_ESTADO)
+                .FirstOrDefault();
+
             ViewBag.RolesDisponibles = new SelectList(
-                roles.Where(r =>
-                    r.ID_ESTADO ==
-                    _usuarioService.ObtenerEstados()
-                        .Where(e => e.ESTADO == "Activo")
-                        .Select(e => e.ID_ESTADO)
-                        .FirstOrDefault()),
+                roles.Where(r => r.ID_ESTADO == idEstadoActivo),
                 "ID_ROL",
                 "NOMBRE"
             );
