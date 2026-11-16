@@ -1,0 +1,162 @@
+﻿
+@model List<ProyectoPA.Models.RolUsuarioModel>
+
+@{
+    ViewBag.Title = "Administrar Roles";
+    var usuario = ViewBag.Usuario as ProyectoPA.Models.UsuarioModel;
+}
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="mb-4">Administrar Roles</h2>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            <h5 class="card-title">Información del usuario</h5>
+
+            <p>
+                <strong>Nombre:</strong>
+                @usuario.NOMBRE @usuario.PRIMER_APELLIDO
+            </p>
+
+            <p>
+                <strong>Cédula:</strong>
+                @usuario.CEDULA
+            </p>
+
+            <p>
+                <strong>Correo:</strong>
+                @usuario.CORREO
+            </p>
+
+        </div>
+    </div>
+
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Mensaje"]
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            <h5 class="card-title mb-3">Asignar rol</h5>
+
+            @using (Html.BeginForm(
+                "AsignarRol",
+                "Usuario",
+                FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       name="idUsuario"
+                       value="@usuario.ID_USUARIO" />
+
+                <div class="mb-3">
+                    <label class="form-label">
+                        Seleccione un rol
+                    </label>
+
+                    @Html.DropDownList(
+                             "idRol",
+                             (SelectList)ViewBag.RolesDisponibles,
+                             "Seleccione un rol",
+                             new { @class = "form-select", required = "required" }
+                         )
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Asignar rol
+                </button>
+            }
+
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <h5 class="card-title mb-3">
+                Roles asignados
+            </h5>
+
+            <table class="table table-bordered table-striped">
+
+                <thead>
+                    <tr>
+                        <th>Rol</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var rol in Model)
+                        {
+                            <tr>
+                                <td>@rol.ROL</td>
+
+                                <td>
+                                    @using (Html.BeginForm(
+                                        "QuitarRol",
+                                        "Usuario",
+                                        FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden"
+                                               name="idUsuario"
+                                               value="@usuario.ID_USUARIO" />
+
+                                        <input type="hidden"
+                                               name="idRol"
+                                               value="@rol.ID_ROL" />
+
+                                        <button type="submit"
+                                                class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Está seguro de quitar este rol?');">
+                                            Quitar rol
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="2" class="text-center">
+                                Este usuario no tiene roles asignados.
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="@Url.Action("MostrarUsuarios", "Usuario")"
+           class="btn btn-secondary">
+            Volver a usuarios
+        </a>
+    </div>
+
+</div>

@@ -1,0 +1,162 @@
+﻿
+@model ProyectoPA.Models.CrearUsuarioModel
+
+@{
+    ViewBag.Title = "Crear usuario";
+}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="font-dancing-script"
+            style="color: #D4AF37;">
+            La Casa de La Placa
+        </h1>
+
+        <h2 class="fw-bold">Crear usuario</h2>
+
+        <p class="text-secondary">
+            Complete los datos para registrar un usuario.
+        </p>
+    </div>
+
+    @using (Html.BeginForm("CrearUsuario", "Usuario",
+        FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+
+                @Html.ValidationSummary(
+                         true, "", new { @class = "text-danger" })
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="form-label">Cédula</label>
+                        @Html.TextBoxFor(m => m.CEDULA,
+                                 new { @class = "form-control" })
+                        @Html.ValidationMessageFor(
+                                 m => m.CEDULA, "",
+                                 new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Nombre</label>
+                        @Html.TextBoxFor(m => m.NOMBRE,
+                                 new { @class = "form-control" })
+                        @Html.ValidationMessageFor(
+                                 m => m.NOMBRE, "",
+                                 new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Primer apellido
+                        </label>
+                        @Html.TextBoxFor(m => m.PRIMER_APELLIDO,
+                                 new { @class = "form-control" })
+                        @Html.ValidationMessageFor(
+                                 m => m.PRIMER_APELLIDO, "",
+                                 new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Segundo apellido
+                        </label>
+                        @Html.TextBoxFor(m => m.SEGUNDO_APELLIDO,
+                                 new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Correo</label>
+                        @Html.TextBoxFor(m => m.CORREO,
+                                 new
+                                 {
+                                     @class = "form-control",
+                                     type = "email"
+                                 })
+                        @Html.ValidationMessageFor(
+                                 m => m.CORREO, "",
+                                 new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            URL de imagen de perfil
+                        </label>
+                        @Html.TextBoxFor(m => m.PERFIL_URL,
+                                 new { @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Contraseña
+                        </label>
+                        @Html.PasswordFor(m => m.CONTRASENA,
+                                 new { @class = "form-control" })
+                        @Html.ValidationMessageFor(
+                                 m => m.CONTRASENA, "",
+                                 new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">
+                            Confirmar contraseña
+                        </label>
+                        @Html.PasswordFor(
+                                 m => m.CONFIRMAR_CONTRASENA,
+                                 new { @class = "form-control" })
+                        @Html.ValidationMessageFor(
+                                 m => m.CONFIRMAR_CONTRASENA, "",
+                                 new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Estado</label>
+                        @Html.DropDownListFor(
+                                 m => m.ID_ESTADO,
+                                 (SelectList)ViewBag.Estados,
+                                 "Seleccione un estado",
+                                 new { @class = "form-select" })
+                        @Html.ValidationMessageFor(
+                                 m => m.ID_ESTADO, "",
+                                 new { @class = "text-danger" })
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Dirección</label>
+                        @Html.DropDownListFor(
+                                 m => m.ID_DIRECCION,
+                                 (SelectList)ViewBag.Direcciones,
+                                 "Seleccione una dirección",
+                                 new { @class = "form-select" })
+                        @Html.ValidationMessageFor(
+                                 m => m.ID_DIRECCION, "",
+                                 new { @class = "text-danger" })
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-end gap-3 mt-4">
+
+                    <a href="@Url.Action(
+                        "MostrarUsuarios", "Usuario")"
+                       class="btn btn-outline-secondary">
+                        Cancelar
+                    </a>
+
+                    <button type="submit"
+                            class="btn boton-ingresar">
+                        Guardar usuario
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    }
+
+</div>
