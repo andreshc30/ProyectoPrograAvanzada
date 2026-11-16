@@ -1,8 +1,8 @@
-﻿@{
+﻿@model List<ProyectoPA.EF.FIDE_PLACA_TB>
+@{
     ViewBag.Title = "Dashboard";
 }
 
-<!-- Hero Start -->
 <div class="container-fluid py-5 bg-light">
     <div class="container text-center py-4">
         <h1 class="font-dancing-script animated slideInDown" style="color: #D4AF37; font-size: 2.4rem;">Fundición Jiménez · Desde 1990</h1>
@@ -68,9 +68,7 @@
         </div>
     </div>
 </div>
-<!-- Hero End -->
 
-<!-- Servicios Start -->
 <div class="container-fluid service py-5">
     <div class="container">
         <div class="text-center wow fadeIn" data-wow-delay="0.1s">
@@ -105,9 +103,7 @@
         </div>
     </div>
 </div>
-<!-- Servicios End -->
 
-<!-- Destacados Start -->
 <div class="container-fluid py-5 bg-dark">
     <div class="container">
         <div class="text-center wow fadeIn" data-wow-delay="0.1s">
@@ -115,12 +111,37 @@
             <h1 class="text-white mb-5">Productos destacados</h1>
         </div>
 
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-danger text-center">@ViewBag.Message</div>
+        }
+
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 justify-content-center" id="cdpGridDestacados">
+            @foreach (var placa in Model)
+            {
+                <div class="col">
+                    <div class="bg-white h-100 d-flex flex-column" style="border: 1px solid #D4AF37;">
+                        <img src="@placa.IMAGEN_NOMBRE" class="img-fluid w-100" alt="@placa.NOMBRE" style="height: 220px; object-fit: cover;">
+                        <div class="p-3 d-flex flex-column flex-grow-1">
+                            <h5 class="mb-3">@placa.NOMBRE</h5>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="text-primary font-work-sans fs-5">₡@(placa.PRECIO.ToString("N0"))</span>
+                                <a href="@Url.Action("Index", "Catalogo")" class="btn btn-sm-square btn-outline-dark" title="Ver en catálogo">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
 
-        <p id="cdpDestacadosVacio" class="text-center text-white-50 mt-4 d-none">
-            Todavía no hay placas destacadas para mostrar.
-        </p>
+        @if (!Model.Any())
+        {
+            <p id="cdpDestacadosVacio" class="text-center text-white-50 mt-4">
+                Todavía no hay placas destacadas para mostrar.
+            </p>
+        }
 
         <div class="text-center mt-4">
             <a href="@Url.Action("Index", "Catalogo")" class="btn btn-lg text-uppercase px-4 py-3"
@@ -128,9 +149,7 @@
         </div>
     </div>
 </div>
-<!-- Destacados End -->
 
-<!-- Historia Start -->
 <div class="container-fluid py-5">
     <div class="container">
         <div class="row g-5 align-items-center">
@@ -157,13 +176,7 @@
         </div>
     </div>
 </div>
-<!-- Historia End -->
 
 @section scripts {
-    <script>
-        // PENDIENTE (backend): estas rutas se usan para llamar a los endpoints que aún no existen en C#
-        const BASE_URL = "@Url.Content("~/")";
-        const ROOT_URL = "@Url.Content("~/")";
-    </script>
     <script src="~/assets/js/inicio.js"></script>
 }

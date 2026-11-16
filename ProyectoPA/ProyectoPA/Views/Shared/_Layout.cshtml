@@ -1,5 +1,4 @@
 ﻿@functions {
-    // Devuelve "active" si la acción actual coincide con alguna de las indicadas (para el menú)
     string Activo(params string[] acciones)
     {
         var actual = (string)ViewContext.RouteData.Values["action"];
@@ -39,7 +38,7 @@
     <!-- Template Stylesheet -->
     <link href="~/assets/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -62,30 +61,33 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mx-auto">
                 <a href="@Url.Action("Index", "Home")" class="nav-item nav-link @Activo("Index")" style="color: #D4AF37;">Home</a>
-                <a href="@Url.Action("About", "Home")" class="nav-item nav-link @Activo("About")" style="color: #D4AF37;">About</a>
+                @*<a href="@Url.Action("About", "Home")" class="nav-item nav-link @Activo("About")" style="color: #D4AF37;">About</a>
                 <a href="@Url.Action("Service", "Home")" class="nav-item nav-link @Activo("Service")" style="color: #D4AF37;">Service</a>
-                <a href="@Url.Action("Contacto", "Home")" class="nav-item nav-link @Activo("Contacto")" style="color: #D4AF37;">Contacto</a>
-                <a href="@Url.Action("Dashboard", "Home")" class="nav-item nav-link @Activo("Dashboard")" style="color: #D4AF37;">Dashboard</a>
+                <a href="@Url.Action("Contacto", "Home")" class="nav-item nav-link @Activo("Contacto")" style="color: #D4AF37;">Contacto</a>*@
+                <a href="@Url.Action("Dashboard", "Home")" class="nav-item nav-link @Activo("Dashboard")" style="color: #D4AF37;">Quienes Somos</a>
                 <a href="@Url.Action("Index", "Catalogo")" class="nav-item nav-link" style="color: #D4AF37;">Catálogo</a>
                 <a href="@Url.Action("Index", "Diseno")" class="nav-item nav-link" style="color: #D4AF37;">Diseñar</a>
             </div>
-        </div>
-        <div class="d-flex align-items-center">
-            <a class="btn me-2" href="" style="color: #D4AF37; border: 1px solid #D4AF37; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a class="btn" href="" style="color: #D4AF37; border: 1px solid #D4AF37; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center;">
-                <i class="fab fa-instagram"></i>
-            </a>
         </div>
     </nav>
 </div>
 <!-- Navbar End -->
 <!-- Navbar End -->
 
-    @RenderBody()
+    <main class="flex-grow-1">
+        @RenderBody()
+    </main>
 
 
+    <!-- Footer Start -->
+    <footer style="width:100%; background-color:#343a40; border-top:1px solid #D4AF37;" class="py-4">
+        <div class="container text-center">
+            <p class="mb-0" style="color: #D4AF37; font-weight: 500;">
+                &copy; @DateTime.Now.Year La Casa de La Placa. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+    <!-- Footer End -->
 
     <!-- JavaScript Libraries -->
     <script src="~/assets/libs/jquery/jquery-3.7.0.min.js"></script>
@@ -103,16 +105,3 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
-<!-- Footer Start -->
-<footer style="width:100%; background-color:#343a40; border-top:1px solid #D4AF37;" class="py-4">
-        <div class="container text-center">
-            <p class="mb-0" style="color: #D4AF37; font-weight: 500;">
-                &copy; @DateTime.Now.Year La Casa de La Placa. Todos los derechos reservados.
-            </p>
-        </div>
-    </footer>
-
-</body>
-</html>
-
-<!-- Footer End -->
