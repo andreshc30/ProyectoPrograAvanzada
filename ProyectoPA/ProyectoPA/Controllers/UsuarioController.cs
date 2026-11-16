@@ -8,7 +8,7 @@ using ProyectoPA.Services;
 
 namespace ProyectoPA.Controllers
 {
-    [Authorize(Roles = "Administrador")]
+     [Authorize(Roles = "Administrador")]
     public class UsuarioController : Controller
     {
         private readonly UsuarioService _usuarioService;
