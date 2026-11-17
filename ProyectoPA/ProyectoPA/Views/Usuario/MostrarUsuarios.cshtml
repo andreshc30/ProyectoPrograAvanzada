@@ -2,252 +2,173 @@
 @model List<ProyectoPA.Models.UsuarioModel>
 
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Administración de Usuarios";
 }
 
-<style>
-    .tabla-usuarios th,
-    .tabla-usuarios td {
-        vertical-align: middle;
-    }
+<div class="container-fluid bg-light page-header py-5 mb-5">
+    <div class="container text-center py-4">
+        <h1 class="display-5 animated slideInLeft">
+            <i class="bi bi-people text-primary me-2"></i>
+            ADMINISTRACIÓN DE USUARIOS
+        </h1>
+    </div>
+</div>
 
-    .acciones-usuario {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-        .acciones-usuario .btn-accion {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            height: 34px;
-            padding: 0 12px;
-            font-size: 13px;
-            font-weight: 500;
-            line-height: 1;
-            border-radius: 5px;
-            text-decoration: none;
-            white-space: nowrap;
-            box-sizing: border-box;
-            transition: all 0.2s ease;
-        }
-
-        .acciones-usuario .btn-editar {
-            background-color: #D4AF37;
-            border: 1px solid #D4AF37;
-            color: #212529;
-        }
-
-            .acciones-usuario .btn-editar:hover {
-                background-color: #b8962e;
-                border-color: #b8962e;
-                color: #212529;
-            }
-
-        .acciones-usuario .btn-roles {
-            background-color: #0d6efd;
-            border: 1px solid #0d6efd;
-            color: white;
-        }
-
-            .acciones-usuario .btn-roles:hover {
-                background-color: #0b5ed7;
-                color: white;
-            }
-
-        .acciones-usuario .btn-desactivar {
-            background-color: #dc3545;
-            border: 1px solid #dc3545;
-            color: white;
-            cursor: pointer;
-        }
-
-            .acciones-usuario .btn-desactivar:hover {
-                background-color: #bb2d3b;
-                color: white;
-            }
-
-        .acciones-usuario form {
-            margin: 0;
-            display: inline-flex;
-            align-items: center;
-        }
-
-    /* Ventana de confirmación */
-    .modal-desactivar .modal-content {
-        border: none;
-        border-radius: 12px;
-        overflow: hidden;
-    }
-
-    .modal-desactivar .modal-header {
-        background-color: #343a40;
-        color: #D4AF37;
-        border-bottom: 2px solid #D4AF37;
-    }
-
-    .modal-desactivar .icono-advertencia {
-        font-size: 45px;
-        color: #dc3545;
-    }
-
-    .modal-desactivar .btn-confirmar {
-        background-color: #dc3545;
-        color: white;
-        border: none;
-    }
-
-        .modal-desactivar .btn-confirmar:hover {
-            background-color: #bb2d3b;
-            color: white;
-        }
-</style>
-
-<div class="container mt-5 mb-5">
-
-    <h2 class="mb-4">Administración de Usuarios</h2>
-
-    <p class="text-muted">
-        Desde esta sección puede consultar, editar,
-        administrar roles y desactivar usuarios registrados.
-    </p>
+<div class="container py-5">
 
     @if (TempData["Mensaje"] != null)
     {
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle me-2"></i>
             @TempData["Mensaje"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Cerrar">
+            </button>
         </div>
     }
 
     @if (TempData["Error"] != null)
     {
-        <div class="alert alert-danger">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i>
             @TempData["Error"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Cerrar">
+            </button>
         </div>
     }
 
-    <div class="card shadow-sm">
-        <div class="card-body">
+    <div class="row justify-content-center">
+        <div class="col-12">
 
-            <h5 class="card-title mb-3">
-                Usuarios registrados
-            </h5>
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
 
-            <div class="table-responsive">
+                    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+                        <div>
+                            <h2 class="h4 mb-1">
+                                <i class="bi bi-person-lines-fill text-primary me-2"></i>
+                                Usuarios registrados
+                            </h2>
 
-                <table class="table table-bordered table-striped tabla-usuarios">
+                            <span class="text-muted small">
+                                Consulte, edite y administre los usuarios del sistema.
+                            </span>
+                        </div>
+                    </div>
 
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Cédula</th>
-                            <th>Nombre completo</th>
-                            <th>Correo electrónico</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
+                    <div class="table-responsive">
 
-                    <tbody>
+                        <table class="table table-bordered table-striped align-middle">
 
-                        @if (Model != null && Model.Count > 0)
-                        {
-                            foreach (var usuario in Model)
-                            {
+                            <thead class="table-dark">
                                 <tr>
-                                    <td>@usuario.ID_USUARIO</td>
-
-                                    <td>@usuario.CEDULA</td>
-
-                                    <td>
-                                        @usuario.NOMBRE
-                                        @usuario.PRIMER_APELLIDO
-                                        @usuario.SEGUNDO_APELLIDO
-                                    </td>
-
-                                    <td>@usuario.CORREO</td>
-
-                                    <td>
-                                        @if (usuario.ID_ESTADO == 1)
-                                        {
-                                            <span class="badge bg-success">
-                                                Activo
-                                            </span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-secondary">
-                                                Inactivo
-                                            </span>
-                                        }
-                                    </td>
-
-                                    <td>
-                                        <div class="acciones-usuario">
-
-                                            <!-- EDITAR -->
-                                            <a href="@Url.Action(
-                                                "EditarUsuario",
-                                                "Usuario",
-                                                new { id = usuario.ID_USUARIO })"
-                                               class="btn-accion btn-editar">
-                                                <i class="fas fa-edit"></i>
-                                                Editar
-                                            </a>
-
-                                            <!-- ADMINISTRAR ROLES -->
-                                            <a href="@Url.Action(
-                                                "AdministrarRoles",
-                                                "Usuario",
-                                                new { id = usuario.ID_USUARIO })"
-                                               class="btn-accion btn-roles">
-                                                <i class="fas fa-user-shield"></i>
-                                                Administrar roles
-                                            </a>
-
-                                            <!-- DESACTIVAR -->
-                                            @if (usuario.ID_ESTADO == 1)
-                                            {
-                                                <button type="button"
-                                                        class="btn-accion btn-desactivar"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modalDesactivar"
-                                                        data-id="@usuario.ID_USUARIO"
-                                                        data-nombre="@usuario.NOMBRE @usuario.PRIMER_APELLIDO">
-                                                    <i class="fas fa-user-times"></i>
-                                                    Desactivar
-                                                </button>
-                                            }
-
-                                        </div>
-                                    </td>
+                                    <th>ID</th>
+                                    <th>Cédula</th>
+                                    <th>Nombre completo</th>
+                                    <th>Correo electrónico</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
                                 </tr>
-                            }
-                        }
-                        else
-                        {
-                            <tr>
-                                <td colspan="6"
-                                    class="text-center text-muted">
-                                    No hay usuarios registrados.
-                                </td>
-                            </tr>
-                        }
+                            </thead>
 
-                    </tbody>
+                            <tbody>
 
-                </table>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var usuario in Model)
+                                    {
+                                        <tr>
+                                            <td>@usuario.IdUsuario</td>
 
+                                            <td>@usuario.Cedula</td>
+
+                                            <td>
+                                                @usuario.Nombre
+                                                @usuario.PrimerApellido
+                                                @usuario.SegundoApellido
+                                            </td>
+
+                                            <td>@usuario.Correo</td>
+
+                                            <td>
+                                                @if (usuario.IdEstado == 1)
+                                                {
+                                                    <span class="badge bg-success">
+                                                        Activo
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary">
+                                                        Inactivo
+                                                    </span>
+                                                }
+                                            </td>
+
+                                            <td>
+                                                <div class="d-flex flex-wrap align-items-center gap-2">
+
+                                                    <a href="@Url.Action("EditarUsuario", "Usuario", new { id = usuario.IdUsuario })"
+                                                       class="btn btn-primary btn-sm">
+                                                        <i class="bi bi-pencil-square me-1"></i>
+                                                        Editar
+                                                    </a>
+
+                                                    <a href="@Url.Action("AdministrarRoles", "Usuario", new { id = usuario.IdUsuario })"
+                                                       class="btn btn-outline-primary btn-sm">
+                                                        <i class="bi bi-person-gear me-1"></i>
+                                                        Roles
+                                                    </a>
+
+                                                    @if (usuario.IdEstado == 1)
+                                                    {
+                                                        <button type="button"
+                                                                class="btn btn-outline-danger btn-sm"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modalDesactivar"
+                                                                data-id="@usuario.IdUsuario"
+                                                                data-nombre="@usuario.Nombre @usuario.PrimerApellido">
+                                                            <i class="bi bi-person-x me-1"></i>
+                                                            Desactivar
+                                                        </button>
+                                                    }
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted py-4">
+                                            <i class="bi bi-info-circle me-2"></i>
+                                            No hay usuarios registrados.
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- MODAL DE CONFIRMACIÓN -->
-<div class="modal fade modal-desactivar"
+<div class="modal fade"
      id="modalDesactivar"
      tabindex="-1"
      aria-labelledby="tituloModalDesactivar"
@@ -259,11 +180,12 @@
 
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModalDesactivar">
+                    <i class="bi bi-exclamation-triangle text-danger me-2"></i>
                     Confirmar desactivación
                 </h5>
 
                 <button type="button"
-                        class="btn-close btn-close-white"
+                        class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Cerrar">
                 </button>
@@ -271,50 +193,48 @@
 
             <div class="modal-body text-center p-4">
 
-                <i class="fas fa-exclamation-triangle icono-advertencia mb-3"></i>
+                <i class="bi bi-person-x text-danger display-5"></i>
 
-                <h5>¿Está seguro de desactivar este usuario?</h5>
+                <h5 class="mt-3">
+                    ¿Está seguro de desactivar este usuario?
+                </h5>
 
                 <p class="text-muted mt-3">
-                    Está a punto de desactivar a:
+                    Usuario seleccionado:
                 </p>
 
                 <p class="fw-bold" id="nombreUsuarioDesactivar"></p>
 
                 <p class="text-muted small">
-                    El usuario pasará a estado inactivo.
+                    El usuario pasará al estado inactivo.
                 </p>
 
             </div>
 
-            <div class="modal-footer justify-content-center">
+            @using (Html.BeginForm("DesactivarUsuario", "Usuario", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
 
-                <button type="button"
-                        class="btn btn-outline-secondary"
-                        data-bs-dismiss="modal">
-                    Cancelar
-                </button>
+                <input type="hidden"
+                       name="id"
+                       id="idUsuarioDesactivar" />
 
-                @using (Html.BeginForm(
-                    "DesactivarUsuario",
-                    "Usuario",
-                    FormMethod.Post,
-                    new { id = "formDesactivarUsuario" }))
-                {
-                    @Html.AntiForgeryToken()
+                <div class="modal-footer justify-content-center">
 
-                    <input type="hidden"
-                           name="id"
-                           id="idUsuarioDesactivar" />
+                    <button type="button"
+                            class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
 
                     <button type="submit"
-                            class="btn btn-confirmar">
-                        <i class="fas fa-user-times me-1"></i>
+                            class="btn btn-danger">
+                        <i class="bi bi-person-x me-1"></i>
                         Sí, desactivar
                     </button>
-                }
 
-            </div>
+                </div>
+            }
 
         </div>
     </div>
@@ -335,13 +255,8 @@
                             var idUsuario = boton.getAttribute("data-id");
                             var nombreUsuario = boton.getAttribute("data-nombre");
 
-                            var campoId = document.getElementById(
-                                "idUsuarioDesactivar"
-                            );
-
-                            var campoNombre = document.getElementById(
-                                "nombreUsuarioDesactivar"
-                            );
+                            var campoId = document.getElementById("idUsuarioDesactivar");
+                            var campoNombre = document.getElementById("nombreUsuarioDesactivar");
 
                             if (campoId !== null) {
                                 campoId.setAttribute("value", idUsuario || "");
@@ -358,5 +273,3 @@
                 });
     </script>
 }
-
-

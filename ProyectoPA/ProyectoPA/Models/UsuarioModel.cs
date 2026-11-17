@@ -22,7 +22,7 @@ namespace ProyectoPA.Models
 
         public int IdEstado { get; set; }
         
-        public int IdDireccion { get; set; }
+       public int? IdDireccion { get; set; }
 
         public string PerfilUrl { get; set; }
     }

@@ -1,162 +1,286 @@
 ﻿
-@model List<ProyectoPA.Models.RolUsuarioModel>
+@model IEnumerable<ProyectoPA.Models.RolUsuarioModel>
 
 @{
     ViewBag.Title = "Administrar Roles";
     var usuario = ViewBag.Usuario as ProyectoPA.Models.UsuarioModel;
 }
 
-<div class="container mt-5 mb-5">
+<div class="container py-5">
 
-    <h2 class="mb-4">Administrar Roles</h2>
-
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-
-            <h5 class="card-title">Información del usuario</h5>
-
-            <p>
-                <strong>Nombre:</strong>
-                @usuario.NOMBRE @usuario.PRIMER_APELLIDO
-            </p>
-
-            <p>
-                <strong>Cédula:</strong>
-                @usuario.CEDULA
-            </p>
-
-            <p>
-                <strong>Correo:</strong>
-                @usuario.CORREO
-            </p>
-
-        </div>
+    <div class="page-header mb-4">
+        <h2 class="mb-2">Administrar roles</h2>
+        <p class="text-muted">
+            Gestioná los permisos y roles asignados al usuario.
+        </p>
     </div>
 
     @if (TempData["Mensaje"] != null)
     {
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle me-2"></i>
             @TempData["Mensaje"]
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Cerrar"></button>
         </div>
     }
 
     @if (TempData["Error"] != null)
     {
-        <div class="alert alert-danger">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i>
             @TempData["Error"]
+            <button type="button" class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Cerrar"></button>
         </div>
     }
 
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
 
-            <h5 class="card-title mb-3">Asignar rol</h5>
+            <h5 class="mb-3">
+                <i class="bi bi-person-circle me-2"></i>
+                Información del usuario
+            </h5>
 
-            @using (Html.BeginForm(
-                "AsignarRol",
-                "Usuario",
-                FormMethod.Post))
+            @if (usuario != null)
             {
-                @Html.AntiForgeryToken()
+                <p class="mb-1">
+                    <strong>Nombre:</strong>
+                    @usuario.Nombre @usuario.PrimerApellido @usuario.SegundoApellido
+                </p>
 
-                <input type="hidden"
-                       name="idUsuario"
-                       value="@usuario.ID_USUARIO" />
-
-                <div class="mb-3">
-                    <label class="form-label">
-                        Seleccione un rol
-                    </label>
-
-                    @Html.DropDownList(
-                             "idRol",
-                             (SelectList)ViewBag.RolesDisponibles,
-                             "Seleccione un rol",
-                             new { @class = "form-select", required = "required" }
-                         )
-                </div>
-
-                <button type="submit"
-                        class="btn btn-primary">
-                    Asignar rol
-                </button>
+                <p class="mb-0">
+                    <strong>Correo:</strong>
+                    @usuario.Correo
+                </p>
             }
 
         </div>
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body">
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
 
-            <h5 class="card-title mb-3">
+            <h5 class="mb-3">
+                <i class="bi bi-shield-check me-2"></i>
                 Roles asignados
             </h5>
 
-            <table class="table table-bordered table-striped">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Rol</th>
+                            <th class="text-end">Acciones</th>
+                        </tr>
+                    </thead>
 
-                <thead>
-                    <tr>
-                        <th>Rol</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @if (Model != null && Model.Count > 0)
-                    {
-                        foreach (var rol in Model)
+                    <tbody>
+                        @if (Model != null && Model.Any())
                         {
-                            <tr>
-                                <td>@rol.ROL</td>
+                            foreach (var rol in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-primary">
+                                            @rol.ROL
+                                        </span>
+                                    </td>
 
-                                <td>
-                                    @using (Html.BeginForm(
-                                        "QuitarRol",
-                                        "Usuario",
-                                        FormMethod.Post))
-                                    {
-                                        @Html.AntiForgeryToken()
-
-                                        <input type="hidden"
-                                               name="idUsuario"
-                                               value="@usuario.ID_USUARIO" />
-
-                                        <input type="hidden"
-                                               name="idRol"
-                                               value="@rol.ID_ROL" />
-
-                                        <button type="submit"
-                                                class="btn btn-danger btn-sm"
-                                                onclick="return confirm('¿Está seguro de quitar este rol?');">
+                                    <td class="text-end">
+                                        <button type="button"
+                                                class="btn btn-outline-danger btn-sm"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modalQuitarRol"
+                                                data-id-usuario="@rol.ID_USUARIO"
+                                                data-id-rol="@rol.ID_ROL"
+                                                data-nombre-rol="@rol.ROL">
+                                            <i class="bi bi-trash3 me-1"></i>
                                             Quitar rol
                                         </button>
-                                    }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="2" class="text-center text-muted py-4">
+                                    Este usuario no tiene roles asignados.
                                 </td>
                             </tr>
                         }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="2" class="text-center">
-                                Este usuario no tiene roles asignados.
-                            </td>
-                        </tr>
-                    }
-
-                </tbody>
-
-            </table>
+                    </tbody>
+                </table>
+            </div>
 
         </div>
     </div>
 
-    <div class="mt-4">
-        <a href="@Url.Action("MostrarUsuarios", "Usuario")"
-           class="btn btn-secondary">
-            Volver a usuarios
-        </a>
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body p-4">
+
+            <h5 class="mb-3">
+                <i class="bi bi-plus-circle me-2"></i>
+                Asignar nuevo rol
+            </h5>
+
+            @using (Html.BeginForm("AsignarRol", "Usuario", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       name="idUsuario"
+                       value="@(usuario != null ? usuario.IdUsuario : 0)" />
+
+                <div class="row g-3 align-items-end">
+
+                    <div class="col-md-8">
+                        <label for="idRol" class="form-label">
+                            Seleccionar rol
+                        </label>
+
+                        @Html.DropDownList(
+                                 "idRol",
+                                 ViewBag.RolesDisponibles as SelectList,
+                                 "-- Seleccione un rol --",
+                                 new { @class = "form-select", required = "required" }
+                             )
+                    </div>
+
+                    <div class="col-md-4">
+                        <button type="submit"
+                                class="btn btn-primary w-100">
+                            <i class="bi bi-plus-lg me-1"></i>
+                            Asignar rol
+                        </button>
+                    </div>
+
+                </div>
+            }
+
+        </div>
     </div>
 
+    <a href="@Url.Action("MostrarUsuarios", "Usuario")"
+       class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>
+        Volver a usuarios
+    </a>
+
 </div>
+
+
+
+
+<div class="modal fade"
+     id="modalQuitarRol"
+     tabindex="-1"
+     aria-labelledby="tituloQuitarRol"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content border-0 shadow">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="tituloQuitarRol">
+                    <i class="bi bi-shield-exclamation text-danger me-2"></i>
+                    Confirmar eliminación de rol
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Cerrar">
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+                    ¿Estás seguro de quitar el rol
+                    <strong id="nombreRolQuitar"></strong>
+                    a este usuario?
+                </p>
+
+                <div class="alert alert-warning mb-0">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    El usuario perderá los permisos asociados
+                    a este rol.
+                </div>
+
+            </div>
+
+            @using (Html.BeginForm("QuitarRol", "Usuario", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <input type="hidden"
+                       name="idUsuario"
+                       id="idUsuarioQuitar" />
+
+                <input type="hidden"
+                       name="idRol"
+                       id="idRolQuitar" />
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-danger">
+                        <i class="bi bi-trash3 me-1"></i>
+                        Sí, quitar rol
+                    </button>
+
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+                document.addEventListener("DOMContentLoaded", function () {
+
+                    const modal = document.getElementById("modalQuitarRol");
+
+                    if (!modal) {
+                        return;
+                    }
+
+                    modal.addEventListener("show.bs.modal", function (event) {
+
+                        const boton = event.relatedTarget;
+
+                        if (!boton) {
+                            return;
+                        }
+
+                        const idUsuario = boton.getAttribute("data-id-usuario");
+                        const idRol = boton.getAttribute("data-id-rol");
+                        const nombreRol = boton.getAttribute("data-nombre-rol");
+
+                        document.getElementById("idUsuarioQuitar").value =
+                            idUsuario;
+
+                        document.getElementById("idRolQuitar").value =
+                            idRol;
+
+                        document.getElementById("nombreRolQuitar").textContent =
+                            nombreRol;
+                    });
+
+                });
+    </script>
+}

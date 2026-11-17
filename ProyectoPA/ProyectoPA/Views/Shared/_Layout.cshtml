@@ -62,14 +62,11 @@
                     <a href="@Url.Action("Dashboard", "Home")" class="nav-item nav-link @Activo("Dashboard")" style="color: #D4AF37;">Quienes Somos</a>
                     <a href="@Url.Action("Index", "Catalogo")" class="nav-item nav-link" style="color: #D4AF37;">Catálogo</a>
                     <a href="@Url.Action("Index", "Diseno")" class="nav-item nav-link" style="color: #D4AF37;">Diseñar</a>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Administrador"))
+                    @if (Convert.ToString(Session["NombreRol"]) == "Administrador")
                     {
-                        <a href="@Url.Action("MostrarUsuarios", "Usuario")"
-                           class="nav-item nav-link"
-                           style="color: #D4AF37;">
-                            Administrar usuarios
-                        </a>
+                    <a href="@Url.Action("MostrarUsuarios", "Usuario")" class="nav-item nav-link" style="color: #D4AF37;">Administrar usuarios</a>
                     }
+
                 </div>
             </div>
             @if (Session["IdUsuario"] != null)

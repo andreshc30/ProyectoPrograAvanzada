@@ -2,138 +2,229 @@
 @model ProyectoPA.Models.UsuarioModel
 
 @{
-    ViewBag.Title = "Editar usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Editar Usuario";
 }
+
+<div class="container-fluid bg-light page-header py-5 mb-5">
+    <div class="container text-center py-4">
+        <h1 class="display-5 animated slideInLeft">
+            <i class="bi bi-pencil-square text-primary me-2"></i>
+            EDITAR USUARIO
+        </h1>
+    </div>
+</div>
 
 <div class="container py-5">
 
-    <div class="text-center mb-5">
-        <h1 class="font-dancing-script"
-            style="color: #D4AF37;">
-            La Casa de La Placa
-        </h1>
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9">
 
-        <h2 class="fw-bold">Editar usuario</h2>
+            <div class="card border-0 shadow-sm">
 
-        <p class="text-secondary">
-            Modifique la información del usuario seleccionado.
-        </p>
-    </div>
+                <div class="card-body p-4 p-md-5">
 
-    @using (Html.BeginForm("EditarUsuario", "Usuario",
-        FormMethod.Post))
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.ID_USUARIO)
+                    <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-4">
 
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4">
+                        <div>
+                            <h2 class="h4 mb-1">
+                                <i class="bi bi-person-gear text-primary me-2"></i>
+                                Información del usuario
+                            </h2>
 
-                @Html.ValidationSummary(
-                         true, "", new { @class = "text-danger" })
+                            <span class="text-muted small">
+                                Modifique los datos del usuario seleccionado.
+                            </span>
+                        </div>
 
-                <div class="row g-3">
+                        <i class="bi bi-person-circle text-primary fs-2"></i>
 
-                    <div class="col-md-6">
-                        <label class="form-label">Cédula</label>
-                        @Html.TextBoxFor(m => m.CEDULA,
-                                 new { @class = "form-control" })
-                        @Html.ValidationMessageFor(
-                                 m => m.CEDULA, "",
-                                 new { @class = "text-danger" })
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="form-label">Nombre</label>
-                        @Html.TextBoxFor(m => m.NOMBRE,
-                                 new { @class = "form-control" })
-                        @Html.ValidationMessageFor(
-                                 m => m.NOMBRE, "",
-                                 new { @class = "text-danger" })
-                    </div>
+                    @using (Html.BeginForm("EditarUsuario", "Usuario", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
 
-                    <div class="col-md-6">
-                        <label class="form-label">
-                            Primer apellido
-                        </label>
-                        @Html.TextBoxFor(m => m.PRIMER_APELLIDO,
-                                 new { @class = "form-control" })
-                        @Html.ValidationMessageFor(
-                                 m => m.PRIMER_APELLIDO, "",
-                                 new { @class = "text-danger" })
-                    </div>
+                        @Html.HiddenFor(m => m.IdUsuario)
 
-                    <div class="col-md-6">
-                        <label class="form-label">
-                            Segundo apellido
-                        </label>
-                        @Html.TextBoxFor(m => m.SEGUNDO_APELLIDO,
-                                 new { @class = "form-control" })
-                    </div>
+                        @Html.ValidationSummary(
+                                 true,
+                                 "",
+                                 new { @class = "alert alert-danger" }
+                             )
 
-                    <div class="col-md-6">
-                        <label class="form-label">Correo</label>
-                        @Html.TextBoxFor(m => m.CORREO,
-                                 new
-                                 {
-                                     @class = "form-control",
-                                     type = "email"
-                                 })
-                        @Html.ValidationMessageFor(
-                                 m => m.CORREO, "",
-                                 new { @class = "text-danger" })
-                    </div>
+                        <div class="row g-3">
 
-                    <div class="col-md-6">
-                        <label class="form-label">
-                            URL de imagen de perfil
-                        </label>
-                        @Html.TextBoxFor(m => m.PERFIL_URL,
-                                 new { @class = "form-control" })
-                    </div>
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="bi bi-person-vcard text-primary me-2"></i>
+                                    Cédula
+                                </label>
 
-                    <div class="col-md-6">
-                        <label class="form-label">Estado</label>
-                        @Html.DropDownListFor(
-                                 m => m.ID_ESTADO,
-                                 (SelectList)ViewBag.Estados,
-                                 "Seleccione un estado",
-                                 new { @class = "form-select" })
-                        @Html.ValidationMessageFor(
-                                 m => m.ID_ESTADO, "",
-                                 new { @class = "text-danger" })
-                    </div>
+                                @Html.TextBoxFor(
+                                         m => m.Cedula,
+                                         new { @class = "form-control" }
+                                     )
 
-                    <div class="col-md-6">
-                        <label class="form-label">Dirección</label>
-                        @Html.DropDownListFor(
-                                 m => m.ID_DIRECCION,
-                                 (SelectList)ViewBag.Direcciones,
-                                 "Seleccione una dirección",
-                                 new { @class = "form-select" })
-                        @Html.ValidationMessageFor(
-                                 m => m.ID_DIRECCION, "",
-                                 new { @class = "text-danger" })
-                    </div>
+                                @Html.ValidationMessageFor(
+                                         m => m.Cedula,
+                                         "",
+                                         new { @class = "text-danger small" }
+                                     )
+                            </div>
 
-                </div>
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="bi bi-person text-primary me-2"></i>
+                                    Nombre
+                                </label>
 
-                <div class="d-flex justify-content-end gap-3 mt-4">
+                                @Html.TextBoxFor(
+                                         m => m.Nombre,
+                                         new { @class = "form-control" }
+                                     )
 
-                    <a href="@Url.Action(
-                        "MostrarUsuarios", "Usuario")"
-                       class="btn btn-outline-secondary">
-                        Cancelar
-                    </a>
+                                @Html.ValidationMessageFor(
+                                         m => m.Nombre,
+                                         "",
+                                         new { @class = "text-danger small" }
+                                     )
+                            </div>
 
-                    <button type="submit"
-                            class="btn boton-ingresar">
-                        Guardar cambios
-                    </button>
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    Primer apellido
+                                </label>
+
+                                @Html.TextBoxFor(
+                                         m => m.PrimerApellido,
+                                         new { @class = "form-control" }
+                                     )
+
+                                @Html.ValidationMessageFor(
+                                         m => m.PrimerApellido,
+                                         "",
+                                         new { @class = "text-danger small" }
+                                     )
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    Segundo apellido
+                                </label>
+
+                                @Html.TextBoxFor(
+                                         m => m.SegundoApellido,
+                                         new { @class = "form-control" }
+                                     )
+
+                                @Html.ValidationMessageFor(
+                                         m => m.SegundoApellido,
+                                         "",
+                                         new { @class = "text-danger small" }
+                                     )
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="bi bi-envelope text-primary me-2"></i>
+                                    Correo electrónico
+                                </label>
+
+                                @Html.TextBoxFor(
+                                         m => m.Correo,
+                                         new
+                                         {
+                                             @class = "form-control",
+                                             type = "email"
+                                         }
+                                     )
+
+                                @Html.ValidationMessageFor(
+                                         m => m.Correo,
+                                         "",
+                                         new { @class = "text-danger small" }
+                                     )
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="bi bi-image text-primary me-2"></i>
+                                    URL de imagen de perfil
+                                </label>
+
+                                @Html.TextBoxFor(
+                                         m => m.PerfilUrl,
+                                         new { @class = "form-control" }
+                                     )
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="bi bi-toggle-on text-primary me-2"></i>
+                                    Estado
+                                </label>
+
+                                @Html.DropDownListFor(
+                                         m => m.IdEstado,
+                                         (SelectList)ViewBag.Estados,
+                                         "Seleccione un estado",
+                                         new { @class = "form-select" }
+                                     )
+
+                                @Html.ValidationMessageFor(
+                                         m => m.IdEstado,
+                                         "",
+                                         new { @class = "text-danger small" }
+                                     )
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">
+                                    <i class="bi bi-geo-alt text-primary me-2"></i>
+                                    Dirección
+                                </label>
+
+
+                                @Html.DropDownListFor(
+                                    m => m.IdDireccion,
+                                    ViewBag.Direcciones as SelectList,
+                                    "Sin dirección",
+                                    new { @class = "form-select" }
+                                )
+
+
+                                @Html.ValidationMessageFor(
+                                              m => m.IdDireccion,
+                                              "",
+                                              new { @class = "text-danger small" }
+                                          )
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-flex flex-column flex-sm-row justify-content-between gap-2 mt-4">
+
+                            <a href="@Url.Action("MostrarUsuarios", "Usuario")"
+                               class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Volver a usuarios
+                            </a>
+
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                <i class="bi bi-check-circle me-2"></i>
+                                Guardar cambios
+                            </button>
+
+                        </div>
+                    }
 
                 </div>
             </div>
-        </div>
-    }
 
+        </div>
+    </div>
 </div>

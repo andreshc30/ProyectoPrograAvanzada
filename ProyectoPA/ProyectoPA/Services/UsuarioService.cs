@@ -2,14 +2,10 @@
 using ProyectoPA.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 using System.Threading.Tasks;
-using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 
@@ -100,7 +96,9 @@ namespace ProyectoPA.Services
         #endregion
 
 
-        // MOSTRAR USUARIOS
+
+        #region Mostrar Usuarios
+
         public List<UsuarioModel> ListarUsuarios()
         {
             using (var db = new FIDE_DBEntities())
@@ -119,7 +117,11 @@ namespace ProyectoPA.Services
             }
         }
 
-        // OBTENER USUARIO POR ID
+        #endregion
+
+
+        #region Obtener Usuario
+
         public UsuarioModel ObtenerUsuario(int id)
         {
             using (var db = new FIDE_DBEntities())
@@ -132,13 +134,19 @@ namespace ProyectoPA.Services
                         Nombre = u.NOMBRE,
                         PrimerApellido = u.PRIMER_APELLIDO,
                         SegundoApellido = u.SEGUNDO_APELLIDO,
+                        PerfilUrl = u.PERFIL_URL,
                         Correo = u.CORREO,
-                        IdEstado = u.ID_ESTADO
+                        IdEstado = u.ID_ESTADO,
+                        IdDireccion = u.ID_DIRECCION ?? 0
                     }).FirstOrDefault();
             }
         }
 
-        // EDITAR USUARIO
+        #endregion
+
+
+        #region Editar Usuario
+
         public int EditarUsuario(UsuarioModel usuario)
         {
             using (var db = new FIDE_DBEntities())
@@ -159,7 +167,11 @@ namespace ProyectoPA.Services
             }
         }
 
-        // OBTENER ESTADOS
+        #endregion
+
+
+        #region Obtener Estados
+
         public List<FIDE_ESTADO_TB> ObtenerEstados()
         {
             using (var db = new FIDE_DBEntities())
@@ -170,7 +182,11 @@ namespace ProyectoPA.Services
             }
         }
 
-        // OBTENER DIRECCIONES
+        #endregion
+
+
+        #region Obtener Direcciones
+
         public List<FIDE_DIRECCION_TB> ObtenerDirecciones()
         {
             using (var db = new FIDE_DBEntities())
@@ -181,7 +197,11 @@ namespace ProyectoPA.Services
             }
         }
 
-        // LISTAR ROLES
+        #endregion
+
+
+        #region Administrar Roles
+
         public List<FIDE_ROL_TB> ListarRoles()
         {
             using (var db = new FIDE_DBEntities())
@@ -196,7 +216,6 @@ namespace ProyectoPA.Services
             }
         }
 
-        // OBTENER ROLES DE UN USUARIO
         public List<RolUsuarioModel> ObtenerRolesUsuario(int idUsuario)
         {
             using (var db = new FIDE_DBEntities())
@@ -211,7 +230,6 @@ namespace ProyectoPA.Services
             }
         }
 
-        // ASIGNAR ROL
         public void AsignarRol(int idUsuario, int idRol)
         {
             using (var db = new FIDE_DBEntities())
@@ -220,7 +238,6 @@ namespace ProyectoPA.Services
             }
         }
 
-        // QUITAR ROL
         public void QuitarRol(int idUsuario, int idRol)
         {
             using (var db = new FIDE_DBEntities())
@@ -229,7 +246,11 @@ namespace ProyectoPA.Services
             }
         }
 
-        // DESACTIVAR USUARIO
+        #endregion
+
+
+        #region Desactivar Usuario
+
         public void DesactivarUsuario(int idUsuario)
         {
             using (var db = new FIDE_DBEntities())
@@ -237,5 +258,7 @@ namespace ProyectoPA.Services
                 db.SP_DESACTIVAR_USUARIO(idUsuario);
             }
         }
+
+        #endregion
     }
 }

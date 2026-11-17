@@ -8,25 +8,61 @@ using ProyectoPA.Services;
 
 namespace ProyectoPA.Controllers
 {
-     [Authorize(Roles = "Administrador")]
     public class UsuarioController : Controller
     {
         private readonly UsuarioService _usuarioService;
 
+     
         public UsuarioController()
         {
             _usuarioService = new UsuarioService();
         }
 
-        // MOSTRAR USUARIOS
+
+        #region Validar Administrador
+
+        protected override void OnActionExecuting(
+            ActionExecutingContext filterContext)
+        {
+            bool sesionActiva =
+                Session["IdUsuario"] != null;
+
+            bool esAdministrador =
+                string.Equals(
+                    Convert.ToString(Session["NombreRol"]),
+                    "Administrador",
+                    StringComparison.OrdinalIgnoreCase
+                );
+
+            if (!sesionActiva || !esAdministrador)
+            {
+                filterContext.Result =
+                    new HttpStatusCodeResult(403);
+
+                return;
+            }
+
+            base.OnActionExecuting(filterContext);
+        }
+
+        #endregion
+
+
+        #region Mostrar Usuarios
+
         [HttpGet]
         public ActionResult MostrarUsuarios()
         {
             var usuarios = _usuarioService.ListarUsuarios();
+
             return View(usuarios);
         }
 
-        // EDITAR USUARIO
+        #endregion
+
+
+        #region Editar Usuario
+
         [HttpGet]
         public ActionResult EditarUsuario(int id)
         {
@@ -38,6 +74,7 @@ namespace ProyectoPA.Controllers
             }
 
             CargarListas();
+
             return View(usuario);
         }
 
@@ -48,6 +85,7 @@ namespace ProyectoPA.Controllers
             if (!ModelState.IsValid)
             {
                 CargarListas();
+
                 return View(modelo);
             }
 
@@ -75,11 +113,16 @@ namespace ProyectoPA.Controllers
                 );
 
                 CargarListas();
+
                 return View(modelo);
             }
         }
 
-        // ADMINISTRAR ROLES DE UN USUARIO
+        #endregion
+
+
+        #region Administrar Roles
+
         [HttpGet]
         public ActionResult AdministrarRoles(int id)
         {
@@ -111,7 +154,6 @@ namespace ProyectoPA.Controllers
             return View(rolesUsuario);
         }
 
-        // ASIGNAR ROL
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AsignarRol(int idUsuario, int idRol)
@@ -135,7 +177,6 @@ namespace ProyectoPA.Controllers
             );
         }
 
-        // QUITAR ROL
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult QuitarRol(int idUsuario, int idRol)
@@ -160,7 +201,11 @@ namespace ProyectoPA.Controllers
             );
         }
 
-        // DESACTIVAR USUARIO
+        #endregion
+
+
+        #region Desactivar Usuario
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DesactivarUsuario(int id)
@@ -182,7 +227,11 @@ namespace ProyectoPA.Controllers
             return RedirectToAction("MostrarUsuarios");
         }
 
-        // CARGAR ESTADOS Y DIRECCIONES
+        #endregion
+
+
+        #region Métodos Auxiliares
+
         private void CargarListas()
         {
             var estados = _usuarioService.ObtenerEstados();
@@ -207,5 +256,7 @@ namespace ProyectoPA.Controllers
                 "Descripcion"
             );
         }
+
+        #endregion
     }
 }
