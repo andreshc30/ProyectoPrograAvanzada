@@ -1,4 +1,4 @@
-﻿
+﻿@model ProyectoPA.Models.UsuarioModel
 @{
     ViewBag.Title = "Registro";
 }
@@ -12,40 +12,49 @@
                     <h1 class="font-dancing-script" style="color: #D4AF37; font-size: 2.4rem;">Bienvenido</h1>
                     <h2 class="fw-bold mb-4" style="color: #1a1a1a; font-family: 'Playfair Display', serif;">Crear Usuario</h2>
 
-                    <form class="text-start" onsubmit="window.location.href='@Url.Action("Login", "Home")'; return false;">
+                    @using (Html.BeginForm("Registro", "Home", FormMethod.Post, new { id = "registroForm", @class = "text-start" }))
+                    {
+                        if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-danger text-center">@ViewBag.Message</div>
+                        }
                         <div class="mb-3">
                             <label for="nombre" class="form-label text-secondary">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" required>
+                            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
                         </div>
-                        <div class="mb-3">
-                            <label for="apellido" class="form-label text-secondary">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" required>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label for="primerApellido" class="form-label text-secondary">Primer Apellido</label>
+                                @Html.TextBoxFor(m => m.PrimerApellido, new { @class = "form-control" })
+                            </div>
+                            <div class="col-6">
+                                <label for="segundoApellido" class="form-label text-secondary">Segundo Apellido</label>
+                                @Html.TextBoxFor(m => m.SegundoApellido, new { @class = "form-control" })
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="cedula" class="form-label text-secondary">Cédula</label>
-                            <input type="text" class="form-control" id="cedula" minlength="9" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="telefono" class="form-label text-secondary">Teléfono</label>
-                            <input type="text" class="form-control" id="telefono" minlength="8" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="direccion" class="form-label text-secondary">Dirección</label>
-                            <input type="text" class="form-control" id="direccion" placeholder="opcional">
+                            @Html.TextBoxFor(m => m.Cedula, new { @class = "form-control", @minlength = "9"})
                         </div>
                         <div class="mb-3">
                             <label for="correo" class="form-label text-secondary">Correo electrónico</label>
-                            <input type="email" class="form-control" id="correo" placeholder="correo@ejemplo.com" required>
+                            @Html.TextBoxFor(m => m.Correo, new { @class = "form-control", @placeholder = "correo@ejemplo.com" })
                         </div>
 
                         <div class="mb-4">
                             <label for="contrasena" class="form-label text-secondary">Contraseña</label>
-                            <input type="password" class="form-control" id="contrasena" minlength="8" placeholder="••••••••" required>
+                            <div class="campo-clave">
+                                @Html.TextBoxFor(m => m.Contrasena, new { @class = "form-control", @placeholder = "••••••••", @minLength = "8", @type = "password" })
+
+                                <button type="button" class="password-toggle-btn" id="toggle-password" aria-label="Show password">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-lg w-100 text-uppercase py-3 boton-ingresar">
                             Activar Cuenta
                         </button>
-                    </form>
+                     }
 
                     <p class="mt-4 mb-2 text-secondary">
                         ¿Tienes cuenta?
@@ -60,3 +69,8 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/assets/js/registro.js"></script>
+    <script src="~/assets/js/auth.js"></script>
+}

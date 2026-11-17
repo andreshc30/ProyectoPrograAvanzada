@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FIDE_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FIDE_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="FIDE_CANTON_TB">
           <Key>
             <PropertyRef Name="ID_CANTON" />
@@ -189,12 +189,12 @@
           <Property Name="CEDULA" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="NOMBRE" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PRIMER_APELLIDO" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SEGUNDO_APELLIDO" Type="nvarchar" MaxLength="50" />
+          <Property Name="SEGUNDO_APELLIDO" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PERFIL_URL" Type="nvarchar(max)" />
           <Property Name="CORREO" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_ESTADO" Type="int" Nullable="false" />
           <Property Name="CONTRASENA" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="ID_DIRECCION" Type="int" Nullable="false" />
+          <Property Name="ID_DIRECCION" Type="int" />
         </EntityType>
         <Association Name="FK_CANTON_ESTADO">
           <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
@@ -593,7 +593,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USUARIO_DIRECCION">
-          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="1" />
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="0..1" />
           <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FIDE_DIRECCION_TB">
@@ -646,13 +646,16 @@
           <Parameter Name="ID_ESTADO" Type="int" Mode="In" />
           <Parameter Name="ID_DIRECCION" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_INICIAR_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CORREO" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTRASENA" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="SP_LISTAR_ROLES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_LISTAR_USUARIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_LISTAR_USUARIOS_ROLES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_OBTENER_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
         </Function>
-        <Function Name="SP_PRUEBA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_QUITAR_ROL_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
           <Parameter Name="ID_ROL" Type="int" Mode="In" />
@@ -664,10 +667,17 @@
           <Parameter Name="TOTAL" Type="decimal" Mode="In" />
           <Parameter Name="ID_DISENO" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_REGISTRAR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CEDULA" Type="nvarchar" Mode="In" />
+          <Parameter Name="NOMBRE" Type="nvarchar" Mode="In" />
+          <Parameter Name="PRIMER_APELLIDO" Type="nvarchar" Mode="In" />
+          <Parameter Name="SEGUNDO_APELLIDO" Type="nvarchar" Mode="In" />
+          <Parameter Name="CORREO" Type="nvarchar" Mode="In" />
+          <Parameter Name="CONTRASENA" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="SP_ROLES_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_USUARIO" Type="int" Mode="In" />
         </Function>
-        <Function Name="SP_TEST_USUARIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="FIDE_DBModelStoreContainer">
           <EntitySet Name="FIDE_CANTON_TB" EntityType="Self.FIDE_CANTON_TB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FIDE_CATEGORIA_TB" EntityType="Self.FIDE_CATEGORIA_TB" Schema="dbo" store:Type="Tables" />
@@ -829,7 +839,8 @@
             <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FIDE_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -852,7 +863,7 @@
           <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_CATEGORIA_ESTADO" FromRole="FIDE_CATEGORIA_TB" ToRole="FIDE_ESTADO_TB" />
-          <NavigationProperty Name="FIDE_PLACA_TB" Relationship="FIDE_DBModel.FK_PLACA_CATEGORIA" FromRole="FIDE_CATEGORIA_TB" ToRole="FIDE_PLACA_TB" />
+          <NavigationProperty Name="FIDE_PLACA_TB" Relationship="Self.FK_PLACA_CATEGORIA" FromRole="FIDE_CATEGORIA_TB" ToRole="FIDE_PLACA_TB" />
         </EntityType>
         <EntityType Name="FIDE_DIRECCION_TB">
           <Key>
@@ -869,6 +880,21 @@
           <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_DIRECCION_ESTADO" FromRole="FIDE_DIRECCION_TB" ToRole="FIDE_ESTADO_TB" />
           <NavigationProperty Name="FIDE_PROVINCIA_TB" Relationship="Self.FK_DIRECCION_PROVINCIA" FromRole="FIDE_DIRECCION_TB" ToRole="FIDE_PROVINCIA_TB" />
           <NavigationProperty Name="FIDE_USUARIO_TB" Relationship="Self.FK_USUARIO_DIRECCION" FromRole="FIDE_DIRECCION_TB" ToRole="FIDE_USUARIO_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_DISENO_TB">
+          <Key>
+            <PropertyRef Name="ID_DISENO" />
+          </Key>
+          <Property Name="ID_DISENO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_TAMANO" Type="Int32" Nullable="false" />
+          <Property Name="ID_MATERIAL" Type="Int32" Nullable="false" />
+          <Property Name="IMAGEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TEXTO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_DISENO_ESTADO" FromRole="FIDE_DISENO_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_MATERIAL_TB" Relationship="Self.FK_DISENO_MATERIAL" FromRole="FIDE_DISENO_TB" ToRole="FIDE_MATERIAL_TB" />
+          <NavigationProperty Name="FIDE_TAMANO_TB" Relationship="Self.FK_DISENO_TAMANO" FromRole="FIDE_DISENO_TB" ToRole="FIDE_TAMANO_TB" />
+          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="Self.FK_FACTURACION_DISENO" FromRole="FIDE_DISENO_TB" ToRole="FIDE_FACTURACION_TB" />
         </EntityType>
         <EntityType Name="FIDE_DISTRITO_TB">
           <Key>
@@ -889,10 +915,13 @@
           <NavigationProperty Name="FIDE_CANTON_TB" Relationship="Self.FK_CANTON_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_CANTON_TB" />
           <NavigationProperty Name="FIDE_CATEGORIA_TB" Relationship="Self.FK_CATEGORIA_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_CATEGORIA_TB" />
           <NavigationProperty Name="FIDE_DIRECCION_TB" Relationship="Self.FK_DIRECCION_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_DIRECCION_TB" />
+          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="Self.FK_DISENO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_DISENO_TB" />
           <NavigationProperty Name="FIDE_DISTRITO_TB" Relationship="Self.FK_DISTRITO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_DISTRITO_TB" />
+          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="Self.FK_FACTURACION_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_FACTURACION_TB" />
           <NavigationProperty Name="FIDE_MATERIAL_TB" Relationship="Self.FK_MATERIAL_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_MATERIAL_TB" />
           <NavigationProperty Name="FIDE_METODO_PAGO_TB" Relationship="Self.FK_METODOPAGO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_METODO_PAGO_TB" />
           <NavigationProperty Name="FIDE_PAGO_TB" Relationship="Self.FK_PAGO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_PAGO_TB" />
+          <NavigationProperty Name="FIDE_PLACA_TB" Relationship="Self.FK_PLACA_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_PLACA_TB" />
           <NavigationProperty Name="FIDE_PROVINCIA_TB" Relationship="Self.FK_PROVINCIA_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_PROVINCIA_TB" />
           <NavigationProperty Name="FIDE_RESENAS_TB" Relationship="Self.FK_RESENAS_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_RESENAS_TB" />
           <NavigationProperty Name="FIDE_ROL_TB" Relationship="Self.FK_ROL_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_ROL_TB" />
@@ -901,9 +930,24 @@
           <NavigationProperty Name="FIDE_TAMANO_TB" Relationship="Self.FK_TAMANO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_TAMANO_TB" />
           <NavigationProperty Name="FIDE_TELEFONO_TB" Relationship="Self.FK_TELEFONO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_TELEFONO_TB" />
           <NavigationProperty Name="FIDE_USUARIO_TB" Relationship="Self.FK_USUARIO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_USUARIO_TB" />
-          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="FIDE_DBModel.FK_DISENO_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_DISENO_TB" />
-          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="FIDE_DBModel.FK_FACTURACION_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_FACTURACION_TB" />
-          <NavigationProperty Name="FIDE_PLACA_TB" Relationship="FIDE_DBModel.FK_PLACA_ESTADO" FromRole="FIDE_ESTADO_TB" ToRole="FIDE_PLACA_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_FACTURACION_TB">
+          <Key>
+            <PropertyRef Name="ID_FACTURA" />
+          </Key>
+          <Property Name="ID_FACTURA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FECHA_EMISION" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DETALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SUBTOTAL" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IMPUESTOS" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="TOTAL" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <Property Name="ID_PLACA" Type="Int32" />
+          <Property Name="ID_DISENO" Type="Int32" />
+          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="Self.FK_FACTURACION_DISENO" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_DISENO_TB" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_FACTURACION_ESTADO" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_PLACA_TB" Relationship="Self.FK_FACTURACION_PLACA" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_PLACA_TB" />
+          <NavigationProperty Name="FIDE_PAGO_TB" Relationship="Self.FK_PAGO_FACTURA" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_PAGO_TB" />
         </EntityType>
         <EntityType Name="FIDE_MATERIAL_TB">
           <Key>
@@ -911,10 +955,10 @@
           </Key>
           <Property Name="ID_MATERIAL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MATERIAL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PRECIO" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="Self.FK_DISENO_MATERIAL" FromRole="FIDE_MATERIAL_TB" ToRole="FIDE_DISENO_TB" />
           <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_MATERIAL_ESTADO" FromRole="FIDE_MATERIAL_TB" ToRole="FIDE_ESTADO_TB" />
-          <Property Name="PRECIO" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="FIDE_DBModel.FK_DISENO_MATERIAL" FromRole="FIDE_MATERIAL_TB" ToRole="FIDE_DISENO_TB" />
         </EntityType>
         <EntityType Name="FIDE_METODO_PAGO_TB">
           <Key>
@@ -937,8 +981,26 @@
           <Property Name="FECHA_PAGO" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MONTO" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_PAGO_ESTADO" FromRole="FIDE_PAGO_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="Self.FK_PAGO_FACTURA" FromRole="FIDE_PAGO_TB" ToRole="FIDE_FACTURACION_TB" />
           <NavigationProperty Name="FIDE_METODO_PAGO_TB" Relationship="Self.FK_PAGO_METODOPAGO" FromRole="FIDE_PAGO_TB" ToRole="FIDE_METODO_PAGO_TB" />
-          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="FIDE_DBModel.FK_PAGO_FACTURA" FromRole="FIDE_PAGO_TB" ToRole="FIDE_FACTURACION_TB" />
+        </EntityType>
+        <EntityType Name="FIDE_PLACA_TB">
+          <Key>
+            <PropertyRef Name="ID_PLACA" />
+          </Key>
+          <Property Name="ID_PLACA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MATERIAL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TAMANO" Type="Int32" />
+          <Property Name="PRECIO" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="IMAGEN_NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DISPONIBLE" Type="Boolean" Nullable="false" />
+          <Property Name="ID_CATEGORIA" Type="Int32" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_CATEGORIA_TB" Relationship="Self.FK_PLACA_CATEGORIA" FromRole="FIDE_PLACA_TB" ToRole="FIDE_CATEGORIA_TB" />
+          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_PLACA_ESTADO" FromRole="FIDE_PLACA_TB" ToRole="FIDE_ESTADO_TB" />
+          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="Self.FK_FACTURACION_PLACA" FromRole="FIDE_PLACA_TB" ToRole="FIDE_FACTURACION_TB" />
         </EntityType>
         <EntityType Name="FIDE_PROVINCIA_TB">
           <Key>
@@ -1007,10 +1069,10 @@
           </Key>
           <Property Name="ID_TAMANO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TAMANO" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PRECIO" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="Self.FK_DISENO_TAMANO" FromRole="FIDE_TAMANO_TB" ToRole="FIDE_DISENO_TB" />
           <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_TAMANO_ESTADO" FromRole="FIDE_TAMANO_TB" ToRole="FIDE_ESTADO_TB" />
-          <Property Name="PRECIO" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="FIDE_DBModel.FK_DISENO_TAMANO" FromRole="FIDE_TAMANO_TB" ToRole="FIDE_DISENO_TB" />
         </EntityType>
         <EntityType Name="FIDE_TELEFONO_TB">
           <Key>
@@ -1030,12 +1092,12 @@
           <Property Name="CEDULA" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PRIMER_APELLIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SEGUNDO_APELLIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SEGUNDO_APELLIDO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PERFIL_URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CORREO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
           <Property Name="CONTRASENA" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ID_DIRECCION" Type="Int32" Nullable="false" />
+          <Property Name="ID_DIRECCION" Type="Int32" />
           <NavigationProperty Name="FIDE_DIRECCION_TB" Relationship="Self.FK_USUARIO_DIRECCION" FromRole="FIDE_USUARIO_TB" ToRole="FIDE_DIRECCION_TB" />
           <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="Self.FK_USUARIO_ESTADO" FromRole="FIDE_USUARIO_TB" ToRole="FIDE_ESTADO_TB" />
           <NavigationProperty Name="FIDE_RESENAS_TB" Relationship="Self.FK_RESENAS_USUARIO" FromRole="FIDE_USUARIO_TB" ToRole="FIDE_RESENAS_TB" />
@@ -1079,6 +1141,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PLACA_CATEGORIA">
+          <End Role="FIDE_CATEGORIA_TB" Type="Self.FIDE_CATEGORIA_TB" Multiplicity="1" />
+          <End Role="FIDE_PLACA_TB" Type="Self.FIDE_PLACA_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_CATEGORIA_TB">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Principal>
+            <Dependent Role="FIDE_PLACA_TB">
+              <PropertyRef Name="ID_CATEGORIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DIRECCION_DISTRITO">
           <End Role="FIDE_DISTRITO_TB" Type="Self.FIDE_DISTRITO_TB" Multiplicity="1" />
           <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="*" />
@@ -1116,7 +1190,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_USUARIO_DIRECCION">
-          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="1" />
+          <End Role="FIDE_DIRECCION_TB" Type="Self.FIDE_DIRECCION_TB" Multiplicity="0..1" />
           <End Role="FIDE_USUARIO_TB" Type="Self.FIDE_USUARIO_TB" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FIDE_DIRECCION_TB">
@@ -1124,6 +1198,54 @@
             </Principal>
             <Dependent Role="FIDE_USUARIO_TB">
               <PropertyRef Name="ID_DIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISENO_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISENO_MATERIAL">
+          <End Role="FIDE_MATERIAL_TB" Type="Self.FIDE_MATERIAL_TB" Multiplicity="1" />
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_MATERIAL_TB">
+              <PropertyRef Name="ID_MATERIAL" />
+            </Principal>
+            <Dependent Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_MATERIAL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DISENO_TAMANO">
+          <End Role="FIDE_TAMANO_TB" Type="Self.FIDE_TAMANO_TB" Multiplicity="1" />
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_TAMANO_TB">
+              <PropertyRef Name="ID_TAMANO" />
+            </Principal>
+            <Dependent Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_TAMANO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURACION_DISENO">
+          <End Role="FIDE_DISENO_TB" Type="Self.FIDE_DISENO_TB" Multiplicity="0..1" />
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_DISENO_TB">
+              <PropertyRef Name="ID_DISENO" />
+            </Principal>
+            <Dependent Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_DISENO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1135,6 +1257,18 @@
               <PropertyRef Name="ID_ESTADO" />
             </Principal>
             <Dependent Role="FIDE_DISTRITO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURACION_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_FACTURACION_TB">
               <PropertyRef Name="ID_ESTADO" />
             </Dependent>
           </ReferentialConstraint>
@@ -1171,6 +1305,18 @@
               <PropertyRef Name="ID_ESTADO" />
             </Principal>
             <Dependent Role="FIDE_PAGO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLACA_ESTADO">
+          <End Role="FIDE_ESTADO_TB" Type="Self.FIDE_ESTADO_TB" Multiplicity="1" />
+          <End Role="FIDE_PLACA_TB" Type="Self.FIDE_PLACA_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_ESTADO_TB">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FIDE_PLACA_TB">
               <PropertyRef Name="ID_ESTADO" />
             </Dependent>
           </ReferentialConstraint>
@@ -1271,6 +1417,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FACTURACION_PLACA">
+          <End Role="FIDE_PLACA_TB" Type="Self.FIDE_PLACA_TB" Multiplicity="0..1" />
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_PLACA_TB">
+              <PropertyRef Name="ID_PLACA" />
+            </Principal>
+            <Dependent Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_PLACA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PAGO_FACTURA">
+          <End Role="FIDE_FACTURACION_TB" Type="Self.FIDE_FACTURACION_TB" Multiplicity="1" />
+          <End Role="FIDE_PAGO_TB" Type="Self.FIDE_PAGO_TB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FIDE_FACTURACION_TB">
+              <PropertyRef Name="ID_FACTURA" />
+            </Principal>
+            <Dependent Role="FIDE_PAGO_TB">
+              <PropertyRef Name="ID_FACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PAGO_METODOPAGO">
           <End Role="FIDE_METODO_PAGO_TB" Type="Self.FIDE_METODO_PAGO_TB" Multiplicity="1" />
           <End Role="FIDE_PAGO_TB" Type="Self.FIDE_PAGO_TB" Multiplicity="*" />
@@ -1359,11 +1529,14 @@
           <EntitySet Name="FIDE_CANTON_TB" EntityType="Self.FIDE_CANTON_TB" />
           <EntitySet Name="FIDE_CATEGORIA_TB" EntityType="Self.FIDE_CATEGORIA_TB" />
           <EntitySet Name="FIDE_DIRECCION_TB" EntityType="Self.FIDE_DIRECCION_TB" />
+          <EntitySet Name="FIDE_DISENO_TB" EntityType="Self.FIDE_DISENO_TB" />
           <EntitySet Name="FIDE_DISTRITO_TB" EntityType="Self.FIDE_DISTRITO_TB" />
           <EntitySet Name="FIDE_ESTADO_TB" EntityType="Self.FIDE_ESTADO_TB" />
+          <EntitySet Name="FIDE_FACTURACION_TB" EntityType="Self.FIDE_FACTURACION_TB" />
           <EntitySet Name="FIDE_MATERIAL_TB" EntityType="Self.FIDE_MATERIAL_TB" />
           <EntitySet Name="FIDE_METODO_PAGO_TB" EntityType="Self.FIDE_METODO_PAGO_TB" />
           <EntitySet Name="FIDE_PAGO_TB" EntityType="Self.FIDE_PAGO_TB" />
+          <EntitySet Name="FIDE_PLACA_TB" EntityType="Self.FIDE_PLACA_TB" />
           <EntitySet Name="FIDE_PROVINCIA_TB" EntityType="Self.FIDE_PROVINCIA_TB" />
           <EntitySet Name="FIDE_RESENAS_TB" EntityType="Self.FIDE_RESENAS_TB" />
           <EntitySet Name="FIDE_ROL_TB" EntityType="Self.FIDE_ROL_TB" />
@@ -1384,6 +1557,10 @@
             <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
             <End Role="FIDE_CATEGORIA_TB" EntitySet="FIDE_CATEGORIA_TB" />
           </AssociationSet>
+          <AssociationSet Name="FK_PLACA_CATEGORIA" Association="Self.FK_PLACA_CATEGORIA">
+            <End Role="FIDE_CATEGORIA_TB" EntitySet="FIDE_CATEGORIA_TB" />
+            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
+          </AssociationSet>
           <AssociationSet Name="FK_DIRECCION_DISTRITO" Association="Self.FK_DIRECCION_DISTRITO">
             <End Role="FIDE_DISTRITO_TB" EntitySet="FIDE_DISTRITO_TB" />
             <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
@@ -1400,9 +1577,29 @@
             <End Role="FIDE_DIRECCION_TB" EntitySet="FIDE_DIRECCION_TB" />
             <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
           </AssociationSet>
+          <AssociationSet Name="FK_DISENO_ESTADO" Association="Self.FK_DISENO_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISENO_MATERIAL" Association="Self.FK_DISENO_MATERIAL">
+            <End Role="FIDE_MATERIAL_TB" EntitySet="FIDE_MATERIAL_TB" />
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DISENO_TAMANO" Association="Self.FK_DISENO_TAMANO">
+            <End Role="FIDE_TAMANO_TB" EntitySet="FIDE_TAMANO_TB" />
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURACION_DISENO" Association="Self.FK_FACTURACION_DISENO">
+            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+          </AssociationSet>
           <AssociationSet Name="FK_DISTRITO_ESTADO" Association="Self.FK_DISTRITO_ESTADO">
             <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
             <End Role="FIDE_DISTRITO_TB" EntitySet="FIDE_DISTRITO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURACION_ESTADO" Association="Self.FK_FACTURACION_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
           </AssociationSet>
           <AssociationSet Name="FK_MATERIAL_ESTADO" Association="Self.FK_MATERIAL_ESTADO">
             <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
@@ -1415,6 +1612,10 @@
           <AssociationSet Name="FK_PAGO_ESTADO" Association="Self.FK_PAGO_ESTADO">
             <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
             <End Role="FIDE_PAGO_TB" EntitySet="FIDE_PAGO_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLACA_ESTADO" Association="Self.FK_PLACA_ESTADO">
+            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
+            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
           </AssociationSet>
           <AssociationSet Name="FK_PROVINCIA_ESTADO" Association="Self.FK_PROVINCIA_ESTADO">
             <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
@@ -1448,6 +1649,14 @@
             <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
             <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
           </AssociationSet>
+          <AssociationSet Name="FK_FACTURACION_PLACA" Association="Self.FK_FACTURACION_PLACA">
+            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PAGO_FACTURA" Association="Self.FK_PAGO_FACTURA">
+            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
+            <End Role="FIDE_PAGO_TB" EntitySet="FIDE_PAGO_TB" />
+          </AssociationSet>
           <AssociationSet Name="FK_PAGO_METODOPAGO" Association="Self.FK_PAGO_METODOPAGO">
             <End Role="FIDE_METODO_PAGO_TB" EntitySet="FIDE_METODO_PAGO_TB" />
             <End Role="FIDE_PAGO_TB" EntitySet="FIDE_PAGO_TB" />
@@ -1476,60 +1685,11 @@
             <End Role="FIDE_USUARIO_TB" EntitySet="FIDE_USUARIO_TB" />
             <End Role="FIDE_TELEFONO_TB" EntitySet="FIDE_TELEFONO_TB" />
           </AssociationSet>
-          <FunctionImport Name="SP_CONSULTAR_CARRITO" ReturnType="Collection(FIDE_DBModel.SP_CONSULTAR_CARRITO_Result)" />
-          <EntitySet Name="FIDE_DISENO_TB" EntityType="FIDE_DBModel.FIDE_DISENO_TB" />
-          <EntitySet Name="FIDE_FACTURACION_TB" EntityType="FIDE_DBModel.FIDE_FACTURACION_TB" />
-          <EntitySet Name="FIDE_PLACA_TB" EntityType="FIDE_DBModel.FIDE_PLACA_TB" />
-          <AssociationSet Name="FK_PLACA_CATEGORIA" Association="FIDE_DBModel.FK_PLACA_CATEGORIA">
-            <End Role="FIDE_CATEGORIA_TB" EntitySet="FIDE_CATEGORIA_TB" />
-            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DISENO_ESTADO" Association="FIDE_DBModel.FK_DISENO_ESTADO">
-            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
-            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DISENO_MATERIAL" Association="FIDE_DBModel.FK_DISENO_MATERIAL">
-            <End Role="FIDE_MATERIAL_TB" EntitySet="FIDE_MATERIAL_TB" />
-            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DISENO_TAMANO" Association="FIDE_DBModel.FK_DISENO_TAMANO">
-            <End Role="FIDE_TAMANO_TB" EntitySet="FIDE_TAMANO_TB" />
-            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FACTURACION_DISENO" Association="FIDE_DBModel.FK_FACTURACION_DISENO">
-            <End Role="FIDE_DISENO_TB" EntitySet="FIDE_DISENO_TB" />
-            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FACTURACION_ESTADO" Association="FIDE_DBModel.FK_FACTURACION_ESTADO">
-            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
-            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PLACA_ESTADO" Association="FIDE_DBModel.FK_PLACA_ESTADO">
-            <End Role="FIDE_ESTADO_TB" EntitySet="FIDE_ESTADO_TB" />
-            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FACTURACION_PLACA" Association="FIDE_DBModel.FK_FACTURACION_PLACA">
-            <End Role="FIDE_PLACA_TB" EntitySet="FIDE_PLACA_TB" />
-            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PAGO_FACTURA" Association="FIDE_DBModel.FK_PAGO_FACTURA">
-            <End Role="FIDE_FACTURACION_TB" EntitySet="FIDE_FACTURACION_TB" />
-            <End Role="FIDE_PAGO_TB" EntitySet="FIDE_PAGO_TB" />
-          </AssociationSet>
-          <FunctionImport Name="SP_CONSULTAR_FACTURA" ReturnType="Collection(FIDE_DBModel.SP_CONSULTAR_FACTURA_Result)">
-          <Parameter Name="ID_FACTURA" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="SP_REGISTRAR_FACTURA" ReturnType="Collection(Decimal)">
-            <Parameter Name="DETALLE" Mode="In" Type="String" />
-            <Parameter Name="SUBTOTAL" Mode="In" Type="Decimal" />
-            <Parameter Name="IMPUESTOS" Mode="In" Type="Decimal" />
-            <Parameter Name="TOTAL" Mode="In" Type="Decimal" />
-            <Parameter Name="ID_DISENO" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="SP_ASIGNAR_ROL_USUARIO">
             <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
             <Parameter Name="ID_ROL" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_CONSULTAR_CARRITO" ReturnType="Collection(FIDE_DBModel.SP_CONSULTAR_CARRITO_Result)" />
           <FunctionImport Name="SP_CREAR_USUARIO" ReturnType="Collection(Int32)">
             <Parameter Name="CEDULA" Mode="In" Type="String" />
             <Parameter Name="NOMBRE" Mode="In" Type="String" />
@@ -1542,7 +1702,7 @@
             <Parameter Name="ID_DIRECCION" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_DESACTIVAR_USUARIO">
-          <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SP_EDITAR_USUARIO" ReturnType="Collection(Int32)">
             <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
@@ -1555,21 +1715,38 @@
             <Parameter Name="ID_ESTADO" Mode="In" Type="Int32" />
             <Parameter Name="ID_DIRECCION" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SP_INICIAR_SESION" ReturnType="Collection(FIDE_DBModel.SP_INICIAR_SESION_Result)">
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="CONTRASENA" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="SP_LISTAR_ROLES" ReturnType="Collection(FIDE_DBModel.SP_LISTAR_ROLES_Result)" />
           <FunctionImport Name="SP_LISTAR_USUARIOS" ReturnType="Collection(FIDE_DBModel.SP_LISTAR_USUARIOS_Result)" />
           <FunctionImport Name="SP_LISTAR_USUARIOS_ROLES" ReturnType="Collection(FIDE_DBModel.SP_LISTAR_USUARIOS_ROLES_Result)" />
           <FunctionImport Name="SP_OBTENER_USUARIO" ReturnType="Collection(FIDE_DBModel.SP_OBTENER_USUARIO_Result)">
-          <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SP_PRUEBA" ReturnType="Collection(String)" />
           <FunctionImport Name="SP_QUITAR_ROL_USUARIO">
             <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
             <Parameter Name="ID_ROL" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SP_ROLES_USUARIO" ReturnType="Collection(FIDE_DBModel.SP_ROLES_USUARIO_Result)">
-          <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+          <FunctionImport Name="SP_REGISTRAR_FACTURA" ReturnType="Collection(Decimal)">
+            <Parameter Name="DETALLE" Mode="In" Type="String" />
+            <Parameter Name="SUBTOTAL" Mode="In" Type="Decimal" />
+            <Parameter Name="IMPUESTOS" Mode="In" Type="Decimal" />
+            <Parameter Name="TOTAL" Mode="In" Type="Decimal" />
+            <Parameter Name="ID_DISENO" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SP_TEST_USUARIOS" ReturnType="Collection(FIDE_DBModel.SP_TEST_USUARIOS_Result)" />
+          <FunctionImport Name="SP_REGISTRAR_USUARIO">
+            <Parameter Name="CEDULA" Mode="In" Type="String" />
+            <Parameter Name="NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="PRIMER_APELLIDO" Mode="In" Type="String" />
+            <Parameter Name="SEGUNDO_APELLIDO" Mode="In" Type="String" />
+            <Parameter Name="CORREO" Mode="In" Type="String" />
+            <Parameter Name="CONTRASENA" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_ROLES_USUARIO" ReturnType="Collection(FIDE_DBModel.SP_ROLES_USUARIO_Result)">
+            <Parameter Name="ID_USUARIO" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="SP_CONSULTAR_CARRITO_Result">
           <Property Type="Int32" Name="ID_DISENO" Nullable="false" />
@@ -1582,171 +1759,17 @@
           <Property Type="String" Name="TAMANO" Nullable="false" MaxLength="30" />
           <Property Type="Decimal" Name="PRECIO_TAMANO" Nullable="false" Precision="10" Scale="2" />
         </ComplexType>
-        <EntityType Name="FIDE_DISENO_TB">
-          <Key>
-            <PropertyRef Name="ID_DISENO" />
-          </Key>
-          <Property Name="ID_DISENO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_TAMANO" Type="Int32" Nullable="false" />
-          <Property Name="ID_MATERIAL" Type="Int32" Nullable="false" />
-          <Property Name="IMAGEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="TEXTO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="FIDE_DBModel.FK_DISENO_ESTADO" FromRole="FIDE_DISENO_TB" ToRole="FIDE_ESTADO_TB" />
-          <NavigationProperty Name="FIDE_MATERIAL_TB" Relationship="FIDE_DBModel.FK_DISENO_MATERIAL" FromRole="FIDE_DISENO_TB" ToRole="FIDE_MATERIAL_TB" />
-          <NavigationProperty Name="FIDE_TAMANO_TB" Relationship="FIDE_DBModel.FK_DISENO_TAMANO" FromRole="FIDE_DISENO_TB" ToRole="FIDE_TAMANO_TB" />
-          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="FIDE_DBModel.FK_FACTURACION_DISENO" FromRole="FIDE_DISENO_TB" ToRole="FIDE_FACTURACION_TB" />
-        </EntityType>
-        <EntityType Name="FIDE_FACTURACION_TB">
-          <Key>
-            <PropertyRef Name="ID_FACTURA" />
-          </Key>
-          <Property Name="ID_FACTURA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FECHA_EMISION" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DETALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SUBTOTAL" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="IMPUESTOS" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="TOTAL" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
-          <Property Name="ID_PLACA" Type="Int32" />
-          <Property Name="ID_DISENO" Type="Int32" />
-          <NavigationProperty Name="FIDE_DISENO_TB" Relationship="FIDE_DBModel.FK_FACTURACION_DISENO" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_DISENO_TB" />
-          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="FIDE_DBModel.FK_FACTURACION_ESTADO" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_ESTADO_TB" />
-          <NavigationProperty Name="FIDE_PLACA_TB" Relationship="FIDE_DBModel.FK_FACTURACION_PLACA" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_PLACA_TB" />
-          <NavigationProperty Name="FIDE_PAGO_TB" Relationship="FIDE_DBModel.FK_PAGO_FACTURA" FromRole="FIDE_FACTURACION_TB" ToRole="FIDE_PAGO_TB" />
-        </EntityType>
-        <EntityType Name="FIDE_PLACA_TB">
-          <Key>
-            <PropertyRef Name="ID_PLACA" />
-          </Key>
-          <Property Name="ID_PLACA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="MATERIAL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TAMANO" Type="Int32" />
-          <Property Name="PRECIO" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
-          <Property Name="IMAGEN_NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DISPONIBLE" Type="Boolean" Nullable="false" />
-          <Property Name="ID_CATEGORIA" Type="Int32" Nullable="false" />
-          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FIDE_CATEGORIA_TB" Relationship="FIDE_DBModel.FK_PLACA_CATEGORIA" FromRole="FIDE_PLACA_TB" ToRole="FIDE_CATEGORIA_TB" />
-          <NavigationProperty Name="FIDE_ESTADO_TB" Relationship="FIDE_DBModel.FK_PLACA_ESTADO" FromRole="FIDE_PLACA_TB" ToRole="FIDE_ESTADO_TB" />
-          <NavigationProperty Name="FIDE_FACTURACION_TB" Relationship="FIDE_DBModel.FK_FACTURACION_PLACA" FromRole="FIDE_PLACA_TB" ToRole="FIDE_FACTURACION_TB" />
-        </EntityType>
-        <Association Name="FK_PLACA_CATEGORIA">
-          <End Type="FIDE_DBModel.FIDE_CATEGORIA_TB" Role="FIDE_CATEGORIA_TB" Multiplicity="1" />
-          <End Type="FIDE_DBModel.FIDE_PLACA_TB" Role="FIDE_PLACA_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FIDE_CATEGORIA_TB">
-              <PropertyRef Name="ID_CATEGORIA" />
-            </Principal>
-            <Dependent Role="FIDE_PLACA_TB">
-              <PropertyRef Name="ID_CATEGORIA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DISENO_ESTADO">
-          <End Type="FIDE_DBModel.FIDE_ESTADO_TB" Role="FIDE_ESTADO_TB" Multiplicity="1" />
-          <End Type="FIDE_DBModel.FIDE_DISENO_TB" Role="FIDE_DISENO_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FIDE_ESTADO_TB">
-              <PropertyRef Name="ID_ESTADO" />
-            </Principal>
-            <Dependent Role="FIDE_DISENO_TB">
-              <PropertyRef Name="ID_ESTADO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DISENO_MATERIAL">
-          <End Type="FIDE_DBModel.FIDE_MATERIAL_TB" Role="FIDE_MATERIAL_TB" Multiplicity="1" />
-          <End Type="FIDE_DBModel.FIDE_DISENO_TB" Role="FIDE_DISENO_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FIDE_MATERIAL_TB">
-              <PropertyRef Name="ID_MATERIAL" />
-            </Principal>
-            <Dependent Role="FIDE_DISENO_TB">
-              <PropertyRef Name="ID_MATERIAL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DISENO_TAMANO">
-          <End Type="FIDE_DBModel.FIDE_TAMANO_TB" Role="FIDE_TAMANO_TB" Multiplicity="1" />
-          <End Type="FIDE_DBModel.FIDE_DISENO_TB" Role="FIDE_DISENO_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FIDE_TAMANO_TB">
-              <PropertyRef Name="ID_TAMANO" />
-            </Principal>
-            <Dependent Role="FIDE_DISENO_TB">
-              <PropertyRef Name="ID_TAMANO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FACTURACION_DISENO">
-          <End Type="FIDE_DBModel.FIDE_DISENO_TB" Role="FIDE_DISENO_TB" Multiplicity="0..1" />
-          <End Type="FIDE_DBModel.FIDE_FACTURACION_TB" Role="FIDE_FACTURACION_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FIDE_DISENO_TB">
-              <PropertyRef Name="ID_DISENO" />
-            </Principal>
-            <Dependent Role="FIDE_FACTURACION_TB">
-              <PropertyRef Name="ID_DISENO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FACTURACION_ESTADO">
-          <End Type="FIDE_DBModel.FIDE_ESTADO_TB" Role="FIDE_ESTADO_TB" Multiplicity="1" />
-          <End Type="FIDE_DBModel.FIDE_FACTURACION_TB" Role="FIDE_FACTURACION_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FIDE_ESTADO_TB">
-              <PropertyRef Name="ID_ESTADO" />
-            </Principal>
-            <Dependent Role="FIDE_FACTURACION_TB">
-              <PropertyRef Name="ID_ESTADO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PLACA_ESTADO">
-          <End Type="FIDE_DBModel.FIDE_ESTADO_TB" Role="FIDE_ESTADO_TB" Multiplicity="1" />
-          <End Type="FIDE_DBModel.FIDE_PLACA_TB" Role="FIDE_PLACA_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FIDE_ESTADO_TB">
-              <PropertyRef Name="ID_ESTADO" />
-            </Principal>
-            <Dependent Role="FIDE_PLACA_TB">
-              <PropertyRef Name="ID_ESTADO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FACTURACION_PLACA">
-          <End Type="FIDE_DBModel.FIDE_PLACA_TB" Role="FIDE_PLACA_TB" Multiplicity="0..1" />
-          <End Type="FIDE_DBModel.FIDE_FACTURACION_TB" Role="FIDE_FACTURACION_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FIDE_PLACA_TB">
-              <PropertyRef Name="ID_PLACA" />
-            </Principal>
-            <Dependent Role="FIDE_FACTURACION_TB">
-              <PropertyRef Name="ID_PLACA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PAGO_FACTURA">
-          <End Type="FIDE_DBModel.FIDE_FACTURACION_TB" Role="FIDE_FACTURACION_TB" Multiplicity="1" />
-          <End Type="FIDE_DBModel.FIDE_PAGO_TB" Role="FIDE_PAGO_TB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FIDE_FACTURACION_TB">
-              <PropertyRef Name="ID_FACTURA" />
-            </Principal>
-            <Dependent Role="FIDE_PAGO_TB">
-              <PropertyRef Name="ID_FACTURA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <ComplexType Name="SP_CONSULTAR_FACTURA_Result">
-          <Property Type="Int32" Name="ID_FACTURA" Nullable="false" />
-          <Property Type="DateTime" Name="FECHA_EMISION" Nullable="false" Precision="23" />
-          <Property Type="String" Name="DETALLE" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="TEXTO" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="TOTAL" Nullable="false" Precision="10" Scale="2" />
+        <ComplexType Name="SP_INICIAR_SESION_Result">
+          <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
+          <Property Type="String" Name="CEDULA" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PRIMER_APELLIDO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="SEGUNDO_APELLIDO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CORREO" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="ID_ESTADO" Nullable="false" />
+          <Property Type="String" Name="CONTRASENA" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="ID_ROL" Nullable="false" />
+          <Property Type="String" Name="NOMBRE_ROL" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="SP_LISTAR_ROLES_Result">
           <Property Type="Int32" Name="ID_ROL" Nullable="false" />
@@ -1758,7 +1781,7 @@
           <Property Type="String" Name="CEDULA" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="PRIMER_APELLIDO" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="SEGUNDO_APELLIDO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SEGUNDO_APELLIDO" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="CORREO" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="ID_ESTADO" Nullable="false" />
         </ComplexType>
@@ -1776,22 +1799,16 @@
           <Property Type="String" Name="CEDULA" Nullable="false" MaxLength="20" />
           <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="PRIMER_APELLIDO" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="SEGUNDO_APELLIDO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SEGUNDO_APELLIDO" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="PERFIL_URL" Nullable="true" />
           <Property Type="String" Name="CORREO" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="ID_ESTADO" Nullable="false" />
-          <Property Type="Int32" Name="ID_DIRECCION" Nullable="false" />
+          <Property Type="Int32" Name="ID_DIRECCION" Nullable="true" />
         </ComplexType>
         <ComplexType Name="SP_ROLES_USUARIO_Result">
           <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
           <Property Type="Int32" Name="ID_ROL" Nullable="false" />
           <Property Type="String" Name="ROL" Nullable="false" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="SP_TEST_USUARIOS_Result">
-          <Property Type="Int32" Name="ID_USUARIO" Nullable="false" />
-          <Property Type="String" Name="CEDULA" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="NOMBRE" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="CORREO" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1830,6 +1847,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_DISENO_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_DISENO_TB">
+              <MappingFragment StoreEntitySet="FIDE_DISENO_TB">
+                <ScalarProperty Name="ID_DISENO" ColumnName="ID_DISENO" />
+                <ScalarProperty Name="ID_TAMANO" ColumnName="ID_TAMANO" />
+                <ScalarProperty Name="ID_MATERIAL" ColumnName="ID_MATERIAL" />
+                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
+                <ScalarProperty Name="TEXTO" ColumnName="TEXTO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="FIDE_DISTRITO_TB">
             <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_DISTRITO_TB">
               <MappingFragment StoreEntitySet="FIDE_DISTRITO_TB">
@@ -1847,12 +1876,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_FACTURACION_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_FACTURACION_TB">
+              <MappingFragment StoreEntitySet="FIDE_FACTURACION_TB">
+                <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
+                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
+                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
+                <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
+                <ScalarProperty Name="IMPUESTOS" ColumnName="IMPUESTOS" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="ID_PLACA" ColumnName="ID_PLACA" />
+                <ScalarProperty Name="ID_DISENO" ColumnName="ID_DISENO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="FIDE_MATERIAL_TB">
             <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_MATERIAL_TB">
               <MappingFragment StoreEntitySet="FIDE_MATERIAL_TB">
-                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
                 <ScalarProperty Name="ID_MATERIAL" ColumnName="ID_MATERIAL" />
                 <ScalarProperty Name="MATERIAL" ColumnName="MATERIAL" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
                 <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1875,6 +1919,22 @@
                 <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
                 <ScalarProperty Name="FECHA_PAGO" ColumnName="FECHA_PAGO" />
                 <ScalarProperty Name="MONTO" ColumnName="MONTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FIDE_PLACA_TB">
+            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_PLACA_TB">
+              <MappingFragment StoreEntitySet="FIDE_PLACA_TB">
+                <ScalarProperty Name="ID_PLACA" ColumnName="ID_PLACA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="MATERIAL" ColumnName="MATERIAL" />
+                <ScalarProperty Name="TAMANO" ColumnName="TAMANO" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
+                <ScalarProperty Name="IMAGEN_NOMBRE" ColumnName="IMAGEN_NOMBRE" />
+                <ScalarProperty Name="DISPONIBLE" ColumnName="DISPONIBLE" />
+                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1933,9 +1993,9 @@
           <EntitySetMapping Name="FIDE_TAMANO_TB">
             <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_TAMANO_TB">
               <MappingFragment StoreEntitySet="FIDE_TAMANO_TB">
-                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
                 <ScalarProperty Name="ID_TAMANO" ColumnName="ID_TAMANO" />
                 <ScalarProperty Name="TAMANO" ColumnName="TAMANO" />
+                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
                 <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1965,6 +2025,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ASIGNAR_ROL_USUARIO" FunctionName="FIDE_DBModel.Store.SP_ASIGNAR_ROL_USUARIO" />
           <FunctionImportMapping FunctionImportName="SP_CONSULTAR_CARRITO" FunctionName="FIDE_DBModel.Store.SP_CONSULTAR_CARRITO">
             <ResultMapping>
               <ComplexTypeMapping TypeName="FIDE_DBModel.SP_CONSULTAR_CARRITO_Result">
@@ -1980,54 +2041,25 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="FIDE_DISENO_TB">
-            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_DISENO_TB">
-              <MappingFragment StoreEntitySet="FIDE_DISENO_TB">
-                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
-                <ScalarProperty Name="TEXTO" ColumnName="TEXTO" />
-                <ScalarProperty Name="IMAGEN" ColumnName="IMAGEN" />
-                <ScalarProperty Name="ID_MATERIAL" ColumnName="ID_MATERIAL" />
-                <ScalarProperty Name="ID_TAMANO" ColumnName="ID_TAMANO" />
-                <ScalarProperty Name="ID_DISENO" ColumnName="ID_DISENO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FIDE_FACTURACION_TB">
-            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_FACTURACION_TB">
-              <MappingFragment StoreEntitySet="FIDE_FACTURACION_TB">
-                <ScalarProperty Name="ID_DISENO" ColumnName="ID_DISENO" />
-                <ScalarProperty Name="ID_PLACA" ColumnName="ID_PLACA" />
-                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
-                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
-                <ScalarProperty Name="IMPUESTOS" ColumnName="IMPUESTOS" />
-                <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
-                <ScalarProperty Name="DETALLE" ColumnName="DETALLE" />
-                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
-                <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FIDE_PLACA_TB">
-            <EntityTypeMapping TypeName="FIDE_DBModel.FIDE_PLACA_TB">
-              <MappingFragment StoreEntitySet="FIDE_PLACA_TB">
-                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
-                <ScalarProperty Name="ID_CATEGORIA" ColumnName="ID_CATEGORIA" />
-                <ScalarProperty Name="DISPONIBLE" ColumnName="DISPONIBLE" />
-                <ScalarProperty Name="IMAGEN_NOMBRE" ColumnName="IMAGEN_NOMBRE" />
-                <ScalarProperty Name="PRECIO" ColumnName="PRECIO" />
-                <ScalarProperty Name="TAMANO" ColumnName="TAMANO" />
-                <ScalarProperty Name="MATERIAL" ColumnName="MATERIAL" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
-                <ScalarProperty Name="ID_PLACA" ColumnName="ID_PLACA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_FACTURA" FunctionName="FIDE_DBModel.Store.SP_REGISTRAR_FACTURA" />
-          <FunctionImportMapping FunctionImportName="SP_ASIGNAR_ROL_USUARIO" FunctionName="FIDE_DBModel.Store.SP_ASIGNAR_ROL_USUARIO" />
           <FunctionImportMapping FunctionImportName="SP_CREAR_USUARIO" FunctionName="FIDE_DBModel.Store.SP_CREAR_USUARIO" />
           <FunctionImportMapping FunctionImportName="SP_DESACTIVAR_USUARIO" FunctionName="FIDE_DBModel.Store.SP_DESACTIVAR_USUARIO" />
           <FunctionImportMapping FunctionImportName="SP_EDITAR_USUARIO" FunctionName="FIDE_DBModel.Store.SP_EDITAR_USUARIO" />
+          <FunctionImportMapping FunctionImportName="SP_INICIAR_SESION" FunctionName="FIDE_DBModel.Store.SP_INICIAR_SESION">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FIDE_DBModel.SP_INICIAR_SESION_Result">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="PRIMER_APELLIDO" ColumnName="PRIMER_APELLIDO" />
+                <ScalarProperty Name="SEGUNDO_APELLIDO" ColumnName="SEGUNDO_APELLIDO" />
+                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+                <ScalarProperty Name="NOMBRE_ROL" ColumnName="NOMBRE_ROL" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_LISTAR_ROLES" FunctionName="FIDE_DBModel.Store.SP_LISTAR_ROLES">
             <ResultMapping>
               <ComplexTypeMapping TypeName="FIDE_DBModel.SP_LISTAR_ROLES_Result">
@@ -2078,24 +2110,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_PRUEBA" FunctionName="FIDE_DBModel.Store.SP_PRUEBA" />
           <FunctionImportMapping FunctionImportName="SP_QUITAR_ROL_USUARIO" FunctionName="FIDE_DBModel.Store.SP_QUITAR_ROL_USUARIO" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_FACTURA" FunctionName="FIDE_DBModel.Store.SP_REGISTRAR_FACTURA" />
+          <FunctionImportMapping FunctionImportName="SP_REGISTRAR_USUARIO" FunctionName="FIDE_DBModel.Store.SP_REGISTRAR_USUARIO" />
           <FunctionImportMapping FunctionImportName="SP_ROLES_USUARIO" FunctionName="FIDE_DBModel.Store.SP_ROLES_USUARIO">
             <ResultMapping>
               <ComplexTypeMapping TypeName="FIDE_DBModel.SP_ROLES_USUARIO_Result">
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
                 <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
                 <ScalarProperty Name="ROL" ColumnName="ROL" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_TEST_USUARIOS" FunctionName="FIDE_DBModel.Store.SP_TEST_USUARIOS">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FIDE_DBModel.SP_TEST_USUARIOS_Result">
-                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
-                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
-                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
-                <ScalarProperty Name="CORREO" ColumnName="CORREO" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

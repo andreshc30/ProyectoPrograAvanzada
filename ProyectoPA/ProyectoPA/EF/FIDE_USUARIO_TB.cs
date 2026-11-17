@@ -31,7 +31,7 @@ namespace ProyectoPA.EF
         public string CORREO { get; set; }
         public int ID_ESTADO { get; set; }
         public string CONTRASENA { get; set; }
-        public int ID_DIRECCION { get; set; }
+        public Nullable<int> ID_DIRECCION { get; set; }
     
         public virtual FIDE_DIRECCION_TB FIDE_DIRECCION_TB { get; set; }
         public virtual FIDE_ESTADO_TB FIDE_ESTADO_TB { get; set; }

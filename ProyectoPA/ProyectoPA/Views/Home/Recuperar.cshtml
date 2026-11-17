@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ProyectoPA.Models.UsuarioModel
+@{
     ViewBag.Title = "Recuperar Contraseña";
 }
 
@@ -14,21 +15,22 @@
                     </h2>
 
                     <p class="text-secondary mb-4">
-                        Ingresa el correo electrónico asociado a tu cuenta para recuperar el acceso.
+                        Ingresa la cédula asociado a tu cuenta para recuperar el acceso.
                     </p>
 
-                    <form class="text-start">
+                    @using (Html.BeginForm("Recuperar", "Home", FormMethod.Post, new { id = "recuperarForm", @class = "text-start" }))
+                    {
+                        if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-danger text-center">@ViewBag.Message</div>
+                        }
 
                         <div class="mb-4">
-                            <label for="correo" class="form-label text-secondary">
-                                Correo electrónico
+                            <label class="form-label text-secondary">
+                                Cédula
                             </label>
+                            @Html.TextBoxFor(m => m.Cedula, new { @class = "form-control" })
 
-                            <input type="email"
-                                   class="form-control"
-                                   id="correo"
-                                   placeholder="correo@ejemplo.com"
-                                   required>
                         </div>
 
                         <button type="submit"
@@ -36,7 +38,7 @@
                             Recuperar contraseña
                         </button>
 
-                    </form>
+                    }
 
                     <p class="mt-4 mb-0">
                         <a href="@Url.Action("Login", "Home")" class="text-secondary small">
@@ -50,3 +52,8 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/assets/js/recuperar.js"></script>
+    <script src="~/assets/js/auth.js"></script>
+}

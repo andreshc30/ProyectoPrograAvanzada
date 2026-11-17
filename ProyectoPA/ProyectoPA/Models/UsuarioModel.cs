@@ -5,29 +5,25 @@ namespace ProyectoPA.Models
 {
     public class UsuarioModel
     {
-        public int ID_USUARIO { get; set; }
+        public int IdUsuario { get; set; }
+        public string Cedula { get; set; }
 
-        [Required(ErrorMessage = "La cédula es obligatoria")]
-        public string CEDULA { get; set; }
+        public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "El nombre es obligatorio")]
-        public string NOMBRE { get; set; }
+        public string PrimerApellido { get; set; }
 
-        [Required(ErrorMessage = "El primer apellido es obligatorio")]
-        public string PRIMER_APELLIDO { get; set; }
+        public string SegundoApellido { get; set; }
 
-        public string SEGUNDO_APELLIDO { get; set; }
+        public string Correo { get; set; }
 
-        public string PERFIL_URL { get; set; }
+        public string Contrasena { get; set; }
 
-        [Required(ErrorMessage = "El correo es obligatorio")]
-        [EmailAddress(ErrorMessage = "Ingrese un correo válido")]
-        public string CORREO { get; set; }
+        public string ConfirmarContrasena { get; set; }
 
-        [Required(ErrorMessage = "Seleccione un estado")]
-        public int? ID_ESTADO { get; set; }
+        public int IdEstado { get; set; }
+        
+        public int IdDireccion { get; set; }
 
-        [Required(ErrorMessage = "Seleccione una dirección")]
-        public int? ID_DIRECCION { get; set; }
+        public string PerfilUrl { get; set; }
     }
 }

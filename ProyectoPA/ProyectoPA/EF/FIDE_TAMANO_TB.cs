@@ -22,11 +22,11 @@ namespace ProyectoPA.EF
     
         public int ID_TAMANO { get; set; }
         public string TAMANO { get; set; }
-        public int ID_ESTADO { get; set; }
         public decimal PRECIO { get; set; }
+        public int ID_ESTADO { get; set; }
     
-        public virtual FIDE_ESTADO_TB FIDE_ESTADO_TB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FIDE_DISENO_TB> FIDE_DISENO_TB { get; set; }
+        public virtual FIDE_ESTADO_TB FIDE_ESTADO_TB { get; set; }
     }
 }

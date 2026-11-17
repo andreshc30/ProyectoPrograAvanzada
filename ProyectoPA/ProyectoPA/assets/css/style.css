@@ -546,4 +546,148 @@
     margin-right: 10px;
 }
 
-.btn
+.campo-clave {
+    display: flex;
+    align-items: stretch;
+}
+
+    .campo-clave .form-control {
+        flex: 1;
+        border-right: none;
+        border-radius: 0;
+    }
+
+        .campo-clave .form-control:focus {
+            border-color: #D4AF37;
+            box-shadow: none;
+        }
+
+.password-toggle-btn {
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-left: none;
+    border-radius: 0;
+    color: #D4AF37;
+    font-size: 1.1rem;
+    padding: 0;
+    cursor: pointer;
+    transition: color .25s ease, background-color .25s ease, border-color .25s ease;
+}
+
+    .campo-clave .form-control:focus + .password-toggle-btn,
+    .password-toggle-btn:hover {
+        border-color: #D4AF37;
+    }
+
+    .password-toggle-btn:hover {
+        background-color: #D4AF37;
+        color: #fff;
+    }
+
+    .password-toggle-btn:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .password-toggle-btn i {
+        pointer-events: none;
+    }
+
+.login-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.login-input-group i.input-icon {
+        position: absolute;
+        left: 1.25rem;
+        color: var(--text-muted-green);
+        font-size: 1.1rem;
+        pointer-events: none;
+        transition: color 0.25s ease;
+}
+
+.login-input.login-input-invalid {
+    border-color: var(--sys-red);
+}
+
+/*** Perfil en la barra ***/
+.navbar-profile-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .3rem .8rem .3rem .3rem;
+    background: transparent;
+    border: 1px solid #D4AF37;
+    border-radius: 50rem;
+    color: #fff;
+    line-height: 1;
+    white-space: nowrap;
+    transition: background-color .25s ease, color .25s ease;
+}
+
+    .navbar-profile-btn::after {
+        display: none; /* quita la flecha por defecto de Bootstrap */
+    }
+
+    .navbar-profile-btn:hover,
+    .navbar-profile-btn[aria-expanded="true"] {
+        background: rgba(212, 175, 55, .15);
+    }
+
+.navbar-profile-img {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #D4AF37;
+    color: #1a1a1a;
+    border-radius: 50%;
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.navbar-profile-name {
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+.navbar-profile-role {
+    margin-left: .4rem;
+    padding-left: .5rem;
+    border-left: 1px solid rgba(212, 175, 55, .5);
+    font-size: .75rem;
+    color: #D4AF37;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.navbar-profile-caret {
+    font-size: .7rem;
+    color: #D4AF37;
+}
+
+.dropdown-menu-profile {
+    min-width: 180px;
+    margin-top: .5rem;
+    border: 1px solid #D4AF37;
+    border-radius: 0;
+    padding: .25rem 0;
+}
+
+    .dropdown-menu-profile .dropdown-item {
+        font-size: .9rem;
+        padding: .55rem 1rem;
+    }
+
+        .dropdown-menu-profile .dropdown-item:hover {
+            background: #D4AF37;
+            color: #1a1a1a;
+        }

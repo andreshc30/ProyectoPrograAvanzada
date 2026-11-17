@@ -20,10 +20,13 @@ namespace ProyectoPA.EF
             this.FIDE_CANTON_TB = new HashSet<FIDE_CANTON_TB>();
             this.FIDE_CATEGORIA_TB = new HashSet<FIDE_CATEGORIA_TB>();
             this.FIDE_DIRECCION_TB = new HashSet<FIDE_DIRECCION_TB>();
+            this.FIDE_DISENO_TB = new HashSet<FIDE_DISENO_TB>();
             this.FIDE_DISTRITO_TB = new HashSet<FIDE_DISTRITO_TB>();
+            this.FIDE_FACTURACION_TB = new HashSet<FIDE_FACTURACION_TB>();
             this.FIDE_MATERIAL_TB = new HashSet<FIDE_MATERIAL_TB>();
             this.FIDE_METODO_PAGO_TB = new HashSet<FIDE_METODO_PAGO_TB>();
             this.FIDE_PAGO_TB = new HashSet<FIDE_PAGO_TB>();
+            this.FIDE_PLACA_TB = new HashSet<FIDE_PLACA_TB>();
             this.FIDE_PROVINCIA_TB = new HashSet<FIDE_PROVINCIA_TB>();
             this.FIDE_RESENAS_TB = new HashSet<FIDE_RESENAS_TB>();
             this.FIDE_ROL_TB = new HashSet<FIDE_ROL_TB>();
@@ -32,9 +35,6 @@ namespace ProyectoPA.EF
             this.FIDE_TAMANO_TB = new HashSet<FIDE_TAMANO_TB>();
             this.FIDE_TELEFONO_TB = new HashSet<FIDE_TELEFONO_TB>();
             this.FIDE_USUARIO_TB = new HashSet<FIDE_USUARIO_TB>();
-            this.FIDE_DISENO_TB = new HashSet<FIDE_DISENO_TB>();
-            this.FIDE_FACTURACION_TB = new HashSet<FIDE_FACTURACION_TB>();
-            this.FIDE_PLACA_TB = new HashSet<FIDE_PLACA_TB>();
         }
     
         public int ID_ESTADO { get; set; }
@@ -47,13 +47,19 @@ namespace ProyectoPA.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FIDE_DIRECCION_TB> FIDE_DIRECCION_TB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FIDE_DISENO_TB> FIDE_DISENO_TB { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FIDE_DISTRITO_TB> FIDE_DISTRITO_TB { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FIDE_FACTURACION_TB> FIDE_FACTURACION_TB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FIDE_MATERIAL_TB> FIDE_MATERIAL_TB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FIDE_METODO_PAGO_TB> FIDE_METODO_PAGO_TB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FIDE_PAGO_TB> FIDE_PAGO_TB { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FIDE_PLACA_TB> FIDE_PLACA_TB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FIDE_PROVINCIA_TB> FIDE_PROVINCIA_TB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -70,11 +76,5 @@ namespace ProyectoPA.EF
         public virtual ICollection<FIDE_TELEFONO_TB> FIDE_TELEFONO_TB { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FIDE_USUARIO_TB> FIDE_USUARIO_TB { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FIDE_DISENO_TB> FIDE_DISENO_TB { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FIDE_FACTURACION_TB> FIDE_FACTURACION_TB { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FIDE_PLACA_TB> FIDE_PLACA_TB { get; set; }
     }
 }

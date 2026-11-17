@@ -21,6 +21,6 @@ namespace ProyectoPA.EF
         public string PERFIL_URL { get; set; }
         public string CORREO { get; set; }
         public int ID_ESTADO { get; set; }
-        public int ID_DIRECCION { get; set; }
+        public Nullable<int> ID_DIRECCION { get; set; }
     }
 }

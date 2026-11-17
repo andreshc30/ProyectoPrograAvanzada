@@ -1,15 +1,105 @@
-﻿
+﻿using ProyectoPA.EF;
+using ProyectoPA.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using ProyectoPA.EF;
-using ProyectoPA.Models;
+using System.Net.Mail;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web;
+using System.Threading.Tasks;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using MimeKit;
+
 
 namespace ProyectoPA.Services
 {
     public class UsuarioService
     {
+        private readonly byte[] Key = Convert.FromBase64String("sy+v61jJHH5tZTjth2g+PwKpfUiNXWA0ImlUWxikTKUedfPEC6zrkDSzsneTbfkTXJnaEchH7BcVBF4XkqIMDw==");
+
+        #region Cifrar
+        public string Cifrar(int userId, TimeSpan vigencia)
+        {
+            var payload = Encoding.UTF8.GetBytes($"{userId}|{DateTime.UtcNow.Add(vigencia).Ticks}");
+            using (var aes = Aes.Create())
+            using (var hmac = new HMACSHA256(Key.AsSpan(32).ToArray()))
+            {
+                aes.Key = Key.AsSpan(0, 32).ToArray();
+                aes.GenerateIV();
+                var cifrado = aes.CreateEncryptor().TransformFinalBlock(payload, 0, payload.Length);
+
+                var datos = new byte[16 + cifrado.Length + 32];
+                Buffer.BlockCopy(aes.IV, 0, datos, 0, 16);
+                Buffer.BlockCopy(cifrado, 0, datos, 16, cifrado.Length);
+                Buffer.BlockCopy(hmac.ComputeHash(datos, 0, 16 + cifrado.Length), 0, datos, 16 + cifrado.Length, 32);
+
+                return Convert.ToBase64String(datos).TrimEnd('=').Replace('+', '-').Replace('/', '_');
+            }
+        }
+        #endregion
+
+        #region Descifrar
+        public int? Descifrar(string token)
+        {
+            try
+            {
+                var b64 = token.Replace('-', '+').Replace('_', '/');
+                var datos = Convert.FromBase64String(b64.PadRight(b64.Length + (4 - b64.Length % 4) % 4, '='));
+                if (datos.Length < 16 + 16 + 32) return null;
+
+                int largoMac = datos.Length - 32;
+                using (var hmac = new HMACSHA256(Key.AsSpan(32).ToArray()))
+                {
+                    var macEsperado = hmac.ComputeHash(datos, 0, largoMac);
+                    int diff = 0;
+                    for (int i = 0; i < 32; i++) diff |= macEsperado[i] ^ datos[largoMac + i];
+                    if (diff != 0) return null;
+                }
+
+                using (var aes = Aes.Create())
+                {
+                    aes.Key = Key.AsSpan(0, 32).ToArray();
+                    aes.IV = datos.AsSpan(0, 16).ToArray();
+                    var plano = aes.CreateDecryptor().TransformFinalBlock(datos, 16, largoMac - 16);
+                    var partes = Encoding.UTF8.GetString(plano).Split('|');
+
+                    if (DateTime.UtcNow.Ticks > long.Parse(partes[1])) return null;
+                    return int.Parse(partes[0]);
+                }
+            }
+            catch { return null; }
+        }
+        #endregion
+
+        #region Enviar Correo
+        public async Task EnviarCorreo(string para, string asunto, string html)
+        {
+            var cuentaCorreo = "casadelaplacaweb@gmail.com";
+            var contrasenaCorreo = "aumb enag mgmh xttr";
+
+            if (string.IsNullOrEmpty(contrasenaCorreo))
+                return;
+
+            var mensaje = new MimeMessage();
+            mensaje.From.Add(MailboxAddress.Parse(cuentaCorreo));
+            mensaje.To.Add(MailboxAddress.Parse(para));
+            mensaje.Subject = asunto;
+            mensaje.Body = new BodyBuilder { HtmlBody = html }.ToMessageBody();
+
+            using (var smtp = new MailKit.Net.Smtp.SmtpClient())
+            {
+                await smtp.ConnectAsync("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+                await smtp.AuthenticateAsync(cuentaCorreo, contrasenaCorreo);
+                await smtp.SendAsync(mensaje);
+                await smtp.DisconnectAsync(true);
+            }
+        }
+        #endregion
+
+
         // MOSTRAR USUARIOS
         public List<UsuarioModel> ListarUsuarios()
         {
@@ -18,13 +108,13 @@ namespace ProyectoPA.Services
                 return db.SP_LISTAR_USUARIOS()
                     .Select(u => new UsuarioModel
                     {
-                        ID_USUARIO = u.ID_USUARIO,
-                        CEDULA = u.CEDULA,
-                        NOMBRE = u.NOMBRE,
-                        PRIMER_APELLIDO = u.PRIMER_APELLIDO,
-                        SEGUNDO_APELLIDO = u.SEGUNDO_APELLIDO,
-                        CORREO = u.CORREO,
-                        ID_ESTADO = u.ID_ESTADO
+                        IdUsuario = u.ID_USUARIO,
+                        Cedula = u.CEDULA,
+                        Nombre = u.NOMBRE,
+                        PrimerApellido = u.PRIMER_APELLIDO,
+                        SegundoApellido = u.SEGUNDO_APELLIDO,
+                        Correo = u.CORREO,
+                        IdEstado = u.ID_ESTADO
                     }).ToList();
             }
         }
@@ -37,15 +127,13 @@ namespace ProyectoPA.Services
                 return db.SP_OBTENER_USUARIO(id)
                     .Select(u => new UsuarioModel
                     {
-                        ID_USUARIO = u.ID_USUARIO,
-                        CEDULA = u.CEDULA,
-                        NOMBRE = u.NOMBRE,
-                        PRIMER_APELLIDO = u.PRIMER_APELLIDO,
-                        SEGUNDO_APELLIDO = u.SEGUNDO_APELLIDO,
-                        PERFIL_URL = u.PERFIL_URL,
-                        CORREO = u.CORREO,
-                        ID_ESTADO = u.ID_ESTADO,
-                        ID_DIRECCION = u.ID_DIRECCION
+                        IdUsuario = u.ID_USUARIO,
+                        Cedula = u.CEDULA,
+                        Nombre = u.NOMBRE,
+                        PrimerApellido = u.PRIMER_APELLIDO,
+                        SegundoApellido = u.SEGUNDO_APELLIDO,
+                        Correo = u.CORREO,
+                        IdEstado = u.ID_ESTADO
                     }).FirstOrDefault();
             }
         }
@@ -56,15 +144,15 @@ namespace ProyectoPA.Services
             using (var db = new FIDE_DBEntities())
             {
                 var resultado = db.SP_EDITAR_USUARIO(
-                    usuario.ID_USUARIO,
-                    usuario.CEDULA,
-                    usuario.NOMBRE,
-                    usuario.PRIMER_APELLIDO,
-                    usuario.SEGUNDO_APELLIDO,
-                    usuario.PERFIL_URL,
-                    usuario.CORREO,
-                    usuario.ID_ESTADO,
-                    usuario.ID_DIRECCION
+                    usuario.IdUsuario,
+                    usuario.Cedula,
+                    usuario.Nombre,
+                    usuario.PrimerApellido,
+                    usuario.SegundoApellido,
+                    usuario.PerfilUrl,
+                    usuario.Correo,
+                    usuario.IdEstado,
+                    usuario.IdDireccion
                 ).FirstOrDefault();
 
                 return resultado ?? 0;

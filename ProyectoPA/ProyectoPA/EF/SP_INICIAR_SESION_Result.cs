@@ -11,11 +11,17 @@ namespace ProyectoPA.EF
 {
     using System;
     
-    public partial class SP_TEST_USUARIOS_Result
+    public partial class SP_INICIAR_SESION_Result
     {
         public int ID_USUARIO { get; set; }
         public string CEDULA { get; set; }
         public string NOMBRE { get; set; }
+        public string PRIMER_APELLIDO { get; set; }
+        public string SEGUNDO_APELLIDO { get; set; }
         public string CORREO { get; set; }
+        public int ID_ESTADO { get; set; }
+        public string CONTRASENA { get; set; }
+        public int ID_ROL { get; set; }
+        public string NOMBRE_ROL { get; set; }
     }
 }

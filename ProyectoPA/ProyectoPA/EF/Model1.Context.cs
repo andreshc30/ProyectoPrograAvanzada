@@ -30,11 +30,14 @@ namespace ProyectoPA.EF
         public virtual DbSet<FIDE_CANTON_TB> FIDE_CANTON_TB { get; set; }
         public virtual DbSet<FIDE_CATEGORIA_TB> FIDE_CATEGORIA_TB { get; set; }
         public virtual DbSet<FIDE_DIRECCION_TB> FIDE_DIRECCION_TB { get; set; }
+        public virtual DbSet<FIDE_DISENO_TB> FIDE_DISENO_TB { get; set; }
         public virtual DbSet<FIDE_DISTRITO_TB> FIDE_DISTRITO_TB { get; set; }
         public virtual DbSet<FIDE_ESTADO_TB> FIDE_ESTADO_TB { get; set; }
+        public virtual DbSet<FIDE_FACTURACION_TB> FIDE_FACTURACION_TB { get; set; }
         public virtual DbSet<FIDE_MATERIAL_TB> FIDE_MATERIAL_TB { get; set; }
         public virtual DbSet<FIDE_METODO_PAGO_TB> FIDE_METODO_PAGO_TB { get; set; }
         public virtual DbSet<FIDE_PAGO_TB> FIDE_PAGO_TB { get; set; }
+        public virtual DbSet<FIDE_PLACA_TB> FIDE_PLACA_TB { get; set; }
         public virtual DbSet<FIDE_PROVINCIA_TB> FIDE_PROVINCIA_TB { get; set; }
         public virtual DbSet<FIDE_RESENAS_TB> FIDE_RESENAS_TB { get; set; }
         public virtual DbSet<FIDE_ROL_TB> FIDE_ROL_TB { get; set; }
@@ -43,48 +46,6 @@ namespace ProyectoPA.EF
         public virtual DbSet<FIDE_TAMANO_TB> FIDE_TAMANO_TB { get; set; }
         public virtual DbSet<FIDE_TELEFONO_TB> FIDE_TELEFONO_TB { get; set; }
         public virtual DbSet<FIDE_USUARIO_TB> FIDE_USUARIO_TB { get; set; }
-        public virtual DbSet<FIDE_DISENO_TB> FIDE_DISENO_TB { get; set; }
-        public virtual DbSet<FIDE_FACTURACION_TB> FIDE_FACTURACION_TB { get; set; }
-        public virtual DbSet<FIDE_PLACA_TB> FIDE_PLACA_TB { get; set; }
-    
-        public virtual ObjectResult<SP_CONSULTAR_CARRITO_Result> SP_CONSULTAR_CARRITO()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CONSULTAR_CARRITO_Result>("SP_CONSULTAR_CARRITO");
-        }
-    
-        public virtual ObjectResult<SP_CONSULTAR_FACTURA_Result> SP_CONSULTAR_FACTURA(Nullable<int> iD_FACTURA)
-        {
-            var iD_FACTURAParameter = iD_FACTURA.HasValue ?
-                new ObjectParameter("ID_FACTURA", iD_FACTURA) :
-                new ObjectParameter("ID_FACTURA", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CONSULTAR_FACTURA_Result>("SP_CONSULTAR_FACTURA", iD_FACTURAParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<decimal>> SP_REGISTRAR_FACTURA(string dETALLE, Nullable<decimal> sUBTOTAL, Nullable<decimal> iMPUESTOS, Nullable<decimal> tOTAL, Nullable<int> iD_DISENO)
-        {
-            var dETALLEParameter = dETALLE != null ?
-                new ObjectParameter("DETALLE", dETALLE) :
-                new ObjectParameter("DETALLE", typeof(string));
-    
-            var sUBTOTALParameter = sUBTOTAL.HasValue ?
-                new ObjectParameter("SUBTOTAL", sUBTOTAL) :
-                new ObjectParameter("SUBTOTAL", typeof(decimal));
-    
-            var iMPUESTOSParameter = iMPUESTOS.HasValue ?
-                new ObjectParameter("IMPUESTOS", iMPUESTOS) :
-                new ObjectParameter("IMPUESTOS", typeof(decimal));
-    
-            var tOTALParameter = tOTAL.HasValue ?
-                new ObjectParameter("TOTAL", tOTAL) :
-                new ObjectParameter("TOTAL", typeof(decimal));
-    
-            var iD_DISENOParameter = iD_DISENO.HasValue ?
-                new ObjectParameter("ID_DISENO", iD_DISENO) :
-                new ObjectParameter("ID_DISENO", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("SP_REGISTRAR_FACTURA", dETALLEParameter, sUBTOTALParameter, iMPUESTOSParameter, tOTALParameter, iD_DISENOParameter);
-        }
     
         public virtual int SP_ASIGNAR_ROL_USUARIO(Nullable<int> iD_USUARIO, Nullable<int> iD_ROL)
         {
@@ -97,6 +58,11 @@ namespace ProyectoPA.EF
                 new ObjectParameter("ID_ROL", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_ASIGNAR_ROL_USUARIO", iD_USUARIOParameter, iD_ROLParameter);
+        }
+    
+        public virtual ObjectResult<SP_CONSULTAR_CARRITO_Result> SP_CONSULTAR_CARRITO()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_CONSULTAR_CARRITO_Result>("SP_CONSULTAR_CARRITO");
         }
     
         public virtual ObjectResult<Nullable<int>> SP_CREAR_USUARIO(string cEDULA, string nOMBRE, string pRIMER_APELLIDO, string sEGUNDO_APELLIDO, string pERFIL_URL, string cORREO, Nullable<int> iD_ESTADO, string cONTRASENA, Nullable<int> iD_DIRECCION)
@@ -190,6 +156,19 @@ namespace ProyectoPA.EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("SP_EDITAR_USUARIO", iD_USUARIOParameter, cEDULAParameter, nOMBREParameter, pRIMER_APELLIDOParameter, sEGUNDO_APELLIDOParameter, pERFIL_URLParameter, cORREOParameter, iD_ESTADOParameter, iD_DIRECCIONParameter);
         }
     
+        public virtual ObjectResult<SP_INICIAR_SESION_Result> SP_INICIAR_SESION(string cORREO, string cONTRASENA)
+        {
+            var cORREOParameter = cORREO != null ?
+                new ObjectParameter("CORREO", cORREO) :
+                new ObjectParameter("CORREO", typeof(string));
+    
+            var cONTRASENAParameter = cONTRASENA != null ?
+                new ObjectParameter("CONTRASENA", cONTRASENA) :
+                new ObjectParameter("CONTRASENA", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_INICIAR_SESION_Result>("SP_INICIAR_SESION", cORREOParameter, cONTRASENAParameter);
+        }
+    
         public virtual ObjectResult<SP_LISTAR_ROLES_Result> SP_LISTAR_ROLES()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_LISTAR_ROLES_Result>("SP_LISTAR_ROLES");
@@ -214,11 +193,6 @@ namespace ProyectoPA.EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_OBTENER_USUARIO_Result>("SP_OBTENER_USUARIO", iD_USUARIOParameter);
         }
     
-        public virtual ObjectResult<string> SP_PRUEBA()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SP_PRUEBA");
-        }
-    
         public virtual int SP_QUITAR_ROL_USUARIO(Nullable<int> iD_USUARIO, Nullable<int> iD_ROL)
         {
             var iD_USUARIOParameter = iD_USUARIO.HasValue ?
@@ -232,6 +206,60 @@ namespace ProyectoPA.EF
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_QUITAR_ROL_USUARIO", iD_USUARIOParameter, iD_ROLParameter);
         }
     
+        public virtual ObjectResult<Nullable<decimal>> SP_REGISTRAR_FACTURA(string dETALLE, Nullable<decimal> sUBTOTAL, Nullable<decimal> iMPUESTOS, Nullable<decimal> tOTAL, Nullable<int> iD_DISENO)
+        {
+            var dETALLEParameter = dETALLE != null ?
+                new ObjectParameter("DETALLE", dETALLE) :
+                new ObjectParameter("DETALLE", typeof(string));
+    
+            var sUBTOTALParameter = sUBTOTAL.HasValue ?
+                new ObjectParameter("SUBTOTAL", sUBTOTAL) :
+                new ObjectParameter("SUBTOTAL", typeof(decimal));
+    
+            var iMPUESTOSParameter = iMPUESTOS.HasValue ?
+                new ObjectParameter("IMPUESTOS", iMPUESTOS) :
+                new ObjectParameter("IMPUESTOS", typeof(decimal));
+    
+            var tOTALParameter = tOTAL.HasValue ?
+                new ObjectParameter("TOTAL", tOTAL) :
+                new ObjectParameter("TOTAL", typeof(decimal));
+    
+            var iD_DISENOParameter = iD_DISENO.HasValue ?
+                new ObjectParameter("ID_DISENO", iD_DISENO) :
+                new ObjectParameter("ID_DISENO", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("SP_REGISTRAR_FACTURA", dETALLEParameter, sUBTOTALParameter, iMPUESTOSParameter, tOTALParameter, iD_DISENOParameter);
+        }
+    
+        public virtual int SP_REGISTRAR_USUARIO(string cEDULA, string nOMBRE, string pRIMER_APELLIDO, string sEGUNDO_APELLIDO, string cORREO, string cONTRASENA)
+        {
+            var cEDULAParameter = cEDULA != null ?
+                new ObjectParameter("CEDULA", cEDULA) :
+                new ObjectParameter("CEDULA", typeof(string));
+    
+            var nOMBREParameter = nOMBRE != null ?
+                new ObjectParameter("NOMBRE", nOMBRE) :
+                new ObjectParameter("NOMBRE", typeof(string));
+    
+            var pRIMER_APELLIDOParameter = pRIMER_APELLIDO != null ?
+                new ObjectParameter("PRIMER_APELLIDO", pRIMER_APELLIDO) :
+                new ObjectParameter("PRIMER_APELLIDO", typeof(string));
+    
+            var sEGUNDO_APELLIDOParameter = sEGUNDO_APELLIDO != null ?
+                new ObjectParameter("SEGUNDO_APELLIDO", sEGUNDO_APELLIDO) :
+                new ObjectParameter("SEGUNDO_APELLIDO", typeof(string));
+    
+            var cORREOParameter = cORREO != null ?
+                new ObjectParameter("CORREO", cORREO) :
+                new ObjectParameter("CORREO", typeof(string));
+    
+            var cONTRASENAParameter = cONTRASENA != null ?
+                new ObjectParameter("CONTRASENA", cONTRASENA) :
+                new ObjectParameter("CONTRASENA", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_REGISTRAR_USUARIO", cEDULAParameter, nOMBREParameter, pRIMER_APELLIDOParameter, sEGUNDO_APELLIDOParameter, cORREOParameter, cONTRASENAParameter);
+        }
+    
         public virtual ObjectResult<SP_ROLES_USUARIO_Result> SP_ROLES_USUARIO(Nullable<int> iD_USUARIO)
         {
             var iD_USUARIOParameter = iD_USUARIO.HasValue ?
@@ -239,11 +267,6 @@ namespace ProyectoPA.EF
                 new ObjectParameter("ID_USUARIO", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ROLES_USUARIO_Result>("SP_ROLES_USUARIO", iD_USUARIOParameter);
-        }
-    
-        public virtual ObjectResult<SP_TEST_USUARIOS_Result> SP_TEST_USUARIOS()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TEST_USUARIOS_Result>("SP_TEST_USUARIOS");
         }
     }
 }

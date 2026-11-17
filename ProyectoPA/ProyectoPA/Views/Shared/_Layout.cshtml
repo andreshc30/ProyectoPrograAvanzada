@@ -1,4 +1,6 @@
-﻿@functions {
+﻿
+@functions {
+
     string Activo(params string[] acciones)
     {
         var actual = (string)ViewContext.RouteData.Values["action"];
@@ -41,46 +43,70 @@
 <body class="d-flex flex-column min-vh-100">
     <!-- Spinner Start -->
     <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
     </div>
     <!-- Spinner End -->
-
-
-
-
-<!-- Navbar Start -->
-<!-- Navbar Start -->
-<div style="width:100%; background-color:#343a40; border-bottom:1px solid #D4AF37;" class="sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent px-4">
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav mx-auto">
-                <a href="@Url.Action("Index", "Home")" class="nav-item nav-link @Activo("Index")" style="color: #D4AF37;">Home</a>
-                @*<a href="@Url.Action("About", "Home")" class="nav-item nav-link @Activo("About")" style="color: #D4AF37;">About</a>
-                <a href="@Url.Action("Service", "Home")" class="nav-item nav-link @Activo("Service")" style="color: #D4AF37;">Service</a>
-                <a href="@Url.Action("Contacto", "Home")" class="nav-item nav-link @Activo("Contacto")" style="color: #D4AF37;">Contacto</a>*@
-                <a href="@Url.Action("Dashboard", "Home")" class="nav-item nav-link @Activo("Dashboard")" style="color: #D4AF37;">Quienes Somos</a>
-                <a href="@Url.Action("Index", "Catalogo")" class="nav-item nav-link" style="color: #D4AF37;">Catálogo</a>
-                <a href="@Url.Action("Index", "Diseno")" class="nav-item nav-link" style="color: #D4AF37;">Diseñar</a>
-                @if (User.Identity.IsAuthenticated && User.IsInRole("Administrador"))
-                {
-                    <a href="@Url.Action("MostrarUsuarios", "Usuario")"
-                       class="nav-item nav-link"
-                       style="color: #D4AF37;">
-                        Administrar usuarios
-                    </a>
-                }
+    <!-- Navbar Start -->
+    <!-- Navbar Start -->
+    <div style="width:100%; background-color:#343a40; border-bottom:1px solid #D4AF37;" class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-transparent px-4">
+            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav mx-auto">
+                    <a href="@Url.Action("Index", "Home")" class="nav-item nav-link @Activo("Index")" style="color: #D4AF37;">Home</a>
+                    <a href="@Url.Action("Dashboard", "Home")" class="nav-item nav-link @Activo("Dashboard")" style="color: #D4AF37;">Quienes Somos</a>
+                    <a href="@Url.Action("Index", "Catalogo")" class="nav-item nav-link" style="color: #D4AF37;">Catálogo</a>
+                    <a href="@Url.Action("Index", "Diseno")" class="nav-item nav-link" style="color: #D4AF37;">Diseñar</a>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Administrador"))
+                    {
+                        <a href="@Url.Action("MostrarUsuarios", "Usuario")"
+                           class="nav-item nav-link"
+                           style="color: #D4AF37;">
+                            Administrar usuarios
+                        </a>
+                    }
+                </div>
             </div>
-        </div>
-    </nav>
-</div>
-<!-- Navbar End -->
-<!-- Navbar End -->
+            @if (Session["IdUsuario"] != null)
+            {
+                var nombreUsuario = (Session["NombreUsuario"] ?? "").ToString();
+                var nombreRol = (Session["NombreRol"] ?? "").ToString();
+                var partes = nombreUsuario.Split((char[])null, StringSplitOptions.RemoveEmptyEntries);
+
+                var iniciales = partes.Length > 3 ? $"{partes[0][0]}{partes[2][0]}".ToUpper()
+                              : partes.Length > 1 ? $"{partes[0][0]}{partes[1][0]}".ToUpper()
+                              : partes.Length > 0 ? partes[0][0].ToString().ToUpper()
+                              : string.Empty;
+
+                <div class="dropdown ms-2">
+                    <button class="navbar-profile-btn dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" id="profile-dropdown">
+                        <span class="navbar-profile-img">@iniciales</span>
+                        <span class="navbar-profile-info d-none d-md-inline">
+                            <span class="navbar-profile-name">@nombreUsuario</span>
+                            <span class="navbar-profile-role">@nombreRol</span>
+                        </span>
+                        <i class="bi bi-chevron-down navbar-profile-caret"></i>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-profile" aria-labelledby="profile-dropdown">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("CerrarSesion", "Home")">
+                                <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            }
+        </nav>
+    </div>
+    <!-- Navbar End -->
+    <!-- Navbar End -->
 
     <main class="flex-grow-1">
         @RenderBody()
@@ -96,7 +122,6 @@
         </div>
     </footer>
     <!-- Footer End -->
-
     <!-- JavaScript Libraries -->
     <script src="~/assets/libs/jquery/jquery-3.7.0.min.js"></script>
     <script src="~/assets/libs/bootstrap/bootstrap.bundle.min.js"></script>
@@ -109,7 +134,13 @@
 
     <!-- Template Javascript -->
     <script src="~/assets/js/main.js"></script>
-
-    @RenderSection("scripts", required: false)
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/libs/apexcharts/apexcharts.min.js"></script>
+    <script src="~/assets/libs/flatpickr/flatpickr.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

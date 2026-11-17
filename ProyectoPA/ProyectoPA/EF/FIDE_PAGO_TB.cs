@@ -22,7 +22,7 @@ namespace ProyectoPA.EF
         public decimal MONTO { get; set; }
     
         public virtual FIDE_ESTADO_TB FIDE_ESTADO_TB { get; set; }
-        public virtual FIDE_METODO_PAGO_TB FIDE_METODO_PAGO_TB { get; set; }
         public virtual FIDE_FACTURACION_TB FIDE_FACTURACION_TB { get; set; }
+        public virtual FIDE_METODO_PAGO_TB FIDE_METODO_PAGO_TB { get; set; }
     }
 }
