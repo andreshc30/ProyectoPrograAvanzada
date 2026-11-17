@@ -388,7 +388,7 @@
     <Content Include="assets\libs\wow\wow.min.js" />
     <Content Include="assets\recursos\RecuperarContrasena.html" />
     <Content Include="BD\BaseProyecto.sql" />
-    <Content Include="BD\script.sql" />
+    <Content Include="BD\BDFInal.sql" />
     <Content Include="BD\ScriptCarga.sql" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
